@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFEEEEEE"
+    android:elevation="8dp">
+
+    <!-- Title Warning -->
+    <TextView
+        android:id="@+id/overlayTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🚨 सावधान / WARNING"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#D00000"
+        android:paddingBottom="8dp"/>
+
+    <!-- Subtitle Message -->
+    <TextView
+        android:id="@+id/overlayText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="यह संदेश एक धोखाधड़ी हो सकता है।\nThis message may be a scam."
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:padding="8dp"/>
+
+    <!-- Trusted Contact Button -->
+    <TextView
+        android:id="@+id/btnCallFamily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📞 भरोसेमंद व्यक्ति को कॉल करें\n(Call Trusted Contact)"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="14dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFF7D0"
+        android:textColor="#333333"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>
