@@ -1,75 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.lakshmanrekha.protect">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 📌 Permissions -->
+    <!-- Core permissions -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Read WhatsApp & SMS notifications -->
-    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
+    <!-- Foreground service base permission -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-    <!-- Draw warning overlays on top of WhatsApp/SMS -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
-    <!-- Call monitoring (Android 11+ to stop scam midpoint) -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-
-    <!-- Vibration for loud alert -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
-    <!-- Optional (if we later add reporting / backend): -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <!-- Android 13+ notifications -->
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:targetApi="33" />
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/Theme.LakshmanRekha">
 
-        <!-- 🟢 MAIN ENTRY POINT -->
+        <!-- 🚀 Main launcher -->
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
-
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- 🟡 NOTIFICATION LISTENER SERVICE -->
+        <!-- 🟢 Protection status (generic foreground service) -->
+        <service
+            android:name=".services.StatusService"
+            android:exported="false" />
+
+        <!-- 🟡 Notification listener -->
         <service
             android:name=".services.NotificationListener"
-            android:label="Lakshman Rekha Watcher"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="true">
-
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
 
-        <!-- 🔴 ACCESSIBILITY SERVICE (future feature) -->
-        <!-- leave placeholder for now - will implement later -->
+        <!-- 🔴 Overlay warnings -->
+        <service
+            android:name=".services.OverlayService"
+            android:exported="false" />
+
+        <!-- 🚨 Emergency alerts -->
+        <service
+            android:name=".services.EmergencyAlertService"
+            android:exported="false" />
+
+        <!-- 🧠 Accessibility service -->
         <service
             android:name=".accessibility.ScreenReaderService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="false"
             tools:ignore="ExportedService">
             <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService"/>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_config"/>
+                android:resource="@xml/accessibility_config" />
         </service>
 
     </application>
