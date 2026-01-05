@@ -15,6 +15,7 @@ object AppPrefs {
     private const val KEY_SEEN_WELCOME = "seen_welcome"
     private const val KEY_SEEN_EXPLANATION = "seen_explanation"
     private const val KEY_DONE = "done"
+    private const val TRUSTED_DONE = "trusted_done"
 
     fun save(context: Context) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
@@ -53,7 +54,10 @@ object AppPrefs {
             AppState.protectionMode = ProtectionMode.SAATHI
         }
 
-        AppState.trustedContacts = getTrustedContacts(context).toMutableSet()
+        AppState.trustedContacts =
+            p.getStringSet(TRUSTED, emptySet())?.toMutableSet() ?: mutableSetOf()
+        AppState.hasAddedTrustedContacts =
+            p.getBoolean(TRUSTED_DONE, false)
     }
 
     fun getTrustedContacts(context: Context): Set<String> =
@@ -63,7 +67,8 @@ object AppPrefs {
     fun saveTrustedContacts(context: Context, set: Set<String>) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
-            .putStringSet("trusted_contacts", set)
+            .putStringSet(TRUSTED, set)
+            .putBoolean(TRUSTED_DONE, true) // ✅ MARK COMPLETED
             .apply()
     }
 
