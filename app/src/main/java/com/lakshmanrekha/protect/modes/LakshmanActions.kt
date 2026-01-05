@@ -7,13 +7,6 @@ import com.lakshmanrekha.protect.services.OverlayService
 import com.lakshmanrekha.protect.utils.ThreatLogger
 
 object LakshmanActions {
-
-    /**
-     * Lakshman mode:
-     * - Warn the user
-     * - Educate (coach screen triggered by ProtectionManager)
-     * - Do NOT panic
-     */
     fun apply(context: Context, threat: Threat) {
 
         // Log action

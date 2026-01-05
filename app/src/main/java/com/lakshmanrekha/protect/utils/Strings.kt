@@ -41,6 +41,12 @@ object Strings {
             }
         }
 
+    fun changeProtectionMode(): String =
+        if (LanguageManager.isHindi())
+            "सुरक्षा मोड बदलें"
+        else
+            "Change Protection Mode"
+
     fun noThreats(): String =
         if (LanguageManager.isHindi())
             "अब तक कोई खतरा नहीं मिला।\nलक्ष्मण रेखा आपकी रक्षा कर रही है।"

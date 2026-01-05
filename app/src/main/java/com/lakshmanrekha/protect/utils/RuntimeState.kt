@@ -4,20 +4,63 @@ import com.lakshmanrekha.protect.model.ThreatLevel
 
 object RuntimeState {
 
-    // Call context
+    // --------------------
+    // CALL / EVENT CONTEXT
+    // --------------------
     var callOngoing: Boolean = false
     var currentCallerTrusted: Boolean = false
 
-    // App behavior
+
+    // --------------------
+    // SOURCE CONTEXT
+    // --------------------
+    var activeSourceApp: String? = null
+    var activeSourceNumber: String? = null
+
+    // --------------------
+    // APP BEHAVIOR SIGNALS
+    // --------------------
     var lastForegroundApp: String? = null
     var lastAppSwitchTime: Long = 0L
     var rapidAppSwitching: Boolean = false
 
-    // Risk signals
+    // --------------------
+    // RISK SIGNALS
+    // --------------------
     var upiOpenedDuringCall: Boolean = false
     var otpPatternDetected: Boolean = false
 
-    // Post-call summary
-    var lastCallThreatLevel: ThreatLevel? = null
-    var lastCallReasons: List<String> = emptyList()
+    // --------------------
+    // MODE CONTROL FLAGS
+    // --------------------
+    var bypassProtection: Boolean = false
+    var warningShown: Boolean = false
+    var overlayShown: Boolean = false
+    var emergencyTriggered: Boolean = false
+
+    // --------------------
+    // POST-EVENT SUMMARY (FIXED)
+    // --------------------
+    var lastThreatLevel: ThreatLevel? = null
+    var lastThreatReasons: List<String> = emptyList()
+
+    // --------------------
+    // RESET AFTER EVENT
+    // --------------------
+    fun resetSession() {
+        callOngoing = false
+        currentCallerTrusted = false
+        activeSourceApp = null
+        activeSourceNumber = null
+        lastForegroundApp = null
+        rapidAppSwitching = false
+        upiOpenedDuringCall = false
+        otpPatternDetected = false
+        bypassProtection = false
+        warningShown = false
+        overlayShown = false
+        emergencyTriggered = false
+        lastThreatLevel = null
+        lastThreatReasons = emptyList()
+    }
 }

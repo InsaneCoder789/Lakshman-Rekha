@@ -4,77 +4,151 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.core.content.ContextCompat
+import com.lakshmanrekha.protect.core.ProtectionNotifier
+import com.lakshmanrekha.protect.core.SOSController
 import com.lakshmanrekha.protect.theme.LakshmanRekhaTheme
-import com.lakshmanrekha.protect.utils.AppState
-import com.lakshmanrekha.protect.utils.StartupNotifier
+import com.lakshmanrekha.protect.utils.*
 
 class MainActivity : ComponentActivity() {
 
-    // 🔔 Notification permission (Android 13+)
-    private val notificationPermissionLauncher =
+    // 🔔 Android 13+ notification permission
+    private val notifPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            if (granted) {
-                StartupNotifier.showProtectionStarted(this)
+            if (granted) safeShowNotification()
+        }
+    private val smsPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (!granted) {
+                ThreatLogger.logSystem("SMS permission denied by user")
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 1️⃣ Load persisted state
+        AppPrefs.load(this)
+
         setContent {
 
-            // 🔁 Single source of onboarding truth
-            var step by rememberSaveable {
-                mutableStateOf(
-                    when {
-                        AppState.language == null -> OnboardingStep.LANGUAGE
-                        !AppState.isSetupComplete -> OnboardingStep.PROFILE
-                        else -> OnboardingStep.DONE
-                    }
-                )
-            }
+            // 2️⃣ Single source of navigation truth
+            var step by remember { mutableStateOf(calculateStep()) }
 
             LakshmanRekhaTheme {
 
-                when (step) {
+                AnimatedContent(
+                    targetState = step,
+                    transitionSpec = {
+                        fadeIn() + slideInHorizontally { it } togetherWith
+                                fadeOut() + slideOutHorizontally { -it }
+                    },
+                    label = "ScreenTransition"
+                ) { currentStep ->
 
-                    // 🌐 Language
-                    OnboardingStep.LANGUAGE -> {
-                        LanguageSelectionScreen { selected ->
-                            AppState.language = selected
-                            step = OnboardingStep.PROFILE
+                    when (currentStep) {
+
+                        OnboardingStep.LANGUAGE -> {
+                            LanguageSelectionScreen { language ->
+                                AppState.language = language
+                                AppPrefs.save(this@MainActivity)
+                                step = calculateStep()
+                            }
                         }
-                    }
 
-                    // 👤 Profile
-                    OnboardingStep.PROFILE -> {
-                        ProfileSetupScreen { name, age, mode ->
-                            AppState.name = name
-                            AppState.age = age
-                            AppState.protectionMode = mode
-                            AppState.isSetupComplete = true
-
-                            requestNotificationPermissionIfNeeded()
-                            step = OnboardingStep.DONE
+                        OnboardingStep.WELCOME -> {
+                            WelcomeScreen {
+                                AppState.hasSeenWelcome = true
+                                AppPrefs.save(this@MainActivity)
+                                step = calculateStep()
+                            }
                         }
-                    }
 
-                    // 🛡️ Console
-                    OnboardingStep.DONE -> {
-                        HomeConsoleScreen()
+                        OnboardingStep.MODE_EXPLANATION -> {
+                            ModeExplanationScreen {
+                                AppState.hasSeenModeExplanation = true
+                                AppPrefs.save(this@MainActivity)
+                                step = calculateStep()
+                            }
+                        }
+
+                        OnboardingStep.PROFILE -> {
+                            ProfileSetupScreen { name, age, mode ->
+                                AppState.apply {
+                                    this.name = name
+                                    this.age = age
+                                    this.protectionMode = mode
+                                    this.isSetupComplete = true
+                                }
+                                AppPrefs.save(this@MainActivity)
+                                requestNotificationPermissionIfNeeded()
+                                step = calculateStep()
+                            }
+                        }
+
+                        OnboardingStep.TRUSTED_CONTACTS -> {
+                            TrustedContactsScreen {
+                                step = calculateStep()
+
+                                if (ContextCompat.checkSelfPermission(
+                                        this@MainActivity,
+                                        Manifest.permission.SEND_SMS
+                                    ) != PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    smsPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+                                }
+                            }
+                        }
+
+                        OnboardingStep.DONE -> {
+                            HomeConsoleScreen()
+                        }
                     }
                 }
             }
         }
     }
 
-    // 🔐 Permission handling
+    override fun onResume() {
+        super.onResume()
+        safeShowNotification()
+    }
+
+    /**
+     * 🚨 SOS TRIGGER
+     * Volume Up / Down pressed 3 times → SOSController
+     */
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_VOLUME_UP,
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                SOSController.onVolumePressed(this)
+                return true // consume event
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    /* ---------------------------------------------------
+     * HELPERS
+     * --------------------------------------------------- */
+
+    private fun calculateStep(): OnboardingStep =
+        when {
+            AppState.language == null -> OnboardingStep.LANGUAGE
+            !AppState.hasSeenWelcome -> OnboardingStep.WELCOME
+            !AppState.hasSeenModeExplanation -> OnboardingStep.MODE_EXPLANATION
+            !AppState.isSetupComplete -> OnboardingStep.PROFILE
+            !AppState.hasAddedTrustedContacts -> OnboardingStep.TRUSTED_CONTACTS
+            else -> OnboardingStep.DONE
+        }
+
     private fun requestNotificationPermissionIfNeeded() {
         if (Build.VERSION.SDK_INT >= 33) {
             if (ContextCompat.checkSelfPermission(
@@ -82,14 +156,21 @@ class MainActivity : ComponentActivity() {
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                notificationPermissionLauncher.launch(
-                    Manifest.permission.POST_NOTIFICATIONS
-                )
+                notifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else {
-                StartupNotifier.showProtectionStarted(this)
+                safeShowNotification()
             }
         } else {
-            StartupNotifier.showProtectionStarted(this)
+            safeShowNotification()
+        }
+    }
+
+    private fun safeShowNotification() {
+        if (!AppState.isSetupComplete || AppState.protectionMode == ProtectionMode.NONE) return
+        try {
+            ProtectionNotifier.show(this, AppState.protectionMode)
+        } catch (_: Exception) {
+            // Never crash UI for notification issues
         }
     }
 }

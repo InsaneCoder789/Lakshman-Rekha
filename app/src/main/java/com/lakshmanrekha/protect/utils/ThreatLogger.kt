@@ -11,14 +11,14 @@ object ThreatLogger {
 
     fun logThreat(threat: Threat) {
         threats.add(0, threat)
-        if (threats.size > 50) threats.removeLast()
+        if (threats.size > 50) threats.removeAt(threats.lastIndex)
     }
 
     fun logSystem(message: String) {
         val time = SimpleDateFormat("HH:mm", Locale.getDefault())
             .format(Date())
         systemLogs.add(0, "[$time] $message")
-        if (systemLogs.size > 20) systemLogs.removeLast()
+        if (systemLogs.size > 20) systemLogs.removeAt(systemLogs.lastIndex)
     }
 
     fun getThreats(): List<Threat> = threats.toList()

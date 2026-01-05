@@ -3,13 +3,8 @@ package com.lakshmanrekha.protect.core
 import android.content.Context
 import android.provider.Settings
 import com.lakshmanrekha.protect.model.Threat
-import com.lakshmanrekha.protect.modes.LakshmanActions
-import com.lakshmanrekha.protect.modes.RakshaActions
-import com.lakshmanrekha.protect.modes.SaathiActions
-import com.lakshmanrekha.protect.utils.AppState
-import com.lakshmanrekha.protect.utils.ProtectionMode
-import com.lakshmanrekha.protect.utils.RuntimeState
-import com.lakshmanrekha.protect.utils.ThreatLogger
+import com.lakshmanrekha.protect.modes.*
+import com.lakshmanrekha.protect.utils.*
 
 object ProtectionManager {
 
@@ -17,55 +12,56 @@ object ProtectionManager {
         val requested = AppState.protectionMode
 
         if (requested == ProtectionMode.RAKSHA && !supportsRaksha(context)) {
-
             ThreatLogger.logSystem(
-                "Raksha unsupported on this device. Downgraded to Lakshman."
+                "Raksha unsupported. Downgraded to Lakshman."
             )
 
             AppState.lastDowngradeReason =
                 "This phone does not support full Raksha protection."
 
             AppState.protectionMode = ProtectionMode.LAKSHMAN
+            AppPrefs.updateMode(context, ProtectionMode.LAKSHMAN)
+
             return ProtectionMode.LAKSHMAN
         }
 
         return requested
     }
 
-    /**
-     * MAIN ENTRY POINT
-     * Called by NotificationListener / Call detectors
-     */
     fun handleThreat(context: Context, threat: Threat) {
 
-        // 📌 Always log (base layer – Saathi)
+        if (isTrustedSource(threat)) {
+            ThreatLogger.logSystem("Trusted source bypassed")
+            return
+        }
+
+        // Saathi is ALWAYS applied
         SaathiActions.apply(context, threat)
 
-        // 📌 Save for post-call summary
-        RuntimeState.lastCallThreatLevel = threat.level
-        RuntimeState.lastCallReasons = threat.reasons
+        RuntimeState.lastThreatLevel = threat.level
+        RuntimeState.lastThreatReasons = threat.reasons
 
-        val effectiveMode = getEffectiveMode(context)
-
-        when (effectiveMode) {
-
-            ProtectionMode.SAATHI -> {
-            }
-
-            ProtectionMode.LAKSHMAN -> {
-                LakshmanActions.apply(context, threat)
-            }
-
+        when (getEffectiveMode(context)) {
+            ProtectionMode.SAATHI -> Unit
+            ProtectionMode.LAKSHMAN -> LakshmanActions.apply(context, threat)
             ProtectionMode.RAKSHA -> {
                 LakshmanActions.apply(context, threat)
                 RakshaActions.apply(context, threat)
             }
-
-            ProtectionMode.NONE -> {
-            }
+            ProtectionMode.NONE -> Unit
         }
     }
-    private fun supportsRaksha(context: Context): Boolean {
-        return Settings.canDrawOverlays(context)
+
+    private fun supportsRaksha(context: Context): Boolean =
+        Settings.canDrawOverlays(context)
+
+    private fun isTrustedSource(threat: Threat): Boolean {
+        threat.sourceNumber?.let {
+            if (AppState.trustedContacts.contains(it)) return true
+        }
+        threat.sourceApp?.let {
+            if (AppState.trustedApps.contains(it)) return true
+        }
+        return false
     }
 }

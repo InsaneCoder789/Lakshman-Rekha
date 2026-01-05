@@ -21,7 +21,7 @@ class CallStateTracker : BroadcastReceiver() {
 
             TelephonyManager.EXTRA_STATE_IDLE -> {
                 RuntimeState.callOngoing = false
-                if (RuntimeState.lastCallThreatLevel != null) {
+                if (RuntimeState.lastThreatLevel != null) {
                     val summaryIntent =
                         Intent(context, PostCallSummaryActivity::class.java)
                     summaryIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
