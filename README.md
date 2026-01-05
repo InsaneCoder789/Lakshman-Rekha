@@ -46,8 +46,17 @@ Design priorities:
   Reads visible text on screen to detect scam prompts even inside apps.
 - **Real-Time Overlay Warnings**  
   Displays a high-visibility warning popup on top of any app.
-- **Emergency Intervention (Planned)**  
-  Loud alerts even in silent mode to immediately grab attention.
+- **Emergency Intervention (Loud Alerts & SOS)**  
+  Loud alerts override silent mode to immediately grab attention.  
+  SOS can be triggered via volume button press to send emergency SMS to trusted contacts.
+
+### 👥 Trusted Contacts & Emergency SOS
+- **Trusted Contacts Management**  
+  Seniors can add and manage trusted family members within the app.
+- **SOS Trigger via Volume Button**  
+  Pressing the volume button rapidly triggers an SOS alert.
+- **Emergency SMS to Trusted Contacts**  
+  Automatically sends a predefined emergency message with location to trusted contacts.
 
 ---
 
@@ -98,7 +107,7 @@ Planned:
 ### Android App
 - **Language:** Kotlin
 - **UI:** Jetpack Compose
-- **Architecture:** Service-based (Notification + Accessibility + Overlay)
+- **Architecture:** Service-based (Notification + Accessibility + Overlay + SOS)
 - **Minimum SDK:** Android 7 (API 24)
 - **Target Devices:** Low to mid-range Android phones
 
@@ -107,6 +116,7 @@ Planned:
 - AccessibilityService
 - Overlay (SYSTEM_ALERT_WINDOW)
 - Background & foreground services
+- SMS Manager for emergency messages
 
 ---
 
@@ -114,11 +124,12 @@ Planned:
 ```bash
 app/
 ├── java/com/lakshmanrekha/protect
-│   ├── ui/                # Compose UI (Home, future screens)
-│   ├── services/          # Notification & Overlay services
+│   ├── ui/                # Compose UI (Home, Trusted Contacts, future screens)
+│   ├── services/          # Notification, Overlay, SOS services
 │   ├── accessibility/     # Screen reader service
 │   ├── detection/         # Scam detection logic
 │   ├── modes/             # Raksha / Lakshman / Saathi logic
+│   ├── contacts/          # Trusted contacts management
 │   ├── languages/         # Multi-language dictionaries (planned)
 │   └── utils/             # AppConfig, helpers
 │
@@ -139,10 +150,12 @@ app/
 | Notification scam detection | ✅ Working |
 | Overlay warning popup | ✅ Working |
 | Accessibility screen scanning | 🟡 Partial |
-| Silent-mode emergency alert | ❌ Planned |
+| Silent-mode emergency alert | ✅ Implemented |
 | URL scam detection | ❌ Planned |
 | Call shield (voice scams) | ❌ Planned |
-| Trusted contact system | ❌ Planned |
+| Trusted contact system | ✅ Implemented |
+| Emergency SOS via volume button | ✅ Implemented |
+| Emergency SMS to trusted contacts | ✅ Implemented |
 | Full multi-language UI | ❌ Planned |
 
 ---
@@ -159,6 +172,12 @@ app/
 1. Scammer asks OTP during chat
 2. Accessibility service detects “OTP” text
 3. Overlay interrupts the flow
+
+### Scenario 3: Emergency SOS Trigger
+1. Senior feels threatened or confused
+2. Rapidly presses volume button three times
+3. App sends emergency SMS with location to trusted contacts
+4. Trusted contacts receive alert and can respond
 
 ---
 
@@ -181,7 +200,6 @@ app/
 
 ### Protection
 - Auto call cut during OTP prompts
-- Loud alarms overriding silent mode
 - Family notification for high-risk events
 
 ### UX
