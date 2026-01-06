@@ -1,5 +1,6 @@
 package com.lakshmanrekha.protect.ui
 
+import android.annotation.SuppressLint
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
@@ -10,9 +11,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.core.content.ContextCompat
 import com.lakshmanrekha.protect.core.ProtectionNotifier
 import com.lakshmanrekha.protect.core.SOSController
+import com.lakshmanrekha.protect.ml.ScamRiskModel
 import com.lakshmanrekha.protect.theme.LakshmanRekhaTheme
 import com.lakshmanrekha.protect.utils.*
 
@@ -23,6 +26,7 @@ class MainActivity : ComponentActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) safeShowNotification()
         }
+
     private val smsPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (!granted) {
@@ -33,13 +37,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 1️⃣ Load persisted state
+        // ✅ Initialize ML model ONCE for whole app
+        if (RuntimeState.scamRiskModel == null) {
+            RuntimeState.scamRiskModel = ScamRiskModel(this)
+        }
+
+        // ✅ Load persisted app state
         AppPrefs.load(this)
 
         setContent {
 
-            // 2️⃣ Single source of navigation truth
-            var step by remember { mutableStateOf(calculateStep()) }
+            // ✅ Survives rotation / process death
+            var step by rememberSaveable {
+                mutableStateOf(calculateStep())
+            }
 
             LakshmanRekhaTheme {
 
@@ -121,18 +132,21 @@ class MainActivity : ComponentActivity() {
     }
 
     /**
-     * 🚨 SOS TRIGGER
-     * Volume Up / Down pressed 3 times → SOSController
+     * 🚨 SOS Trigger
+     * Volume Up / Down pressed 3 times
+     * Uses dispatchKeyEvent (OEM-safe)
      */
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        when (keyCode) {
-            KeyEvent.KEYCODE_VOLUME_UP,
-            KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                SOSController.onVolumePressed(this)
-                return true // consume event
+    @SuppressLint("RestrictedApi")
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            when (event.keyCode) {
+                KeyEvent.KEYCODE_VOLUME_UP,
+                KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                    SOSController.onVolumePressed(this)
+                }
             }
         }
-        return super.onKeyDown(keyCode, event)
+        return super.dispatchKeyEvent(event)
     }
 
     /* ---------------------------------------------------
@@ -166,11 +180,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun safeShowNotification() {
-        if (!AppState.isSetupComplete || AppState.protectionMode == ProtectionMode.NONE) return
+        if (!AppState.isSetupComplete) return
+        if (AppState.protectionMode == ProtectionMode.NONE) return
+
         try {
             ProtectionNotifier.show(this, AppState.protectionMode)
         } catch (_: Exception) {
-            // Never crash UI for notification issues
+            // ❗ Never crash UI for notification failures
         }
     }
 }

@@ -3,6 +3,7 @@ package com.lakshmanrekha.protect.core
 import android.content.Context
 import android.provider.Settings
 import com.lakshmanrekha.protect.model.Threat
+import com.lakshmanrekha.protect.model.ThreatLevel
 import com.lakshmanrekha.protect.modes.*
 import com.lakshmanrekha.protect.utils.*
 
@@ -35,19 +36,31 @@ object ProtectionManager {
             return
         }
 
-        // Saathi is ALWAYS applied
+        // Saathi is ALWAYS applied (guidance baseline)
         SaathiActions.apply(context, threat)
 
+        // ---- STORE POST-CALL SUMMARY DATA ----
         RuntimeState.lastThreatLevel = threat.level
         RuntimeState.lastThreatReasons = threat.reasons
 
+        // Only mark summary if there was actual risk
+        if (threat.level != ThreatLevel.SAFE) {
+            RuntimeState.postCallSummaryPending = true
+        }
+
+        // ---- MODE-BASED ESCALATION ----
         when (getEffectiveMode(context)) {
             ProtectionMode.SAATHI -> Unit
-            ProtectionMode.LAKSHMAN -> LakshmanActions.apply(context, threat)
+
+            ProtectionMode.LAKSHMAN -> {
+                LakshmanActions.apply(context, threat)
+            }
+
             ProtectionMode.RAKSHA -> {
                 LakshmanActions.apply(context, threat)
                 RakshaActions.apply(context, threat)
             }
+
             ProtectionMode.NONE -> Unit
         }
     }

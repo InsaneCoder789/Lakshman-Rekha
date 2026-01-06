@@ -11,23 +11,37 @@ class NotificationListener : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         if (sbn == null) return
 
+        val notification = sbn.notification
+        val extras = notification.extras
+
+        // ✅ Extract visible notification text (Play-safe)
+        val title = extras.getCharSequence("android.title")?.toString()
+        val text = extras.getCharSequence("android.text")?.toString()
+
+        val detectedText = listOfNotNull(title, text)
+            .joinToString(" ")
+            .takeIf { it.isNotBlank() }
+
         val packageName = sbn.packageName
 
-        // Detect risky app openings
+        // ✅ Detect risky app openings during calls
         if (RuntimeState.callOngoing) {
-            if (packageName.contains("upi", true) ||
+            if (
+                packageName.contains("upi", true) ||
                 packageName.contains("pay", true)
             ) {
                 RuntimeState.upiOpenedDuringCall = true
             }
         }
 
-        evaluateThreat()
+        evaluateThreat(detectedText)
     }
 
-    private fun evaluateThreat() {
+    private fun evaluateThreat(detectedText: String?) {
 
         val threat = ScamDetector.analyzeSituation(
+            detectedText = detectedText,
+            mlModel = RuntimeState.scamRiskModel,
             callOngoing = RuntimeState.callOngoing,
             callerTrusted = RuntimeState.currentCallerTrusted,
             upiOpenedDuringCall = RuntimeState.upiOpenedDuringCall,

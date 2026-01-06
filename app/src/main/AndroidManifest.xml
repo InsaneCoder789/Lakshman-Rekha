@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- Foreground service base permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -81,6 +82,14 @@
             android:name=".ui.SOSActivity"
             android:exported="false"
             android:theme="@style/Theme.LakshmanRekha" />
+
+        <receiver
+            android:name=".services.CallStateTracker"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

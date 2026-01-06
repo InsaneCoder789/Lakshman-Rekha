@@ -11,6 +11,8 @@ class CallStateTracker : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
+        if (intent.action != TelephonyManager.ACTION_PHONE_STATE_CHANGED) return
+
         val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
 
         when (state) {
@@ -20,18 +22,18 @@ class CallStateTracker : BroadcastReceiver() {
             }
 
             TelephonyManager.EXTRA_STATE_IDLE -> {
-                RuntimeState.callOngoing = false
-                if (RuntimeState.lastThreatLevel != null) {
-                    val summaryIntent =
-                        Intent(context, PostCallSummaryActivity::class.java)
-                    summaryIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(summaryIntent)
-                }
+                if (RuntimeState.callOngoing) {
+                    RuntimeState.callOngoing = false
 
-                // Reset transient states
-                RuntimeState.rapidAppSwitching = false
-                RuntimeState.upiOpenedDuringCall = false
-                RuntimeState.otpPatternDetected = false
+                    // Show summary ONLY if something was detected
+                    if (RuntimeState.lastThreatLevel != null) {
+                        val i = Intent(context, PostCallSummaryActivity::class.java)
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(i)
+                    }
+
+                    RuntimeState.resetCallFlags()
+                }
             }
         }
     }

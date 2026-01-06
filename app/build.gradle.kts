@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         compose = true
+        mlModelBinding = true
     }
 }
 
@@ -58,4 +59,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.compose.material:material-icons-extended:1.7.0")
+    implementation("org.tensorflow:tensorflow-lite:2.14.0")
 }
