@@ -13,3 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Python virtual environments
+ml-env/
+venv/
+.env/
+__pycache__/
+*.pyc
