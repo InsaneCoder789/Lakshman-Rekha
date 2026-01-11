@@ -1,7 +1,9 @@
 package com.lakshmanrekha.protect.core
 
+import android.Manifest
 import android.content.Context
 import android.provider.Settings
+import androidx.annotation.RequiresPermission
 import com.lakshmanrekha.protect.model.Threat
 import com.lakshmanrekha.protect.model.ThreatLevel
 import com.lakshmanrekha.protect.modes.*
@@ -29,6 +31,7 @@ object ProtectionManager {
         return requested
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun handleThreat(context: Context, threat: Threat) {
 
         if (isTrustedSource(threat)) {
@@ -36,20 +39,24 @@ object ProtectionManager {
             return
         }
 
-        // Saathi is ALWAYS applied (guidance baseline)
+        // 🧭 Always apply Saathi baseline
         SaathiActions.apply(context, threat)
 
-        // ---- STORE POST-CALL SUMMARY DATA ----
+        // 📌 Store post-call summary
         RuntimeState.lastThreatLevel = threat.level
         RuntimeState.lastThreatReasons = threat.reasons
 
-        // Only mark summary if there was actual risk
         if (threat.level != ThreatLevel.SAFE) {
             RuntimeState.postCallSummaryPending = true
         }
 
-        // ---- MODE-BASED ESCALATION ----
-        when (getEffectiveMode(context)) {
+        val effectiveMode = getEffectiveMode(context)
+
+        // 🧠 AUTO-COACH TRIGGER (KEY PART)
+        maybeTriggerCoach(context, threat, effectiveMode)
+
+        // 🛡️ Mode escalation
+        when (effectiveMode) {
             ProtectionMode.SAATHI -> Unit
 
             ProtectionMode.LAKSHMAN -> {
@@ -64,7 +71,6 @@ object ProtectionManager {
             ProtectionMode.NONE -> Unit
         }
     }
-
     private fun supportsRaksha(context: Context): Boolean =
         Settings.canDrawOverlays(context)
 
@@ -76,5 +82,33 @@ object ProtectionManager {
             if (AppState.trustedApps.contains(it)) return true
         }
         return false
+    }
+
+    private fun maybeTriggerCoach(
+        context: Context,
+        threat: Threat,
+        mode: ProtectionMode
+    ) {
+
+        // ❌ Never coach on SAFE or DANGEROUS
+        if (
+            threat.level == ThreatLevel.SAFE ||
+            threat.level == ThreatLevel.DANGEROUS
+        ) return
+
+        // ❌ Do not repeat
+        if (RuntimeState.coachShown) return
+
+        // ❌ Saathi is guidance-only (no interruptions)
+        if (mode == ProtectionMode.SAATHI) return
+
+        // ✅ Only CAUTION / RISKY reach here
+        RuntimeState.coachShown = true
+
+        ThreatLogger.logSystem(
+            "📘 Coach triggered for threat: ${threat.level}"
+        )
+
+        CoachLauncher.launch(context)
     }
 }

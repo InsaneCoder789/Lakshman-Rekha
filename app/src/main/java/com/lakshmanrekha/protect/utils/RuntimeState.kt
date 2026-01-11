@@ -117,6 +117,9 @@ object RuntimeState {
      */
     var scamRiskModel: ScamRiskModel? = null
 
+    /** Coach screen shown for this session */
+    var coachShown: Boolean = false
+
 
     /* =========================================================
      * RESET LOGIC
@@ -156,5 +159,8 @@ object RuntimeState {
         lastThreatLevel = null
         lastThreatReasons = emptyList()
         postCallSummaryPending = false
+        coachShown = false
+
+
     }
 }

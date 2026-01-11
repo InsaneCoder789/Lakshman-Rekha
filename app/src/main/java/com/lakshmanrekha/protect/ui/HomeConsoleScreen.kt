@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Shield
+import androidx.compose.material.icons.rounded.MenuBook
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lakshmanrekha.protect.core.CoachLauncher
 import com.lakshmanrekha.protect.model.Threat
 import com.lakshmanrekha.protect.model.ThreatLevel
 import com.lakshmanrekha.protect.utils.*
@@ -28,7 +30,6 @@ import com.lakshmanrekha.protect.utils.*
 fun HomeConsoleScreen() {
     val context = LocalContext.current
 
-    // Read data directly to ensure the UI recomposes when these change
     val threats = ThreatLogger.getThreats()
     val systemLogs = ThreatLogger.getSystemLogs()
     val currentMode = AppState.protectionMode
@@ -42,6 +43,7 @@ fun HomeConsoleScreen() {
                 .fillMaxSize()
                 .padding(horizontal = 20.dp)
         ) {
+
             Spacer(Modifier.height(32.dp))
 
             // 👋 Greeting
@@ -55,8 +57,12 @@ fun HomeConsoleScreen() {
 
             Spacer(Modifier.height(20.dp))
 
-            // 🛡️ Reactive Status Card
+            // 🛡️ Status
             StatusCard(currentMode)
+
+            // 🧠 COACH ENTRY (NEW)
+            Spacer(Modifier.height(16.dp))
+            CoachEntryCard(context)
 
             Spacer(Modifier.height(24.dp))
 
@@ -80,7 +86,7 @@ fun HomeConsoleScreen() {
 
             Spacer(Modifier.height(12.dp))
 
-            // 🚨 Reactive Threat List
+            // 🚨 Threat List
             Box(modifier = Modifier.weight(1f)) {
                 if (threats.isEmpty()) {
                     EmptyThreatState()
@@ -89,20 +95,83 @@ fun HomeConsoleScreen() {
                 }
             }
 
-            // ⚙️ System Logs Footer
+            // ⚙️ Logs
             SystemLogsFooter(systemLogs)
         }
     }
 }
 
+/* -------------------------------------------------------------------------- */
+/*                               COACH ENTRY                                  */
+/* -------------------------------------------------------------------------- */
+
+@Composable
+private fun CoachEntryCard(context: android.content.Context) {
+    Card(
+        onClick = { CoachLauncher.launch(context) },
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
+        )
+    ) {
+        Row(
+            modifier = Modifier.padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(
+                        MaterialTheme.colorScheme.primary,
+                        CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    Icons.Rounded.MenuBook,
+                    contentDescription = null,
+                    tint = Color.White
+                )
+            }
+
+            Spacer(Modifier.width(16.dp))
+
+            Column {
+                Text(
+                    text = if (LanguageManager.isHindi())
+                        "सुरक्षा मार्गदर्शिका"
+                    else
+                        "Safety Guide",
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 18.sp
+                )
+
+                Text(
+                    text = if (LanguageManager.isHindi())
+                        "ठगी से बचने के तरीके सीखें"
+                    else
+                        "Learn how scams work & how to stay safe",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               EXISTING UI                                  */
+/* -------------------------------------------------------------------------- */
+
 @Composable
 private fun StatusCard(mode: ProtectionMode) {
     val statusColor = protectionColor()
 
-    // Smoothly animate the card background color when protection mode changes
     val animatedBgColor by animateColorAsState(
         targetValue = statusColor.copy(alpha = 0.1f),
-        animationSpec = tween(durationMillis = 500),
+        animationSpec = tween(500),
         label = "BgAnimation"
     )
 
@@ -122,7 +191,7 @@ private fun StatusCard(mode: ProtectionMode) {
                     .background(statusColor, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Rounded.Shield, contentDescription = null, tint = Color.White)
+                Icon(Icons.Rounded.Shield, null, tint = Color.White)
             }
 
             Spacer(Modifier.width(16.dp))
@@ -159,35 +228,36 @@ private fun ThreatItem(threat: Threat) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        shape = RoundedCornerShape(16.dp)
     ) {
-        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(
-                modifier = Modifier
-                    .width(6.dp)
-                    .height(40.dp)
-                    .clip(CircleShape)
-                    .background(color)
-            )
+        Column(modifier = Modifier.padding(16.dp)) {
 
-            Spacer(Modifier.width(16.dp))
-
-            Column {
-                Text(
-                    text = threat.level.name,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = color,
-                    fontSize = 18.sp
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .width(6.dp)
+                        .height(40.dp)
+                        .clip(CircleShape)
+                        .background(color)
                 )
-                threat.reasons.forEach { reason ->
+
+                Spacer(Modifier.width(16.dp))
+
+                Column {
                     Text(
-                        text = reason,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        text = threat.level.name,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = color
                     )
+                    threat.reasons.forEach {
+                        Text(it, style = MaterialTheme.typography.bodyMedium)
+                    }
                 }
+            }
+
+            // ✅ ONE-TAP ACTIONS HERE
+            if (threat.level != ThreatLevel.SAFE) {
+                ThreatActionRow(threat)
             }
         }
     }
@@ -202,29 +272,25 @@ private fun EmptyThreatState() {
     ) {
         Text(
             text = Strings.noThreats(),
-            style = MaterialTheme.typography.bodyLarge,
-            color = Color.Gray,
-            fontSize = 18.sp
+            fontSize = 18.sp,
+            color = Color.Gray
         )
     }
 }
 
 @Composable
 private fun SystemLogsFooter(logs: List<String>) {
-    Column(modifier = Modifier.padding(vertical = 16.dp)) {
-        // Correct Material 3 Divider implementation
+    Column(Modifier.padding(vertical = 16.dp)) {
         HorizontalDivider(
             modifier = Modifier.padding(bottom = 8.dp),
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-            thickness = 1.dp
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
         )
         Text("System Logs", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-        logs.takeLast(1).forEach { log ->
+        logs.takeLast(1).forEach {
             Text(
-                text = "> $log",
+                text = "> $it",
                 fontSize = 12.sp,
-                color = Color.Gray.copy(alpha = 0.6f),
-                maxLines = 1
+                color = Color.Gray.copy(alpha = 0.6f)
             )
         }
     }
@@ -239,8 +305,8 @@ private fun protectionColor(): Color =
     }
 
 @Composable
-private fun ThreatList(threats: List<Threat>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
-        items(threats) { threat -> ThreatItem(threat) }
+private fun ThreatList(threats: List<Threat>) {
+    LazyColumn {
+        items(threats) { ThreatItem(it) }
     }
 }

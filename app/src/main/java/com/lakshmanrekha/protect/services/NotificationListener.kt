@@ -13,27 +13,32 @@ class NotificationListener : NotificationListenerService() {
 
         val notification = sbn.notification
         val extras = notification.extras
-
-        // ✅ Extract visible notification text (Play-safe)
         val title = extras.getCharSequence("android.title")?.toString()
         val text = extras.getCharSequence("android.text")?.toString()
 
         val detectedText = listOfNotNull(title, text)
             .joinToString(" ")
-            .takeIf { it.isNotBlank() }
+            .trim()
+            .takeIf { it.isNotEmpty() }
 
         val packageName = sbn.packageName
-
-        // ✅ Detect risky app openings during calls
+        RuntimeState.activeSourceApp = packageName
         if (RuntimeState.callOngoing) {
             if (
                 packageName.contains("upi", true) ||
-                packageName.contains("pay", true)
+                packageName.contains("pay", true) ||
+                packageName.contains("bank", true)
             ) {
                 RuntimeState.upiOpenedDuringCall = true
             }
         }
-
+        if (
+            detectedText != null &&
+            RuntimeState.callOngoing &&
+            detectedText.contains("otp", ignoreCase = true)
+        ) {
+            RuntimeState.otpPatternDetected = true
+        }
         evaluateThreat(detectedText)
     }
 

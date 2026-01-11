@@ -82,6 +82,10 @@
             android:name=".ui.SOSActivity"
             android:exported="false"
             android:theme="@style/Theme.LakshmanRekha" />
+        <activity
+            android:name=".ui.CoachActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LakshmanRekha" />
 
         <receiver
             android:name=".services.CallStateTracker"
