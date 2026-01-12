@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
 import com.lakshmanrekha.protect.ui.PostCallSummaryActivity
+import com.lakshmanrekha.protect.utils.AppState
 import com.lakshmanrekha.protect.utils.RuntimeState
 
 class CallStateTracker : BroadcastReceiver() {
@@ -17,6 +18,18 @@ class CallStateTracker : BroadcastReceiver() {
 
         when (state) {
 
+            // 📞 Incoming or outgoing call detected
+            TelephonyManager.EXTRA_STATE_RINGING -> {
+                val number =
+                    intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+
+                RuntimeState.callOngoing = true
+                RuntimeState.activeSourceNumber = number
+
+                RuntimeState.currentCallerTrusted =
+                    number != null && AppState.trustedContacts.contains(number)
+            }
+
             TelephonyManager.EXTRA_STATE_OFFHOOK -> {
                 RuntimeState.callOngoing = true
             }
@@ -25,13 +38,14 @@ class CallStateTracker : BroadcastReceiver() {
                 if (RuntimeState.callOngoing) {
                     RuntimeState.callOngoing = false
 
-                    // Show summary ONLY if something was detected
+                    // ✅ Show summary only if threat existed
                     if (RuntimeState.lastThreatLevel != null) {
                         val i = Intent(context, PostCallSummaryActivity::class.java)
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         context.startActivity(i)
                     }
 
+                    // ✅ Reset ONLY call-related flags
                     RuntimeState.resetCallFlags()
                 }
             }

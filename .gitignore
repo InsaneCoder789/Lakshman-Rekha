@@ -1,22 +1,50 @@
+# ===============================
+# ANDROID / INTELLIJ
+# ===============================
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.gradle/
 local.properties
+/build/
+.cxx/
+.externalNativeBuild/
+.captures/
+.DS_Store
 
-# Python virtual environments
-ml-env/
-venv/
-.env/
+.idea/
+.idea/*
+
+# ===============================
+# PYTHON
+# ===============================
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments (ALL)
+venv/
+env/
+.env/
+.venv/
+*env*/
+
+# Python build artifacts
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# ===============================
+# ML / TFLITE BINARIES
+# ===============================
+*.tflite
+*.h5
+*.onnx
+*.pt
+*.pth
+
+# ===============================
+# MISC
+# ===============================
+*.log
+.cache/

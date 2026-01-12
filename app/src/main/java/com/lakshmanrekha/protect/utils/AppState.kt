@@ -64,6 +64,10 @@ object AppState {
     var sosEnabled by mutableStateOf(false)
     var sosTriggerCount by mutableStateOf(0)
 
+    /* ---------------- FAMILY ALERTS ---------------- */
+
+    var familyAlertsEnabled by mutableStateOf(false)
+
     /* -------------------------------------------------
      * DEBUG / RESET
      * ------------------------------------------------- */

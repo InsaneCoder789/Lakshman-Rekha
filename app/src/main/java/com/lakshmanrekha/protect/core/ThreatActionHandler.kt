@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.telephony.TelephonyManager
 import com.lakshmanrekha.protect.model.Threat
+import com.lakshmanrekha.protect.reporting.CitizenReportManager
 import com.lakshmanrekha.protect.utils.AppState
 import com.lakshmanrekha.protect.utils.ThreatLogger
 
@@ -33,7 +34,9 @@ object ThreatActionHandler {
         // Privacy-safe reporting (no personal data)
         ThreatLogger.logSystem(
             "Scam reported: ${threat.level} | ${threat.reasons.joinToString()}"
+
         )
+        CitizenReportManager.report(threat)
     }
 
     fun verifyMerchant(context: Context) {

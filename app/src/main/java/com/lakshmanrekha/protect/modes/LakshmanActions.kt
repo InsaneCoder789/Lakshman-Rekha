@@ -16,20 +16,22 @@ object LakshmanActions {
             "Lakshman mode handling ${threat.level}"
         )
 
-        // Only intervene for CAUTION+
+        // ❌ Ignore SAFE
         if (threat.level < ThreatLevel.CAUTION) return
 
-        // 1️⃣ Show warning overlay ONCE
+        // ❌ Do not interfere during post-call summary
+        if (RuntimeState.postCallSummaryPending) return
+
+        // 1️⃣ Warning overlay (ONCE)
         if (!RuntimeState.overlayShown) {
             OverlayService.showWarning(context)
             RuntimeState.overlayShown = true
         }
 
-        // 2️⃣ Auto-trigger coach for strong signals
+        // 2️⃣ Coach only when risk is meaningful
         val shouldCoach =
-            threat.level >= ThreatLevel.RISKY ||
-                    RuntimeState.otpPatternDetected ||
-                    RuntimeState.upiOpenedDuringCall
+            threat.level >= ThreatLevel.RISKY &&
+                    (RuntimeState.otpPatternDetected || RuntimeState.upiOpenedDuringCall)
 
         if (shouldCoach && !RuntimeState.warningShown) {
             CoachLauncher.launch(context)

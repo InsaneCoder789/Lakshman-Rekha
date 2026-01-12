@@ -9,10 +9,9 @@ import com.lakshmanrekha.protect.utils.RuntimeState
 class NotificationListener : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
-        if (sbn == null) return
+        if (sbn == null || RuntimeState.bypassProtection) return
 
-        val notification = sbn.notification
-        val extras = notification.extras
+        val extras = sbn.notification.extras
         val title = extras.getCharSequence("android.title")?.toString()
         val text = extras.getCharSequence("android.text")?.toString()
 
@@ -23,6 +22,17 @@ class NotificationListener : NotificationListenerService() {
 
         val packageName = sbn.packageName
         RuntimeState.activeSourceApp = packageName
+
+        // 🔁 Rapid app switching
+        val now = System.currentTimeMillis()
+        RuntimeState.lastForegroundApp?.let { last ->
+            if (last != packageName && now - RuntimeState.lastAppSwitchTime < 2000) {
+                RuntimeState.rapidAppSwitching = true
+            }
+        }
+        RuntimeState.lastForegroundApp = packageName
+        RuntimeState.lastAppSwitchTime = now
+
         if (RuntimeState.callOngoing) {
             if (
                 packageName.contains("upi", true) ||
@@ -32,20 +42,22 @@ class NotificationListener : NotificationListenerService() {
                 RuntimeState.upiOpenedDuringCall = true
             }
         }
+
         if (
             detectedText != null &&
             RuntimeState.callOngoing &&
-            detectedText.contains("otp", ignoreCase = true)
+            detectedText.contains("otp", true)
         ) {
             RuntimeState.otpPatternDetected = true
         }
+
         evaluateThreat(detectedText)
     }
 
-    private fun evaluateThreat(detectedText: String?) {
+    private fun evaluateThreat(text: String?) {
 
         val threat = ScamDetector.analyzeSituation(
-            detectedText = detectedText,
+            detectedText = text,
             mlModel = RuntimeState.scamRiskModel,
             callOngoing = RuntimeState.callOngoing,
             callerTrusted = RuntimeState.currentCallerTrusted,

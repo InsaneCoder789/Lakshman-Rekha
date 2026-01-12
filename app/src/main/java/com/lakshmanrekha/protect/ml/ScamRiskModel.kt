@@ -6,6 +6,7 @@ import org.tensorflow.lite.Interpreter
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.FileChannel
+import kotlin.math.max
 
 class ScamRiskModel(context: Context) {
 
@@ -18,76 +19,147 @@ class ScamRiskModel(context: Context) {
         wordIndex = loadTokenizer(context)
     }
 
-    /* ================== PUBLIC API ================== */
+    /* ======================================================
+     * PUBLIC API
+     * ====================================================== */
 
-    fun predict(text: String): ScamPrediction {
+    fun predict(text: String): ScamSignals {
 
         val input = tokenize(text)
-        val output = Array(1) { FloatArray(3) }
 
-        interpreter.run(input, output)
+        // ---- OUTPUT BUFFERS (ORDER MUST MATCH TRAINING) ----
+        val outIsScam = Array(1) { FloatArray(1) }
+        val outSeverity = Array(1) { FloatArray(5) }
+        val outStage = Array(1) { FloatArray(3) }
+        val outAction = Array(1) { FloatArray(6) } // UNKNOWN handled in code
 
-        val probs = output[0]
-        val maxIdx = probs.indices.maxByOrNull { probs[it] } ?: 0
+        val outOtp = Array(1) { FloatArray(1) }
+        val outUpi = Array(1) { FloatArray(1) }
+        val outUrl = Array(1) { FloatArray(1) }
+        val outThreat = Array(1) { FloatArray(1) }
+        val outUrgency = Array(1) { FloatArray(1) }
 
-        val label = when (maxIdx) {
-            0 -> ScamLabel.SAFE
-            1 -> ScamLabel.SUSPICIOUS
-            else -> ScamLabel.LIKELY_SCAM
+        interpreter.runForMultipleInputsOutputs(
+            arrayOf(input),
+            mapOf(
+                0 to outIsScam,
+                1 to outSeverity,
+                2 to outStage,
+                3 to outAction,
+                4 to outOtp,
+                5 to outUpi,
+                6 to outUrl,
+                7 to outThreat,
+                8 to outUrgency
+            )
+        )
+
+        // ---- PARSE OUTPUTS SAFELY ----
+        val isScamScore = outIsScam[0][0]
+        val isScam = isScamScore > 0.5f
+
+        val severity = outSeverity[0].argMax() + 1
+
+        val stageIndex = outStage[0].argMax()
+        val stage = ScamStage.values().getOrElse(stageIndex) {
+            ScamStage.LURE
         }
 
-        val explanation = when (label) {
-            ScamLabel.SAFE ->
-                "No scam patterns detected in this message."
-
-            ScamLabel.SUSPICIOUS ->
-                "This message shows patterns often used in scams. Please be cautious."
-
-            ScamLabel.LIKELY_SCAM ->
-                "High risk scam detected. Do not share OTP, money, or personal details."
+        val actionIndex = outAction[0].argMax()
+        val action = ScamAction.values().getOrElse(actionIndex) {
+            ScamAction.UNKNOWN
         }
 
-        return ScamPrediction(
-            label = label,
-            confidence = probs[maxIdx],
+        val hasOtp = outOtp[0][0] > 0.5f
+        val hasUpi = outUpi[0][0] > 0.5f
+        val hasUrl = outUrl[0][0] > 0.5f
+        val hasThreat = outThreat[0][0] > 0.5f
+        val hasUrgency = outUrgency[0][0] > 0.5f
+
+        val confidence = max(
+            isScamScore,
+            outSeverity[0].maxOrNull() ?: 0f
+        )
+
+        val explanation = buildExplanation(
+            hasOtp, hasUpi, hasUrl, hasThreat, hasUrgency
+        )
+
+        return ScamSignals(
+            isScam = isScam,
+            severity = severity,
+            scamType = null,
+            scamStage = stage,
+            requestedAction = action,
+            hasOtp = hasOtp,
+            hasUpi = hasUpi,
+            hasUrl = hasUrl,
+            hasThreat = hasThreat,
+            hasUrgency = hasUrgency,
+            confidence = confidence,
             explanation = explanation
         )
     }
 
-    /* ================== TOKENIZATION ================== */
+    /* ======================================================
+     * TOKENIZATION
+     * ====================================================== */
 
     private fun tokenize(text: String): Array<IntArray> {
-
-        val tokens = text
-            .lowercase()
+        val tokens = text.lowercase()
             .split(Regex("\\s+"))
             .mapNotNull { wordIndex[it] }
             .takeLast(maxLen)
 
         val padded = IntArray(maxLen)
         val start = maxLen - tokens.size
-
-        tokens.forEachIndexed { index, value ->
-            padded[start + index] = value
+        tokens.forEachIndexed { i, v ->
+            padded[start + i] = v
         }
 
         return arrayOf(padded)
     }
 
-    /* ================== LOADERS ================== */
+    /* ======================================================
+     * HELPERS
+     * ====================================================== */
+
+    private fun buildExplanation(
+        otp: Boolean,
+        upi: Boolean,
+        url: Boolean,
+        threat: Boolean,
+        urgency: Boolean
+    ): String {
+        val reasons = mutableListOf<String>()
+        if (otp) reasons.add("OTP mentioned")
+        if (upi) reasons.add("Payment request detected")
+        if (url) reasons.add("Suspicious link detected")
+        if (threat) reasons.add("Threatening language detected")
+        if (urgency) reasons.add("Urgency pressure detected")
+
+        return if (reasons.isEmpty())
+            "No obvious scam signals detected."
+        else
+            reasons.joinToString(", ")
+    }
+
+    private fun FloatArray.argMax(): Int =
+        indices.maxByOrNull { this[it] } ?: 0
+
+    /* ======================================================
+     * LOADERS
+     * ====================================================== */
 
     private fun loadModel(context: Context): ByteBuffer {
-        val afd = context.assets.openFd("scam_model.tflite")
+        val afd = context.assets.openFd("scam_signal.tflite")
         val input = afd.createInputStream()
         val channel = input.channel
-
-        val buffer = channel.map(
+        return channel.map(
             FileChannel.MapMode.READ_ONLY,
             afd.startOffset,
             afd.declaredLength
-        )
-
-        return buffer.order(ByteOrder.nativeOrder())
+        ).order(ByteOrder.nativeOrder())
     }
 
     private fun loadTokenizer(context: Context): Map<String, Int> {
@@ -97,14 +169,20 @@ class ScamRiskModel(context: Context) {
             .bufferedReader()
             .use { it.readText() }
 
-        val obj = JSONObject(json)
-        val wordMap = obj
-            .getJSONObject("config")
-            .getJSONObject("word_index")
+        val root = JSONObject(json)
+        val config = root.getJSONObject("config")
+
+        // 🚨 word_index is a STRING, not an object
+        val wordIndexString = config.getString("word_index")
+
+        val wordIndexJson = JSONObject(wordIndexString)
 
         val map = mutableMapOf<String, Int>()
-        wordMap.keys().forEach { key ->
-            map[key] = wordMap.getInt(key)
+        val keys = wordIndexJson.keys()
+
+        while (keys.hasNext()) {
+            val key = keys.next()
+            map[key] = wordIndexJson.getInt(key)
         }
 
         return map

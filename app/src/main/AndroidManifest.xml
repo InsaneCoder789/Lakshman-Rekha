@@ -12,6 +12,7 @@
 
     <!-- Foreground service base permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <!-- Android 13+ notifications -->
     <uses-permission
@@ -55,11 +56,6 @@
             android:name=".services.OverlayService"
             android:exported="false" />
 
-        <!-- 🚨 Emergency alerts -->
-        <service
-            android:name=".services.EmergencyAlertService"
-            android:exported="false" />
-
         <!-- 🧠 Accessibility service -->
         <service
             android:name=".accessibility.ScreenReaderService"
@@ -77,6 +73,10 @@
         <service
             android:name=".services.SOSService"
             android:exported="false" />
+        <service
+            android:name=".services.EmergencyAlertService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback|dataSync" />
 
         <activity
             android:name=".ui.SOSActivity"

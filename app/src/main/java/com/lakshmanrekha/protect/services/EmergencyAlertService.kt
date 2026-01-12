@@ -1,38 +1,27 @@
 package com.lakshmanrekha.protect.services
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.RingtoneManager
-import android.os.Build
-import android.os.IBinder
-import android.os.VibrationEffect
-import android.os.Vibrator
+import android.os.*
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.lakshmanrekha.protect.R
 
 class EmergencyAlertService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    override fun onCreate() {
-        super.onCreate()
-        triggerAlert(this)
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        triggerAlert(this)
+        triggerAlert()
         return START_NOT_STICKY
     }
 
-    private fun triggerAlert(context: Context) {
+    private fun triggerAlert() {
 
-        // 🔊 Sound
-        val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
 
         // 📳 Vibration
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -44,41 +33,39 @@ class EmergencyAlertService : Service() {
                 )
             )
         } else {
+            @Suppress("DEPRECATION")
             vibrator.vibrate(longArrayOf(0, 1000, 500, 1000), -1)
         }
 
-        // 🔔 Notification
-        val notification = buildNotification(context, ringtone)
-
-        startForeground(1001, notification)
+        // 🔔 MUST be called within 5 seconds
+        startForeground(
+            NOTIFICATION_ID,
+            buildNotification(soundUri)
+        )
     }
 
-    private fun buildNotification(
-        context: Context,
-        soundUri: android.net.Uri
-    ): Notification {
-
-        val channelId = "raksha_emergency"
+    private fun buildNotification(soundUri: android.net.Uri): Notification {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                channelId,
+                CHANNEL_ID,
                 "Raksha Emergency Alerts",
                 NotificationManager.IMPORTANCE_HIGH
-            )
-            channel.setSound(
-                soundUri,
-                AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build()
-            )
+            ).apply {
+                setSound(
+                    soundUri,
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .build()
+                )
+            }
 
             val manager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
 
-        return NotificationCompat.Builder(context, channelId)
+        return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("🚨 SCAM ALERT")
             .setContentText("High risk detected. Do NOT share OTP or make payments.")
@@ -88,10 +75,14 @@ class EmergencyAlertService : Service() {
     }
 
     companion object {
+        private const val CHANNEL_ID = "raksha_emergency"
+        private const val NOTIFICATION_ID = 1001
 
         fun trigger(context: Context) {
-            val intent = Intent(context, EmergencyAlertService::class.java)
-            context.startService(intent)
+            ContextCompat.startForegroundService(
+                context,
+                Intent(context, EmergencyAlertService::class.java)
+            )
         }
     }
 }

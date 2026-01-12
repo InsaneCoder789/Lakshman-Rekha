@@ -5,20 +5,33 @@ import android.content.Context
 object AppPrefs {
 
     private const val PREFS = "lakshman_rekha_prefs"
-    private const val TRUSTED = "trusted_contacts"
 
-    // Keys for better maintenance
+    // Profile
     private const val KEY_NAME = "name"
     private const val KEY_AGE = "age"
     private const val KEY_LANG = "lang"
     private const val KEY_MODE = "mode"
+
+    // Onboarding
     private const val KEY_SEEN_WELCOME = "seen_welcome"
     private const val KEY_SEEN_EXPLANATION = "seen_explanation"
     private const val KEY_DONE = "done"
+
+    // Trusted contacts
+    private const val TRUSTED = "trusted_contacts"
     private const val TRUSTED_DONE = "trusted_done"
 
+    // 🆕 Family alerts (OPT-IN)
+    private const val KEY_FAMILY_ALERTS = "family_alerts"
+
+    /* =========================================================
+     * SAVE
+     * ========================================================= */
+
     fun save(context: Context) {
-        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit()
             .putString(KEY_NAME, AppState.name)
             .putInt(KEY_AGE, AppState.age)
             .putString(KEY_LANG, AppState.language?.name)
@@ -26,39 +39,65 @@ object AppPrefs {
             .putBoolean(KEY_SEEN_WELCOME, AppState.hasSeenWelcome)
             .putBoolean(KEY_SEEN_EXPLANATION, AppState.hasSeenModeExplanation)
             .putBoolean(KEY_DONE, AppState.isSetupComplete)
+            .putBoolean(KEY_FAMILY_ALERTS, AppState.familyAlertsEnabled)
             .apply()
     }
 
+    /* =========================================================
+     * LOAD
+     * ========================================================= */
+
     fun load(context: Context) {
+
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
-        // 1. Load intermediate steps first (CRITICAL FIX)
-        // This ensures the app remembers where you left off in onboarding
-        AppState.hasSeenWelcome = p.getBoolean(KEY_SEEN_WELCOME, false)
-        AppState.hasSeenModeExplanation = p.getBoolean(KEY_SEEN_EXPLANATION, false)
-        AppState.isSetupComplete = p.getBoolean(KEY_DONE, false)
+        // Onboarding state
+        AppState.hasSeenWelcome =
+            p.getBoolean(KEY_SEEN_WELCOME, false)
 
-        // Load Language safely
+        AppState.hasSeenModeExplanation =
+            p.getBoolean(KEY_SEEN_EXPLANATION, false)
+
+        AppState.isSetupComplete =
+            p.getBoolean(KEY_DONE, false)
+
+        // Language
         p.getString(KEY_LANG, null)?.let {
-            try { AppState.language = AppLanguage.valueOf(it) } catch(e: Exception) {}
+            try {
+                AppState.language = AppLanguage.valueOf(it)
+            } catch (_: Exception) {}
         }
 
-        // 2. Load the rest of the profile data
+        // Profile
         AppState.name = p.getString(KEY_NAME, "") ?: ""
         AppState.age = p.getInt(KEY_AGE, 0)
 
-        val modeString = p.getString(KEY_MODE, ProtectionMode.SAATHI.name)
-        try {
-            AppState.protectionMode = ProtectionMode.valueOf(modeString!!)
-        } catch (e: Exception) {
-            AppState.protectionMode = ProtectionMode.SAATHI
+        // Mode
+        val modeString =
+            p.getString(KEY_MODE, ProtectionMode.SAATHI.name)
+
+        AppState.protectionMode = try {
+            ProtectionMode.valueOf(modeString!!)
+        } catch (_: Exception) {
+            ProtectionMode.SAATHI
         }
 
+        // Trusted contacts
         AppState.trustedContacts =
-            p.getStringSet(TRUSTED, emptySet())?.toMutableSet() ?: mutableSetOf()
+            p.getStringSet(TRUSTED, emptySet())
+                ?.toMutableSet() ?: mutableSetOf()
+
         AppState.hasAddedTrustedContacts =
             p.getBoolean(TRUSTED_DONE, false)
+
+        // 🆕 Family alert opt-in
+        AppState.familyAlertsEnabled =
+            p.getBoolean(KEY_FAMILY_ALERTS, false)
     }
+
+    /* =========================================================
+     * TRUSTED CONTACT HELPERS
+     * ========================================================= */
 
     fun getTrustedContacts(context: Context): Set<String> =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -68,9 +107,13 @@ object AppPrefs {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
             .putStringSet(TRUSTED, set)
-            .putBoolean(TRUSTED_DONE, true) // ✅ MARK COMPLETED
+            .putBoolean(TRUSTED_DONE, true)
             .apply()
     }
+
+    /* =========================================================
+     * MODE UPDATE
+     * ========================================================= */
 
     fun updateMode(context: Context, mode: ProtectionMode) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)

@@ -1,0 +1,726 @@
+modality,sample_id,timestamp,language,is_scam,scam_type,scam_stage,requested_action,sensitive_info_requested,severity,has_url,has_upi,has_otp,has_qr,has_phone,has_threat,has_urgency,text
+SMS,SMS0055,2025-04-19 09:44:37,English,1,Telecom/Utility / KYC Scam,Lure,Call number,,3,0,0,0,0,1,0,0,TRAI verification pending. Confirm details by calling +91-98728-31517.
+SMS,SMS0045,2025-04-17 01:13:05,Hinglish,1,Delivery/Courier / Customs Scam,Action request,Click link,,3,1,0,0,0,0,0,0,Address incomplete. Reschedule delivery: https://rebrand.ly/GdfOiZ6 Jaldi karo.
+SMS,SMS0024,2025-10-09 05:09:51,Hinglish,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,PhonePe Security: Malware detected. Install Remote Assist from https://cybercrime-case.in/rlgzusgnux for cleanup.
+SMS,SMS0039,2025-05-31 17:52:45,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,0,Pre-approved loan ₹9900. Activate by paying processing ₹199 at https://tinyurl.com/eL2ZL5L
+SMS,SMS0100,2025-11-06 23:24:25,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Hi, I’ll reach by 7:00 PM. See you soon."
+SMS,SMS0017,2025-09-14 06:59:18,Hinglish,1,Tech Support / Remote Access Scam,Lure,Click link,,3,0,0,0,0,0,0,1,Device warranty expiring today. Verify at Jaldi karo.
+SMS,SMS0088,2025-06-21 15:21:52,Hinglish,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,URGENT: Jio password change hua. Agar aapne nahi kiya to reset: https://amazon.in/32tr8hd851
+SMS,SMS0022,2025-04-16 22:44:18,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,Apple Security: Malware detected. Install QuickSupport from https://verify-now.co/nwfcot79ky for cleanup.
+SMS,SMS0053,2025-05-17 22:46:23,Hinglish,1,Telecom/Utility / KYC Scam,Escalation/Threat,Click link,,4,1,0,0,0,0,1,1,BESCOM: Bill overdue ₹7500. Power cut in 2 hours. Pay at https://bit.ly/effIp1B Jaldi karo.
+SMS,SMS0074,2025-10-06 02:28:01,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,"OLX: Buyer sent payment. To receive ₹50000, share OTP."
+SMS,SMS0041,2025-12-12 16:19:02,English,1,Delivery/Courier / Customs Scam,Action request,Click link,,3,1,0,0,0,0,0,0,Address incomplete. Reschedule delivery: https://t.co/8Kjuhfj
+SMS,SMS0002,2025-11-10 03:19:51,Hinglish,1,Bank/KYC Fraud,Action request,Share ID docs,Aadhaar,4,0,0,0,0,1,0,0,KYC update required. Share PAN/Aadhaar photo on WhatsApp number +91-87823-43618. Jaldi karo.
+SMS,SMS0010,2025-08-16 13:31:02,English,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,Prize release requires processing fee ₹99. Pay via UPI lkjxcu@ibl.
+SMS,SMS0025,2025-07-28 12:17:28,English,1,Job Offer Scam,Action request,Share ID docs,Aadhaar,3,0,0,0,0,1,0,0,HR: Selected. Share Aadhaar/PAN for verification. WhatsApp +91-85788-12996
+SMS,SMS0001,2025-09-01 20:38:38,English,1,Bank/KYC Fraud,Action request,Click link,OTP,4,1,0,0,0,0,0,1,"Dear customer, your card will be blocked today. Verify details at https://rebrand.ly/CqmeGMJ"
+SMS,SMS0030,2025-11-19 02:07:30,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,Earn ₹200000/day. Join VIP group using https://bit.ly/kOSwD7D
+SMS,SMS0073,2025-09-27 20:43:25,English,1,Marketplace / Refund / UPI Scam,Action request,Click link,Bank credentials,3,1,0,0,0,0,0,0,Refund pending. Confirm bank details at https://gpay-help.in/9g1m143k0d
+SMS,SMS0004,2025-05-03 15:36:39,Hinglish,1,Bank/KYC Fraud,Action request,Click link,OTP,4,1,0,0,0,0,0,1,"Dear customer, your card will be blocked today. Verify details at https://cutt.ly/I7f8PVU"
+SMS,SMS0083,2025-09-28 19:37:19,Hinglish,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,BESCOM: Bill ₹100000 due 20-Dec. Official app ya https://airtel.in/eaqfvhb18n se pay karo.
+SMS,SMS0033,2025-02-18 18:32:19,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,0,Pre-approved loan ₹199. Activate by paying processing ₹499 at https://tinyurl.com/akCIjEl
+SMS,SMS0095,2025-05-01 12:49:32,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,BESCOM: Bill of ₹5000 due on 15-Jun. Pay via official app or https://icicibank.com/shzssaj386
+SMS,SMS0015,2025-12-25 07:23:17,English,1,Lottery/Prize Scam,Lure,Call number,,3,0,0,0,0,1,0,0,Congrats! You won ₹999 in Mega Bumper Draw. Claim: Call +91-95302-36343 Ref Y0JL23.
+SMS,SMS0092,2025-02-07 08:25:14,English,0,Legitimate: Delivery Update,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,Delhivery: Delivery attempt failed. Reschedule at https://cutt.ly/X1nVtFv
+SMS,SMS0021,2025-08-31 09:44:44,English,1,Tech Support / Remote Access Scam,Lure,Call number,,3,0,0,0,0,1,0,1,Your email hacked. Call technician +91-62430-09408 now.
+SMS,SMS0026,2025-11-25 14:22:55,Hinglish,1,Job Offer Scam,Payment/Transfer,Click link,,3,0,0,0,0,0,0,0,Work-from-home job ₹349/month. Pay training fee ₹999. Details:
+SMS,SMS0027,2025-10-18 16:48:19,English,1,Job Offer Scam,Action request,Share ID docs,Aadhaar,3,0,0,0,0,1,0,0,HR: Selected. Share Aadhaar/PAN for verification. WhatsApp +91-64705-05638
+SMS,SMS0062,2025-02-07 01:45:55,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,,5,0,0,0,0,1,0,1,Court notice: Settlement required today. Call karo +91-86854-63467 abhi.
+SMS,SMS0070,2025-08-14 16:43:15,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,1,It's me. Network issue. Please transfer now. nmejlq@ibl
+SMS,SMS0046,2025-05-12 21:28:21,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,Delhivery: Parcel held at customs. Pay clearance ₹499 at https://secure-kyc-update.in/r7bio32jqw within 30 minutes.
+SMS,SMS0060,2025-03-04 16:08:02,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Click link,Aadhaar,5,1,0,0,0,0,1,1,This is TRAI. FIR filing in process. Verify identity at https://pay-safe.link/a9yncyn7pc within 2 hours.
+SMS,SMS0059,2025-06-03 09:18:23,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,,5,0,0,0,0,1,0,1,Court notice: Settlement required today. Call karo +91-79829-88364 abhi. Jaldi karo.
+SMS,SMS0019,2025-02-26 00:53:13,Hinglish,1,Tech Support / Remote Access Scam,Lure,Click link,,3,1,0,0,0,0,0,1,Device warranty expiring today. Verify at https://t.co/Gp7mOAb
+SMS,SMS0003,2025-05-28 03:04:26,English,1,Bank/KYC Fraud,Action request,Click link,KYC documents/photo,4,1,0,0,0,0,1,1,ALERT: Axis KYC pending. Update now to avoid account freeze: https://verify-now.co/2cakxgydfx
+SMS,SMS0047,2025-02-16 14:50:57,English,1,Delivery/Courier / Customs Scam,Action request,Click link,,3,0,0,0,0,0,0,0,Address incomplete. Reschedule delivery:
+SMS,SMS0052,2025-06-07 05:05:01,English,1,Telecom/Utility / KYC Scam,Lure,Call number,,3,0,0,0,0,1,0,0,TRAI verification pending. Confirm details by calling +91-62537-75981.
+SMS,SMS0023,2025-03-07 00:14:24,English,1,Tech Support / Remote Access Scam,Lure,Click link,,3,1,0,0,0,0,0,1,Device warranty expiring today. Verify at https://rebrand.ly/WPjWyDN
+SMS,SMS0061,2025-07-10 03:25:32,English,1,Government/Authority Impersonation (incl. Digital Arrest),Payment/Transfer,Pay via UPI,,5,0,0,0,0,0,1,0,You are under 'digital arrest'. Stay on line and transfer ₹1500 to verify innocence.
+SMS,SMS0099,2025-09-17 22:51:19,English,0,Legitimate: Delivery Update,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,Blue Dart: Delivery attempt failed. Reschedule at https://rebrand.ly/1ZvdUq3
+SMS,SMS0036,2025-10-22 09:11:08,English,1,Loan/Investment Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,Instant loan. Confirm OTP to proceed.
+SMS,SMS0090,2025-04-16 16:34:54,English,0,Legitimate: Appointment Reminder,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,Reminder: Appointment with Dr. Mehta on 03-Nov at 7:00 PM.
+SMS,SMS0056,2025-08-06 23:57:51,English,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,0,0,0,0,1,Vi: SIM will be deactivated today due to KYC pending. Update: https://verify-now.co/c2dnrnhr7x
+SMS,SMS0040,2025-10-25 04:17:59,English,1,Loan/Investment Scam,Lure,Click link,,3,1,0,0,0,0,0,0,Double money in 30 days. Join investment group: https://customs-clearance.in/duwz0eia0x
+SMS,SMS0071,2025-04-26 10:39:00,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"Hi Mom, new number. Emergency. Send ₹1500 to UPI hsmoyl@okicici. Don't call."
+SMS,SMS0032,2025-05-30 01:11:47,English,1,Job Offer Scam,Payment/Transfer,Click link,,3,0,0,0,0,0,0,0,Work-from-home job ₹499/month. Pay training fee ₹199. Details:
+SMS,SMS0016,2025-02-11 06:07:45,English,1,Lottery/Prize Scam,Action request,Click link,PAN,3,1,0,0,0,0,0,0,Winner selected. Verify details at https://t.co/6RGkhif to claim.
+SMS,SMS0049,2025-10-30 10:47:21,English,1,Telecom/Utility / KYC Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,Your SIM re-verification failed. Share OTP to re-activate.
+SMS,SMS0006,2025-08-13 21:35:42,English,1,Bank/KYC Fraud,Action request,Click link,KYC documents/photo,4,1,0,0,0,0,1,1,ALERT: Axis KYC pending. Update now to avoid account freeze: https://bank-kycverify.com/jgawlakird
+SMS,SMS0086,2025-02-01 12:38:39,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Hi, I’ll reach by 10:00 AM. See you soon."
+SMS,SMS0005,2025-05-29 01:38:49,Hinglish,1,Bank/KYC Fraud,Lure,Call number,,3,0,0,0,0,1,0,0,Kotak: Suspicious UPI collect request detected. Call karo +91-73712-16251 to confirm.
+SMS,SMS0009,2025-12-16 17:15:56,English,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,Prize release requires processing fee ₹49. Pay via UPI acfqnq@ybl.
+SMS,SMS0091,2025-02-18 17:38:17,Hinglish,0,Legitimate: Delivery Update,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,DTDC: Delivery attempt fail. Reschedule: https://tinyurl.com/Sch1vZ7
+SMS,SMS0042,2025-05-26 21:02:46,Hinglish,1,Delivery/Courier / Customs Scam,Action request,Click link,,3,1,0,0,0,0,0,0,Address incomplete. Reschedule delivery: https://t.co/pvs9lRV
+SMS,SMS0028,2025-12-15 02:44:45,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,Earn ₹100000/day. Join VIP group using https://bit.ly/kgBZy9V
+SMS,SMS0034,2025-06-05 11:51:53,English,1,Loan/Investment Scam,Lure,Click link,,3,1,0,0,0,0,0,0,Double money in 30 days. Join investment group: https://track-parcel.in/v56hqa5bxc
+SMS,SMS0058,2025-05-07 03:21:37,English,1,Government/Authority Impersonation (incl. Digital Arrest),Payment/Transfer,Pay via UPI,,5,0,0,0,0,0,1,0,You are under 'digital arrest'. Stay on line and transfer ₹349 to verify innocence.
+SMS,SMS0043,2025-06-14 17:28:02,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,FedEx: Parcel held at customs. Pay clearance ₹299 at https://track-parcel.in/60xdclthxq within 30 minutes.
+SMS,SMS0037,2025-11-26 15:43:12,Hinglish,1,Loan/Investment Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,Instant loan. Confirm OTP to proceed.
+SMS,SMS0078,2025-09-25 22:31:57,English,1,Marketplace / Refund / UPI Scam,Action request,Click link,Bank credentials,3,1,0,0,0,0,0,1,Refund pending. Confirm bank details at https://verify-now.co/wgx4282h7a
+SMS,SMS0079,2025-12-10 14:30:19,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,"Quikr: Buyer sent payment. To receive ₹499, share OTP."
+SMS,SMS0096,2025-03-20 09:11:12,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Hi, I’ll reach by 7:00 PM. See you soon."
+SMS,SMS0076,2025-07-28 13:12:50,English,1,Marketplace / Refund / UPI Scam,Payment/Transfer,Scan QR / approve collect request,UPI PIN,4,1,0,0,1,0,0,0,"To accept payment, scan QR from https://t.co/Vx5jPrv and approve collect request."
+SMS,SMS0063,2025-03-18 17:18:17,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,,5,0,0,0,0,1,0,1,Court notice: Settlement required today. Call +91-95488-37668 immediately.
+SMS,SMS0066,2025-03-25 18:04:03,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"Hi Mom, new number. Emergency. Send ₹9900 to UPI fzfvji@okhdfc. Don't call."
+SMS,SMS0084,2025-09-28 23:09:33,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,"URGENT: Your Amazon password was changed. If not you, reset at https://airtel.in/i021vwsy89"
+SMS,SMS0012,2025-11-17 15:08:57,Hinglish,1,Lottery/Prize Scam,Lure,Call number,,3,0,0,0,0,1,0,0,Congrats! You won ₹100000 in Festival Lucky Draw. Claim: Call karo +91-99193-53748 Ref 0YBMHY. Jaldi karo.
+SMS,SMS0093,2025-05-06 02:30:55,English,0,Legitimate: Delivery Update,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,Delhivery: Out for delivery today. Track: https://airtel.in/4192ie6d28
+SMS,SMS0050,2025-06-06 18:22:14,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,Your SIM re-verification failed. Share OTP to re-activate.
+SMS,SMS0013,2025-11-14 18:17:35,English,1,Lottery/Prize Scam,Lure,Call number,,3,0,0,0,0,1,0,0,Congrats! You won ₹2500 in KBC. Claim: Call +91-79106-31737 Ref U9ZW74.
+SMS,SMS0072,2025-03-10 21:06:31,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"Hi Mom, new number. Emergency. Send ₹200000 to UPI dqpmhy@oksbi. Don't call."
+SMS,SMS0067,2025-08-12 03:41:02,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,1,It's me. Network issue. Please transfer now. ytvwsl@okicici
+SMS,SMS0080,2025-11-12 22:19:07,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,"OLX: Buyer sent payment. To receive ₹50000, share OTP."
+SMS,SMS0069,2025-10-23 18:54:56,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"Hi Mom, new number. Emergency. Send ₹9900 to UPI aabppj@oksbi. Don't call."
+SMS,SMS0094,2025-10-16 16:21:35,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Hi, I’ll reach by 2:30 PM. See you soon."
+SMS,SMS0082,2025-09-07 00:18:20,English,0,Legitimate: Bank Alert,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,HDFC: Rs.50000 debited from A/C XX8082 on 10-Nov. Avl bal: Rs.45000.
+WhatsApp,WA0055,2025-11-25 06:33:34,English,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,1,0,0,0,1,"Scammer: Jio: SIM deactivation today due to KYC pending.
+Senior: But my SIM is active.
+Scammer: System check. Update now.
+Scammer: BWSSB: electricity bill overdue. Pay now to avoid disconnection: https://bit.ly/Yqbyhjc
+Senior: Ok send link.
+Scammer: Here: https://bank-kycverify.com/4g41ouuxs6. After update, share OTP."
+WhatsApp,WA0042,2025-02-11 04:39:21,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Scammer: FedEx: Your parcel is held at customs. 🙏
+Senior: I didn't order anything.
+Scammer: It might be a gift. Clearance pending.
+Senior: Send tracking ID and I'll check on official site.
+Scammer: Tracking YJSFF0. Pay ₹99 via https://cutt.ly/9uJfPlx now, else return."
+WhatsApp,WA0024,2025-08-14 21:10:26,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,"Scammer: Microsoft Support: malware detected on your phone. 🙏
+Senior: My phone is working fine.
+Scammer: It will stop soon. Install Remote Assist so I can remove it.
+Scammer: Download: https://track-parcel.in/osqoj9qe4s
+Senior: Why should I install? Can't you guide me without an app?
+Scammer: No. Without remote access we can't fix."
+WhatsApp,WA0039,2025-11-14 19:25:13,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Pay via UPI,,3,1,1,0,0,0,0,1,"Scammer: Pre-approved loan ₹200000 ready. No documents. 🙏
+Senior: I did not apply.
+Scammer: Special scheme. Activate by paying ₹999 fee.
+Scammer: Pay at https://cutt.ly/caaadRL or UPI agkrtr@ibl.
+Senior: I'll visit branch.
+Scammer: Offer ends today. Online only."
+WhatsApp,WA0089,2025-12-21 03:31:55,Hinglish,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Friend: Are we meeting at 6 PM?
+Senior: Yes, see you at the park.
+Friend: Great, I’ll be there."
+WhatsApp,WA0017,2025-03-25 17:10:28,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,"Scammer: Apple Support: malware detected on your phone.
+Senior: My phone is working fine.
+Scammer: It will stop soon. Install Remote Assist so I can remove it.
+Scammer: Download: https://pay-safe.link/e68qtsm5id
+Senior: Ok, installed.
+Scammer: Now share the 9-digit code shown on screen."
+WhatsApp,WA0092,2025-10-16 11:21:32,English,0,Legitimate: Subscription/Receipt,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Service: Your Netflix subscription renewed. Receipt: CWD3FB
+Senior: Thanks."
+WhatsApp,WA0022,2025-09-17 16:09:27,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,"Scammer: Microsoft Support: malware detected on your phone.
+Senior: My phone is working fine.
+Scammer: It will stop soon. Install AnyDesk so I can remove it.
+Scammer: Download: https://verify-now.co/wbfb7nzal6
+Senior: Why should I install? Can't you guide me without an app?
+Scammer: No. Without remote access we can't fix."
+WhatsApp,WA0053,2025-12-05 00:35:04,English,1,Telecom/Utility / KYC Scam,Action request,Share OTP,OTP,4,1,0,0,0,0,0,1,"Scammer: Vi: SIM deactivation today due to KYC pending. 🙏
+Senior: But my SIM is active.
+Scammer: System check. Update now.
+Senior: I will use the official app.
+Scammer: No time. Use https://customs-clearance.in/ip2y3gmnrj to update within 2 hours."
+WhatsApp,WA0074,2025-08-29 05:35:52,English,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,1,0,1,1,0,0,1,"Scammer: Facebook Marketplace buyer here. I'll pay ₹25000 now.
+Senior: Ok.
+Scammer: You will get an OTP—tell me to confirm payment.
+Senior: OTP is for paying, not receiving.
+Scammer: No sir, this is for receiving. Trust me.
+Scammer: Also scan QR here: https://tinyurl.com/9wmiRox"
+WhatsApp,WA0043,2025-11-09 20:54:08,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Scammer: FedEx: Your parcel is held at customs. 🙏
+Senior: I didn't order anything.
+Scammer: It might be a gift. Clearance pending.
+Senior: Send tracking ID and I'll check on official site.
+Scammer: Tracking EOVPXZ. Pay ₹49 via https://rebrand.ly/qz5F5jw now, else return."
+WhatsApp,WA0006,2025-11-07 01:46:00,English,1,Bank/KYC Fraud,Action request,Click link,OTP,5,1,0,1,0,0,1,1,"Scammer: Hello, Canara KYC desk here. Your account will freeze today.
+Senior: I don't think banks message on WhatsApp.
+Scammer: We are on official WhatsApp support. Quick verification only.
+Senior: Ok what should I do?
+Scammer: Share OTP and PAN photo. Or verify at https://customs-clearance.in/cjdfmsxbly."
+WhatsApp,WA0010,2025-08-05 02:46:45,English,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,"Scammer: Congratulations! You won ₹50000 in New Year Bonanza! 🙏
+Senior: I never participated.
+Scammer: Auto-selected from mobile number.
+Scammer: To claim, pay ₹199 processing fee to UPI ahuuua@okhdfc."
+WhatsApp,WA0030,2025-04-05 22:59:58,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,"Scammer: HR: Part-time work-from-home job available. 🙏
+Senior: I'm retired.
+Scammer: Easy task. Earn ₹999/day. Register at https://rebrand.ly/scllBiW.
+Senior: No fees, right?
+Scammer: Small refundable fee ₹499 for ID verification."
+WhatsApp,WA0008,2025-06-11 00:27:57,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,1,0,1,0,0,1,1,"Scammer: Hello, Axis KYC desk here. Your account will freeze today.
+Senior: I don't think banks message on WhatsApp.
+Scammer: We are on official WhatsApp support. Quick verification only.
+Senior: I will call the bank from the number on my passbook.
+Scammer: No ma'am, transaction is in process. If delayed, money will be lost.
+Scammer: Share OTP now or open https://t.co/tgaY9MX to stop it."
+WhatsApp,WA0028,2025-08-05 13:48:12,Hinglish,1,Job Offer Scam,Lure,Share ID docs,,3,1,1,0,0,0,0,0,"Scammer: HR: Part-time work-from-home job available.
+Senior: I'm retired.
+Scammer: Easy task. Earn ₹1500/day. Register at https://tinyurl.com/K6l36nM.
+Senior: Ok.
+Scammer: Pay ₹999 to UPI ohucgl@ibl."
+WhatsApp,WA0073,2025-05-18 19:34:29,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,1,0,1,1,0,0,1,"Scammer: Quikr buyer here. I'll pay ₹200000 now.
+Senior: Ok.
+Scammer: You will get an OTP—tell me to confirm payment.
+Senior: OTP is for paying, not receiving.
+Scammer: No sir, this is for receiving. Trust me.
+Scammer: Also scan QR here: https://t.co/eGF7ou7"
+WhatsApp,WA0001,2025-03-13 06:06:56,English,1,Bank/KYC Fraud,Action request,Share ID docs,OTP,5,1,0,1,0,0,1,1,"Scammer: Hello, PNB KYC desk here. Your account will freeze today.
+Senior: I don't think banks message on WhatsApp.
+Scammer: We are on official WhatsApp support. Quick verification only.
+Senior: I will call the bank from the number on my passbook.
+Scammer: No ma'am, transaction is in process. If delayed, money will be lost.
+Scammer: Share OTP now or open https://cutt.ly/b7TyhuQ to stop it."
+WhatsApp,WA0085,2025-07-24 19:48:23,English,0,Legitimate: Subscription/Receipt,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Service: Your Airtel subscription renewed. Receipt: 22L1E4
+Senior: Thanks."
+WhatsApp,WA0033,2025-09-16 00:26:24,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,1,0,0,0,0,0,"Scammer: Pre-approved loan ₹5000 ready. No documents. 🙏
+Senior: I did not apply.
+Scammer: Special scheme. Activate by paying ₹49 fee.
+Scammer: Pay at https://cutt.ly/wwLrYd2 or UPI ueqpzp@ibl."
+WhatsApp,WA0094,2025-07-26 02:40:14,English,0,Legitimate: Subscription/Receipt,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Service: Your Google Pay subscription renewed. Receipt: XR4K61
+Senior: Thanks."
+WhatsApp,WA0015,2025-06-20 03:51:01,English,1,Lottery/Prize Scam,Lure,Call number,,4,1,1,0,0,0,0,1,"Scammer: Congratulations! You won ₹2500 in New Year Bonanza!
+Senior: I never participated.
+Scammer: Auto-selected from mobile number.
+Scammer: To claim, pay ₹149 processing fee to UPI vtdylt@okhdfc.
+Senior: Sounds fake. Send official website link.
+Scammer: Ok check https://bit.ly/y4aLmBP. Hurry, expires today."
+WhatsApp,WA0096,2025-04-17 05:12:24,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Friend: Are we meeting at 6 PM?
+Senior: Yes, see you at the park.
+Friend: Great, I’ll be there."
+WhatsApp,WA0021,2025-07-10 18:27:22,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,"Scammer: Microsoft Support: malware detected on your phone.
+Senior: My phone is working fine.
+Scammer: It will stop soon. Install QuickSupport so I can remove it.
+Scammer: Download: https://gpay-help.in/apk33dvosd
+Senior: Why should I install? Can't you guide me without an app?
+Scammer: No. Without remote access we can't fix."
+WhatsApp,WA0026,2025-02-27 18:37:54,English,1,Job Offer Scam,Lure,Share ID docs,,3,1,0,0,0,0,0,0,"Scammer: HR: Part-time work-from-home job available.
+Senior: I'm retired.
+Scammer: Easy task. Earn ₹2500/day. Register at https://tinyurl.com/gzlwnlM.
+Senior: No fees, right?
+Scammer: Small refundable fee ₹999 for ID verification."
+WhatsApp,WA0027,2025-11-23 18:07:43,English,1,Job Offer Scam,Lure,Click link,,3,1,1,0,0,0,0,0,"Scammer: HR: Part-time work-from-home job available. 🙏
+Senior: I'm retired.
+Scammer: Easy task. Earn ₹25000/day. Register at https://t.co/lIrb6Sk.
+Senior: Ok.
+Scammer: Pay ₹49 to UPI jabxjz@paytm."
+WhatsApp,WA0059,2025-02-18 03:02:57,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Click link,Aadhaar,5,0,1,0,0,0,1,1,"Scammer: Namaste, I'm from Income Tax Department. Your number is linked to a cyber fraud case.
+Senior: What? I have done nothing.
+Scammer: We have a complaint under your Aadhaar. You must verify now.
+Senior: How do I verify?
+Scammer: Stay on call. For verification, transfer ₹9900 (refundable) to UPI stfumv@paytm.
+Scammer: If you disconnect, FIR will be filed."
+WhatsApp,WA0067,2025-05-24 00:53:29,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Scammer: Hi Mom, it's me. New number. Phone lost.
+Senior: Which friend are you with?
+Scammer: Can't talk. I'm in trouble.
+Scammer: Send ₹499 to UPI bfkqir@ibl. Don't call.
+Senior: I'll call your old number to confirm.
+Scammer: Network issue. Please do it now."
+WhatsApp,WA0044,2025-07-23 10:55:21,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Scammer: FedEx: Your parcel is held at customs.
+Senior: I didn't order anything.
+Scammer: It might be a gift. Clearance pending.
+Senior: Send tracking ID and I'll check on official site.
+Scammer: Tracking F9UFEX. Pay ₹49 via https://rebrand.ly/bx9ZxQb now, else return."
+WhatsApp,WA0057,2025-07-11 11:03:19,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Click link,Aadhaar,5,0,1,0,0,0,1,1,"Scammer: Namaste, I'm from Police Control Room. Your number is linked to a cyber fraud case.
+Senior: What? I have done nothing.
+Scammer: We have a complaint under your Aadhaar. You must verify now.
+Senior: How do I verify?
+Scammer: Stay on call. For verification, transfer ₹25000 (refundable) to UPI zjgxkx@ibl.
+Scammer: If you disconnect, FIR will be filed."
+WhatsApp,WA0058,2025-09-30 20:20:59,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,Aadhaar,5,0,1,0,0,0,1,1,"Scammer: Namaste, I'm from Police Control Room. Your number is linked to a cyber fraud case. 🙏
+Senior: What? I have done nothing.
+Scammer: We have a complaint under your Aadhaar. You must verify now.
+Senior: How do I verify?
+Scammer: Stay on call. For verification, transfer ₹499 (refundable) to UPI nlcows@ibl.
+Scammer: If you disconnect, FIR will be filed."
+WhatsApp,WA0019,2025-10-15 12:24:30,Hinglish,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,"Scammer: PhonePe Support: malware detected on your phone.
+Senior: My phone is working fine.
+Scammer: It will stop soon. Install AnyDesk so I can remove it.
+Scammer: Download: https://pay-safe.link/ioi4eedepz
+Senior: Why should I install? Can't you guide me without an app?
+Scammer: No. Without remote access we can't fix."
+WhatsApp,WA0003,2025-11-29 19:11:50,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,1,0,1,0,0,1,1,"Scammer: Hello, Canara KYC desk here. Your account will freeze today. 🙏
+Senior: I don't think banks message on WhatsApp.
+Scammer: We are on official WhatsApp support. Quick verification only.
+Senior: Ok what should I do?
+Scammer: Share OTP and PAN photo. Or verify at https://support-helpdesk.in/anum29kfew."
+WhatsApp,WA0041,2025-11-21 18:21:33,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,0,"Scammer: FedEx: Your parcel is held at customs.
+Senior: I didn't order anything.
+Scammer: It might be a gift. Clearance pending.
+Senior: How much to pay?
+Scammer: Pay ₹499 at https://track-parcel.in/vbu42jaubv and send screenshot."
+WhatsApp,WA0052,2025-08-12 13:31:37,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Share OTP,OTP,4,1,0,0,0,0,0,1,"Scammer: Airtel: SIM deactivation today due to KYC pending.
+Senior: But my SIM is active.
+Scammer: System check. Update now.
+Senior: I will use the official app.
+Scammer: No time. Use https://gpay-help.in/68qc85wy6d to update within 2 hours."
+WhatsApp,WA0023,2025-07-01 08:16:37,Hinglish,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,"Scammer: Microsoft Support: malware detected on your phone. 🙏
+Senior: My phone is working fine.
+Scammer: It will stop soon. Install TeamViewer so I can remove it.
+Scammer: Download: https://support-helpdesk.in/7cgu2krqov
+Senior: Ok, installed.
+Scammer: Now share the 9-digit code shown on screen."
+WhatsApp,WA0063,2025-12-22 11:05:42,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,1,"Scammer: Namaste, I'm from Cyber Crime Cell. Your number is linked to a cyber fraud case.
+Senior: What? I have done nothing.
+Scammer: We have a complaint under your Aadhaar. You must verify now.
+Senior: How do I verify?
+Scammer: Stay on call. For verification, transfer ₹7500 (refundable) to UPI mnowog@okicici.
+Scammer: If you disconnect, FIR will be filed."
+WhatsApp,WA0097,2025-08-07 10:27:19,English,0,Legitimate: Delivery Update,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,"Courier: DTDC: Your package is out for delivery today. Track: https://amazon.in/wtae9sqar3
+Senior: Ok, I will be home."
+WhatsApp,WA0036,2025-10-18 07:53:37,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,1,0,0,0,0,1,"Scammer: Pre-approved loan ₹9900 ready. No documents.
+Senior: I did not apply.
+Scammer: Special scheme. Activate by paying ₹999 fee.
+Scammer: Pay at https://cutt.ly/2T8G2Ui or UPI dbeopk@okhdfc.
+Senior: I'll visit branch.
+Scammer: Offer ends today. Online only."
+WhatsApp,WA0088,2025-05-14 16:22:59,Hinglish,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,"Bank: HDFC: Your statement is ready. View in official app or https://india-post.gov.in/h20rk2rit0
+Senior: Ok thanks."
+WhatsApp,WA0056,2025-04-07 18:02:18,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Click link,OTP,4,1,0,0,0,0,0,1,"Scammer: Vi: SIM deactivation today due to KYC pending.
+Senior: But my SIM is active.
+Scammer: System check. Update now.
+Scammer: BWSSB: electricity bill overdue. Pay now to avoid disconnection: https://rebrand.ly/vNiL8D2
+Senior: I will use the official app.
+Scammer: No time. Use https://gpay-help.in/j62jo6k1k6 to update within 2 hours."
+WhatsApp,WA0040,2025-11-19 01:54:56,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,1,0,0,0,0,1,"Scammer: Pre-approved loan ₹50000 ready. No documents.
+Senior: I did not apply.
+Scammer: Special scheme. Activate by paying ₹99 fee.
+Scammer: Pay at https://tinyurl.com/JCKxd13 or UPI bdphza@paytm.
+Senior: I'll visit branch.
+Scammer: Offer ends today. Online only."
+WhatsApp,WA0069,2025-11-06 17:12:17,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"Scammer: Hi Mom, it's me. New number. Phone lost.
+Senior: Which friend are you with?
+Scammer: Can't talk. I'm in trouble.
+Scammer: Send ₹1500 to UPI kgvvzg@ibl. Don't call.
+Senior: I'll call your old number to confirm.
+Scammer: Network issue. Please do it abhi."
+WhatsApp,WA0025,2025-07-02 05:54:45,English,1,Job Offer Scam,Lure,Share ID docs,,3,1,0,0,0,0,0,0,"Scammer: HR: Part-time work-from-home job available. 🙏
+Senior: I'm retired.
+Scammer: Easy task. Earn ₹50000/day. Register at https://cutt.ly/ECrD3FH.
+Senior: No fees, right?
+Scammer: Small refundable fee ₹999 for ID verification."
+WhatsApp,WA0016,2025-07-28 01:10:56,Hinglish,1,Lottery/Prize Scam,Lure,Call number,,4,0,1,0,0,0,0,0,"Scammer: Congratulations! You won ₹2500 in New Year Bonanza!
+Senior: I never participated.
+Scammer: Auto-selected from mobile number.
+Scammer: To claim, pay ₹299 processing fee to UPI fkqwyf@oksbi."
+WhatsApp,WA0049,2025-10-22 17:27:42,English,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,1,0,0,0,1,"Scammer: Vi: SIM deactivation today due to KYC pending. 🙏
+Senior: But my SIM is active.
+Scammer: System check. Update now.
+Senior: Ok send link.
+Scammer: Here: https://verify-now.co/ygqxnro8x0. After update, share OTP."
+WhatsApp,WA0007,2025-06-08 20:49:36,English,1,Bank/KYC Fraud,Action request,Click link,OTP,5,1,0,1,0,0,1,1,"Scammer: Hello, Axis KYC desk here. Your account will freeze today.
+Senior: I don't think banks message on WhatsApp.
+Scammer: We are on official WhatsApp support. Quick verification only.
+Senior: Ok what should I do?
+Scammer: Share OTP and PAN photo. Or verify at https://verify-now.co/jpkk9xman4."
+WhatsApp,WA0084,2025-03-21 13:44:48,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Friend: Are we meeting at 6 PM?
+Senior: Yes, see you at the park.
+Friend: Great, I’ll be there."
+WhatsApp,WA0002,2025-12-09 14:07:08,English,1,Bank/KYC Fraud,Action request,Share ID docs,OTP,5,1,0,1,0,0,1,1,"Scammer: Hello, HDFC KYC desk here. Your account will freeze today.
+Senior: I don't think banks message on WhatsApp.
+Scammer: We are on official WhatsApp support. Quick verification only.
+Senior: I will call the bank from the number on my passbook.
+Scammer: No ma'am, transaction is in process. If delayed, money will be lost.
+Scammer: Share OTP now or open https://rebrand.ly/lPah6wB to stop it."
+WhatsApp,WA0009,2025-07-21 07:16:56,English,1,Lottery/Prize Scam,Lure,Click link,,4,1,1,0,0,0,0,1,"Scammer: Congratulations! You won ₹499 in KBC!
+Senior: I never participated.
+Scammer: Auto-selected from mobile number.
+Scammer: To claim, pay ₹499 processing fee to UPI kqdqaq@ibl.
+Senior: Sounds fake. Send official website link.
+Scammer: Ok check https://bit.ly/FbTOWbr. Hurry, expires today."
+WhatsApp,WA0081,2025-07-14 23:55:30,Hinglish,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,1,"Family: Good morning! How are you today?
+Senior: Good morning. I'm fine.
+Family: Don't forget your medicines after breakfast."
+WhatsApp,WA0045,2025-11-03 10:43:12,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Scammer: Blue Dart: Your parcel is held at customs.
+Senior: I didn't order anything.
+Scammer: It might be a gift. Clearance pending.
+Senior: Send tracking ID and I'll check on official site.
+Scammer: Tracking EVW7YU. Pay ₹79 via https://rebrand.ly/9yBvrvF now, else return."
+WhatsApp,WA0032,2025-10-02 09:38:44,English,1,Job Offer Scam,Lure,Pay via UPI,,3,1,0,0,0,0,0,0,"Scammer: HR: Part-time work-from-home job available.
+Senior: I'm retired.
+Scammer: Easy task. Earn ₹349/day. Register at https://rebrand.ly/Is1BOy3.
+Senior: No fees, right?
+Scammer: Small refundable fee ₹99 for ID verification."
+WhatsApp,WA0034,2025-05-12 04:24:40,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,1,0,0,0,0,1,"Scammer: Pre-approved loan ₹199 ready. No documents. 🙏
+Senior: I did not apply.
+Scammer: Special scheme. Activate by paying ₹499 fee.
+Scammer: Pay at https://tinyurl.com/B2sB0R8 or UPI lfkflv@okhdfc.
+Senior: I'll visit branch.
+Scammer: Offer ends today. Online only."
+WhatsApp,WA0062,2025-05-31 12:44:18,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Click link,,5,0,1,0,0,0,1,1,"Scammer: Namaste, I'm from CBI. Your number is linked to a cyber fraud case. 🙏
+Senior: What? I have done nothing.
+Scammer: We have a complaint under your Aadhaar. You must verify now.
+Senior: How do I verify?
+Scammer: Stay on call. For verification, transfer ₹12000 (refundable) to UPI rdnohm@oksbi.
+Scammer: If you disconnect, FIR will be filed."
+WhatsApp,WA0048,2025-07-16 19:01:15,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Scammer: Blue Dart: Your parcel is held at customs.
+Senior: I didn't order anything.
+Scammer: It might be a gift. Clearance pending.
+Senior: Send tracking ID and I'll check on official site.
+Scammer: Tracking LMFN2J. Pay ₹199 via https://t.co/DNEIHCW now, else return."
+WhatsApp,WA0037,2025-07-14 16:39:22,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Pay via UPI,,3,1,1,0,0,0,0,1,"Scammer: Pre-approved loan ₹499 ready. No documents.
+Senior: I did not apply.
+Scammer: Special scheme. Activate by paying ₹499 fee.
+Scammer: Pay at https://rebrand.ly/76edATu or UPI jwblht@paytm.
+Senior: I'll visit branch.
+Scammer: Offer ends today. Online only."
+WhatsApp,WA0078,2025-08-06 17:15:21,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,0,0,0,0,"Scammer: Quikr buyer here. I'll pay ₹999 abhi. 🙏
+Senior: Ok.
+Scammer: You will get an OTP—tell me to confirm payment.
+Senior: I received OTP.
+Scammer: Read it out quickly."
+WhatsApp,WA0079,2025-06-17 06:33:09,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,0,0,0,1,"Scammer: OLX buyer here. I'll pay ₹5000 now.
+Senior: Ok.
+Scammer: You will get an OTP—tell me to confirm payment.
+Senior: I received OTP.
+Scammer: Read it out quickly."
+WhatsApp,WA0086,2025-02-21 13:31:32,Hinglish,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,1,"Family: Good morning! How are you today?
+Senior: Good morning. I'm fine.
+Family: Don't forget your medicines after breakfast."
+WhatsApp,WA0076,2025-05-16 16:10:54,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,1,"Scammer: Quikr buyer here. I'll pay ₹999 now.
+Senior: Ok.
+Scammer: You will get an OTP—tell me to confirm payment.
+Senior: I received OTP.
+Scammer: Read it out quickly."
+WhatsApp,WA0064,2025-12-18 16:18:15,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,,5,1,0,0,0,1,1,1,"Scammer: Namaste, I'm from Cyber Crime Cell. Your number is linked to a cyber fraud case. 🙏
+Senior: What? I have done nothing.
+Scammer: We have a complaint under your Aadhaar. You must verify now.
+Senior: Can you send an official email or reference number?
+Scammer: Reference A1BAOJ. Time is limited. Click https://bank-kycverify.com/06z52bsna5 or call +91-93041-77863 now.
+Scammer: If you disconnect, FIR will be filed."
+WhatsApp,WA0070,2025-04-27 19:21:22,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"Scammer: Hi Mom, it's me. New number. Phone lost.
+Senior: Which friend are you with?
+Scammer: Can't talk. I'm in trouble.
+Scammer: Send ₹999 to UPI wyfyjn@ybl. Don't call.
+Senior: I'll call your old number to confirm.
+Scammer: Network issue. Please do it abhi."
+WhatsApp,WA0100,2025-09-21 05:19:52,Hinglish,0,Legitimate: Subscription/Receipt,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Service: Your Netflix subscription renewed. Receipt: 4CL4Z1
+Senior: Thanks."
+WhatsApp,WA0012,2025-12-15 04:18:20,Hinglish,1,Lottery/Prize Scam,Lure,Call number,,4,1,1,0,0,0,0,1,"Scammer: Congratulations! You won ₹9900 in WhatsApp Promo!
+Senior: I never participated.
+Scammer: Auto-selected from mobile number.
+Scammer: To claim, pay ₹299 processing fee to UPI njkmlz@paytm.
+Senior: Sounds fake. Send official website link.
+Scammer: Ok check https://rebrand.ly/chs3Qk0. Hurry, expires today."
+WhatsApp,WA0091,2025-04-26 09:06:18,Hinglish,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,"Bank: Canara: Your statement is ready. View in official app or https://hdfcbank.com/bdnf6n7oc8
+Senior: Ok thanks."
+WhatsApp,WA0050,2025-09-21 06:19:25,English,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,1,0,0,0,1,"Scammer: BSNL: SIM deactivation today due to KYC pending.
+Senior: But my SIM is active.
+Scammer: System check. Update now.
+Senior: Ok send link.
+Scammer: Here: https://cybercrime-case.in/q7hgcy01dw. After update, share OTP."
+WhatsApp,WA0013,2025-03-22 14:28:17,Hinglish,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,"Scammer: Congratulations! You won ₹1500 in KBC!
+Senior: I never participated.
+Scammer: Auto-selected from mobile number.
+Scammer: To claim, pay ₹99 processing fee to UPI cngilr@ybl."
+WhatsApp,WA0071,2025-07-10 13:59:27,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Scammer: Hi Mom, it's me. New number. Phone lost.
+Senior: Which friend are you with?
+Scammer: Can't talk. I'm in trouble.
+Scammer: Send ₹999 to UPI shmibv@oksbi. Don't call.
+Senior: I'll call your old number to confirm.
+Scammer: Network issue. Please do it now."
+WhatsApp,WA0068,2025-03-31 14:56:19,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Scammer: Hi Mom, it's me. New number. Phone lost.
+Senior: Which friend are you with?
+Scammer: Can't talk. I'm in trouble.
+Scammer: Send ₹9900 to UPI cbhyct@okhdfc. Don't call.
+Senior: I'll call your old number to confirm.
+Scammer: Network issue. Please do it now."
+WhatsApp,WA0080,2025-10-12 00:56:15,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,1,0,1,1,0,0,1,"Scammer: OLX buyer here. I'll pay ₹199 now.
+Senior: Ok.
+Scammer: You will get an OTP—tell me to confirm payment.
+Senior: OTP is for paying, not receiving.
+Scammer: No sir, this is for receiving. Trust me.
+Scammer: Also scan QR here: https://rebrand.ly/soTic9B"
+WhatsApp,WA0066,2025-07-08 10:58:59,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Scammer: Hi Mom, it's me. New number. Phone lost. 🙏
+Senior: Which friend are you with?
+Scammer: Can't talk. I'm in trouble.
+Scammer: Send ₹5000 to UPI gpltcj@ibl. Don't call.
+Senior: I'll call your old number to confirm.
+Scammer: Network issue. Please do it now."
+WhatsApp,WA0098,2025-07-29 20:52:20,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,1,"Family: Good morning! How are you today?
+Senior: Good morning. I'm fine.
+Family: Don't forget your medicines after breakfast."
+WhatsApp,WA0083,2025-02-01 00:38:26,Hinglish,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,"Bank: PNB: Your statement is ready. View in official app or https://jio.com/ggwhywqhxy
+Senior: Ok thanks."
+Call,CALL0055,2025-03-09 02:23:27,English,1,Telecom/Utility / KYC Scam,Action request,Share OTP,PAN,4,1,0,1,0,0,0,1,"Agent: This is BSNL verification. Your SIM will be deactivated today.
+Senior: Why?
+Agent: KYC pending. Update at https://verify-now.co/e50ojrgklh or share OTP.
+Agent: Also note BWSSB bill overdue. Pay to avoid disconnection."
+Call,CALL0048,2025-05-15 03:28:43,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,Agent: Calling from India Post. Your parcel sir is held at customs. Senior: I didn't order anything. Agent: Pay clearance ₹299 at https://t.co/hZIfXX1 within 30 minutes.
+Call,CALL0015,2025-08-23 20:14:37,English,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,Agent: Congratulations! You have won ₹499 in Mega Bumper Draw. Senior: um Really? Agent: Pay processing fee ₹99 to UPI qebgyz@okicici to claim.
+Call,CALL0034,2025-02-12 00:50:01,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,1,"Agent: Pre-approved loan ₹199 ready. Activate with fee ₹99.
+Senior: I did not apply.
+Agent: Offer ends today. Pay via https://bit.ly/8nBZySC."
+Call,CALL0094,2025-04-17 12:45:10,English,0,Legitimate: OTP/2FA,Action request,No action (info only),OTP,1,0,0,1,0,0,0,0,Automated: Your OTP for Jio uh is uh 171681. Repeat 171681. Senior: Okay.
+Call,CALL0021,2025-04-01 09:34:56,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,"Technician: This is Google support. Your device has malware.
+Senior: What should I do?
+Technician: Install AnyDesk. I will guide you. Link: https://bit.ly/isnGJpF
+Senior: Why do you need remote access?
+Technician: Without it we cannot fix. Act now."
+Call,CALL0087,2025-04-24 01:14:32,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,1,"Family: Hi! Just checking in. Are you feeling better today?
+Senior: Yes, I'm fine. Thanks.
+Family: Great. Call me if you need anything."
+Call,CALL0022,2025-04-21 02:07:47,Hinglish,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,"Technician: This is Google support. Your device has malware.
+Senior: What should I do?
+Technician: Install AnyDesk. I will guide you. Link: https://cutt.ly/I2LWDr6
+Senior: Why do you need remote access?
+Technician: Without it we cannot fix. Act now."
+Call,CALL0053,2025-05-10 06:27:47,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,1,0,0,0,1,"Agent: This is Vi verification. Your SIM will be deactivated today.
+Senior: Why?
+Agent: KYC pending. Update at https://support-helpdesk.in/nlbeoudeya or share OTP."
+Call,CALL0078,2025-05-21 01:16:10,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,1,0,0,1,"Buyer: I'm buying from OLX. I'll send ₹25000 now.
+Senior: Ok.
+Buyer: You will get an OTP. Read it to confirm payment.
+Senior: OTP is private.
+Buyer: No problem, then scan the QR I'll WhatsApp you."
+Call,CALL0043,2025-11-18 00:38:11,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,Agent: Calling from India Post. Your parcel is um held at customs. Senior: uh I didn't order anything. Agent: Pay clearance ₹499 at https://rebrand.ly/0NuL0mw within 30 minutes.
+Call,CALL0003,2025-03-30 21:13:51,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,0,"Agent: Hello, Canara security desk. Suspicious transaction of ₹50000 detected.
+Senior: Oh no.
+Agent: To block it, please confirm the OTP sent to your phone."
+Call,CALL0013,2025-09-02 19:40:46,English,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,Agent: Congratulations! You have won okay ₹2500 in WhatsApp Promo. Senior: Really? Agent: Pay processing fee ₹99 to UPI uh jaxanf@oksbi to claim.
+Call,CALL0032,2025-08-30 08:31:07,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,"HR: You're shortlisted for a work-from-home role earning ₹50000/month.
+Senior: Ok.
+HR: Pay training fee ₹199 to confirm. Or submit docs via https://bit.ly/E2ySQFx."
+Call,CALL0001,2025-08-24 05:38:20,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,0,"Agent: Hello, HDFC security desk. Suspicious transaction of ₹2500 detected.
+Senior: Oh no.
+Agent: To block it, please confirm the OTP sent to your phone."
+Call,CALL0025,2025-11-02 11:00:24,English,1,Job Offer Scam,Lure,Share ID docs,,3,1,0,0,0,0,0,0,HR: You're shortlisted for a work-from-home role earning ₹200000/month. Senior: Ok. HR: Pay training fee ₹999 ma'am to confirm. Or uh submit docs via https://t.co/AzLXWd5. [inaudible]
+Call,CALL0074,2025-03-20 13:39:39,English,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,0,0,0,1,"Buyer: I'm buying from OLX. I'll send ₹100000 now.
+Senior: Ok.
+Buyer: You will get an OTP. Read it to confirm payment."
+Call,CALL0097,2025-09-12 23:10:13,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,"Service: Vi here. Your plan expires on 17-May. Renew in the official app or https://india-post.gov.in/nqq6g36j0c.
+Senior: Not now, thank you.
+Service: Okay. Have a nice day."
+Call,CALL0084,2025-10-21 21:42:15,Hinglish,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,1,"Family: Hi! Just checking in. Are you feeling better today?
+Senior: Yes, I'm fine. Thanks.
+Family: Great. Call me if you need anything."
+Call,CALL0030,2025-12-22 11:06:06,English,1,Job Offer Scam,Lure,Share ID docs,,3,1,0,0,0,0,0,0,"HR: You're shortlisted for a work-from-home role earning ₹5000/month.
+Senior: Ok.
+HR: Pay training fee ₹99 to confirm. Or submit docs via https://t.co/fiQzp9Z."
+Call,CALL0098,2025-12-19 11:27:56,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,1,"Family: Hi! Just checking in. Are you feeling better today?
+Senior: Yes, I'm fine. Thanks.
+Family: Great. Call me if you need anything."
+Call,CALL0023,2025-06-20 13:37:42,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,Technician: This is ma'am Google support. Your device has malware. Senior: What should I do? Technician: Install sir QuickSupport. I will guide you. Link: https://cutt.ly/g5QPzyH Senior: um Why do you need remote access? Technician: Without it we cannot fix. Act now.
+Call,CALL0083,2025-05-02 03:21:02,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"Bank Agent: Hello, thank you for calling Canara. How may I uh help you? Senior: I want to verify a transaction I received an alert for. ma'am Bank Agent: Please confirm sir last 4 digits of your account. Senior: It is 7158. Bank Agent: Thank you. I can see the transaction status in your account. [i..."
+Call,CALL0095,2025-10-16 15:03:15,Hinglish,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,"Service: Jio here. Your plan expires on 02-Sep. Renew in the official app or https://amazon.in/71txs6sw9r.
+Senior: Not now, thank you.
+Service: Okay. Have a nice day."
+Call,CALL0028,2025-05-09 07:28:02,Hinglish,1,Job Offer Scam,Lure,Pay via UPI,,3,1,0,0,0,0,0,0,HR: You're shortlisted for um a work-from-home role earning sir ₹100000/month. Senior: Ok. HR: Pay training fee ₹99 to confirm. Or submit docs via https://cutt.ly/57vRSND.
+Call,CALL0026,2025-06-10 17:20:41,English,1,Job Offer Scam,Lure,Pay via UPI,,3,1,0,0,0,0,0,0,"HR: You're shortlisted for a work-from-home role earning ₹999/month.
+Senior: Ok.
+HR: Pay training fee ₹299 to confirm. Or submit docs via https://tinyurl.com/7cBxF0p."
+Call,CALL0058,2025-12-04 07:43:44,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,0,"Officer: This is Cyber Crime Cell. Your identity is linked to money laundering.
+Senior: That cannot be true.
+Officer: You are under digital arrest. Do not disconnect.
+Officer: Transfer ₹100000 to UPI cwwnqg@ybl for verification. It will be refunded."
+Call,CALL0067,2025-09-18 21:58:03,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Caller: Hello, it's me. I'm in trouble. Please don't panic.
+Senior: Who is this?
+Caller: I can't talk. Send ₹499 to UPI spdbhq@oksbi now."
+Call,CALL0045,2025-03-08 10:14:18,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Agent: Calling from Delhivery. Your parcel is held at customs.
+Senior: I didn't order anything.
+Agent: Pay clearance ₹49 at https://cutt.ly/SE66b7R within 30 minutes."
+Call,CALL0062,2025-11-23 22:37:30,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,0,"Officer: This is Police Control Room. Your identity is linked to money laundering.
+Senior: That cannot be true.
+Officer: You are under digital arrest. Do not disconnect.
+Officer: Transfer ₹499 to UPI jkeheg@ibl for verification. It will be refunded."
+Call,CALL0061,2025-09-29 11:55:06,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,0,Officer: This is CBI. Your identity is linked to money laundering. Senior: That cannot be true. Officer: You are under digital arrest. sir Do not disconnect. Officer: Transfer ₹1500 to UPI cgogmt@ybl for verification. It will be refunded.
+Call,CALL0019,2025-08-28 03:44:12,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,"Technician: This is Apple support. Your device has malware.
+Senior: What should I do?
+Technician: Install TeamViewer. I will guide you. Link: https://tinyurl.com/Z16Hmbv"
+Call,CALL0002,2025-09-28 11:43:05,Hinglish,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,0,"Agent: Hello, SBI security sir desk. Suspicious transaction of ₹12000 detected. Senior: Oh no. Agent: To block it, please confirm the OTP haan sent ji to your phone."
+Call,CALL0042,2025-12-23 19:43:57,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Agent: Calling from Amazon Logistics. Your parcel is held at customs.
+Senior: I didn't order anything.
+Agent: Pay clearance ₹99 at https://cutt.ly/JqSOmJX within 30 minutes."
+Call,CALL0039,2025-07-26 20:31:28,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,1,"Agent: Pre-approved loan ₹349 ready. Activate with fee ₹299.
+Senior: I did not apply.
+Agent: Offer ends today. Pay via https://t.co/iwzI0Xz."
+Call,CALL0052,2025-04-13 14:39:26,English,1,Telecom/Utility / KYC Scam,Action request,Share OTP,OTP,4,1,0,1,0,0,0,1,"Agent: This is Jio verification. Your SIM will be deactivated today.
+Senior: Why?
+Agent: KYC pending. Update at https://support-helpdesk.in/ty39lg1kxr or share OTP."
+Call,CALL0060,2025-07-22 13:10:57,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,1,Officer: This is TRAI. Your identity is linked to money laundering. Senior: That cannot be true. Officer: You are under digital arrest. Do not disconnect. Senior: I will come to the police station. Officer: No. Verification is online only. Provide Aadhaar number now. Officer: Transfer ₹2500 to okay UPI ccihvc@okhdfc for uh verification. It will be refunded. [inaudible]
+Call,CALL0096,2025-05-02 02:15:46,English,0,Legitimate: Appointment Reminder,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Clinic: Hello, confirming your appointment on 01-Oct at 2:30 PM.
+Senior: Yes confirmed, thank you.
+Clinic: Please arrive 10 minutes early."
+Call,CALL0040,2025-10-23 20:25:45,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,1,"Agent: Pre-approved loan ₹7500 ready. Activate with fee ₹79.
+Senior: I did not apply.
+Agent: Offer ends today. Pay via https://t.co/XQEbOW0."
+Call,CALL0088,2025-10-04 10:49:09,Hinglish,0,Legitimate: Appointment Reminder,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Clinic: Hello, confirming your appointment on 12-Sep at 7:00 PM.
+Senior: Yes confirmed, thank you.
+Clinic: Please arrive 10 minutes early."
+Call,CALL0056,2025-02-13 21:44:54,English,1,Telecom/Utility / KYC Scam,Action request,Share OTP,OTP,4,1,0,1,0,0,0,1,"Agent: This is Vi verification. Your SIM will be deactivated today.
+Senior: Why?
+Agent: KYC pending. Update at https://support-helpdesk.in/8kpptfv6i9 or share OTP."
+Call,CALL0033,2025-10-01 23:27:18,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,1,"Agent: Pre-approved loan ₹349 ready. Activate with fee ₹79.
+Senior: I did not apply.
+Agent: Offer ends today. Pay via https://bit.ly/5pqwAfB."
+Call,CALL0070,2025-12-06 07:56:26,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Caller: Hello, it's me. I'm in trouble. Please don't panic.
+Senior: Who is this?
+Caller: I can't talk. Send ₹50000 to UPI sgwgmv@ibl now."
+Call,CALL0027,2025-04-24 10:29:46,Hinglish,1,Job Offer Scam,Lure,Share ID docs,,3,1,0,0,0,0,0,0,HR: You're shortlisted for a work-from-home role earning ₹5000/month. Senior: Ok. HR: um uh uh Pay training fee ₹199 to confirm. Or submit docs via https://tinyurl.com/QN5mUjD.
+Call,CALL0079,2025-03-02 16:39:20,English,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,1,0,0,1,"Buyer: I'm buying from OLX. I'll send ₹12000 now.
+Senior: Ok.
+Buyer: You will get an OTP. Read it to confirm payment.
+Senior: OTP is private.
+Buyer: No problem, then scan the QR I'll WhatsApp you."
+Call,CALL0049,2025-07-12 22:14:49,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,1,0,0,0,1,"Agent: This is Airtel verification. Your SIM will be deactivated today.
+Senior: Why?
+Agent: KYC pending. Update at https://pay-safe.link/ytjxrp3uok or share OTP."
+Call,CALL0004,2025-05-24 09:29:42,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,1,"Agent: Hello, SBI security desk. Suspicious transaction of ₹50000 detected.
+Senior: Oh no.
+Agent: To block it, please confirm the OTP sent to your phone.
+Senior: I will call the official helpline.
+Agent: If you delay, funds will be lost. Read OTP now."
+Call,CALL0076,2025-11-05 04:48:37,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,1,0,0,1,"Buyer: I'm buying from OLX. I'll send ₹349 now.
+Senior: Ok.
+Buyer: You will get an OTP. Read it to confirm payment.
+Senior: OTP is private.
+Buyer: No problem, then scan the QR I'll WhatsApp you."
+Call,CALL0082,2025-10-20 16:42:02,English,0,Legitimate: OTP/2FA,Action request,No action (info only),OTP,1,0,0,1,0,0,0,0,"Automated: Your OTP for Amazon is 794339. Repeat 794339.
+Senior: Okay."
+Call,CALL0008,2025-11-02 08:38:04,Hinglish,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,1,"Agent: Hello, SBI security desk. Suspicious transaction of ₹349 detected.
+Senior: Oh no.
+Agent: To block it, please confirm the OTP sent to your phone.
+Senior: I will call the official helpline.
+Agent: If you delay, funds will be lost. Read OTP now."
+Call,CALL0012,2025-02-13 14:39:52,Hinglish,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,"Agent: Congratulations! You have won ₹1500 in WhatsApp Promo.
+Senior: Really?
+Agent: Pay processing fee ₹149 to UPI wfzsel@okhdfc to claim."
+Call,CALL0024,2025-12-02 15:09:33,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,"Technician: This is Paytm support. Your device has malware.
+Senior: What should I do?
+Technician: Install AnyDesk. I will guide you. Link: https://rebrand.ly/HsuCOe2"
+Call,CALL0089,2025-06-03 19:04:19,English,0,Legitimate: Appointment Reminder,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Clinic: Hello, confirming your appointment on 18-Oct at 7:00 PM.
+Senior: Yes confirmed, thank you.
+Clinic: Please arrive 10 minutes early."
+Call,CALL0044,2025-11-02 16:16:49,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Agent: Calling from Blue Dart. Your parcel is held at customs.
+Senior: I didn't order anything.
+Agent: Pay clearance ₹49 at https://rebrand.ly/rZppROi within 30 minutes."
+Call,CALL0059,2025-12-08 10:33:34,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,1,"Officer: This is Cyber Crime Cell. Your identity is linked to money laundering.
+Senior: That cannot be true.
+Officer: You are under digital arrest. Do not disconnect.
+Senior: I will come to the police station.
+Officer: No. Verification is online only. Provide Aadhaar number now.
+Officer: Transfer ₹100000 to UPI wwgpyl@okicici for verification. It will be refunded."
+Call,CALL0037,2025-04-27 03:03:57,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,1,"Agent: Pre-approved loan ₹199 ready. Activate with fee ₹499.
+Senior: I did not apply.
+Agent: Offer ends today. Pay via https://t.co/KfzkO2n."
+Call,CALL0063,2025-06-11 04:55:37,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Pay via UPI,Aadhaar,5,0,1,0,0,0,1,0,Officer: This ji is Income Tax Department. Your identity is linked to money laundering. Senior: That cannot be true. Officer: You are under digital arrest. Do not disconnect. Officer: Transfer ₹2500 to UPI tmhlpu@ibl for verification. It will be um refunded.
+Call,CALL0007,2025-04-23 22:05:19,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,1,"Agent: Hello, ICICI security desk. Suspicious transaction of ₹999 detected.
+Senior: Oh no.
+Agent: To block it, please confirm the OTP sent to your phone.
+Senior: I will call the official helpline.
+Agent: If you delay, funds will be lost. Read OTP now."
+Call,CALL0036,2025-10-03 05:41:10,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,1,"Agent: Pre-approved loan ₹199 ready. Activate with fee ₹79.
+Senior: I did not apply.
+Agent: Offer ends today. Pay via https://bit.ly/I3VCzPy."
+Call,CALL0073,2025-08-14 17:53:34,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,0,0,0,1,"Buyer: I'm buying from OLX. I'll send ₹999 now.
+Senior: Ok.
+Buyer: You will get an OTP. Read it to confirm payment."
+Call,CALL0017,2025-11-14 12:47:54,Hinglish,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,0,"Technician: This is Paytm support. Your device has malware.
+Senior: What should I do?
+Technician: Install AnyDesk. I will guide you. Link: https://rebrand.ly/gKIzfKq"
+Call,CALL0092,2025-05-14 13:47:06,Hinglish,0,Legitimate: OTP/2FA,Action request,No action (info only),OTP,1,0,0,1,0,0,0,0,"Automated: Your OTP for Amazon is 274274. Repeat 274274.
+Senior: Okay."
+Call,CALL0080,2025-06-15 07:15:35,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Scan QR / approve collect request,OTP,4,0,0,1,1,0,0,1,"Buyer: I'm buying from Facebook Marketplace. I'll send ₹9900 now.
+Senior: Ok.
+Buyer: You will get an OTP. Read it to confirm payment.
+Senior: OTP is private.
+Buyer: No problem, then scan the QR I'll WhatsApp you."
+Call,CALL0071,2025-08-28 17:38:50,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Caller: Hello, it's me. I'm in trouble. Please don't panic.
+Senior: Who is this?
+Caller: I can't talk. Send ₹50000 to UPI srbvdb@okicici now."
+Call,CALL0069,2025-03-16 06:50:17,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Caller: Hello, it's me. I'm in trouble. Please don't panic.
+Senior: Who is this?
+Caller: I can't talk. Send ₹25000 to UPI qyaqqd@paytm now."
+Call,CALL0009,2025-02-09 19:58:04,English,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,"Agent: Congratulations! You have won ₹9900 in Mega Bumper Draw.
+Senior: Really?
+Agent: Pay processing fee ₹79 to UPI mchsca@ybl to claim."
+Call,CALL0093,2025-12-10 07:33:58,English,0,Legitimate: Appointment Reminder,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Clinic: Hello, confirming ji your appointment on 10-Aug at 2:30 PM. sir Senior: Yes confirmed, thank you. Clinic: Please arrive 10 minutes early. [inaudible]"
+Call,CALL0050,2025-12-09 05:39:29,English,1,Telecom/Utility / KYC Scam,Action request,Share OTP,PAN,4,1,0,1,0,0,0,1,"Agent: This is BSNL verification. Your SIM will be deactivated today.
+Senior: Why?
+Agent: KYC pending. Update at https://bank-kycverify.com/j9x5ar9kt8 or share OTP.
+Agent: Also note MSEB bill overdue. Pay to avoid disconnection."
+Call,CALL0010,2025-09-24 14:24:08,English,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,sir Agent: Congratulations! You have won ma'am ₹999 in New Year Bonanza. Senior: Really? Agent: Pay processing fee ₹49 to UPI byvmfj@paytm to claim. haan
+Call,CALL0066,2025-03-07 11:56:39,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Caller: Hello, it's me. I'm in trouble. Please don't panic.
+Senior: Who is this?
+Caller: I can't talk. Send ₹499 to UPI qdeboj@paytm now."
+Call,CALL0072,2025-06-21 16:16:23,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,1,"Caller: Hello, it's me. I'm in trouble. Please don't panic. Senior: Who is this? Caller: I can't talk. Send sir ₹25000 ji to UPI jeegzq@okicici now."
+Call,CALL0016,2025-10-21 01:06:43,English,1,Lottery/Prize Scam,Lure,Pay via UPI,,4,0,1,0,0,0,0,0,Agent: Congratulations! You have um won ₹100000 in New uh Year Bonanza. Senior: Really? Agent: Pay processing fee ₹149 to UPI anhido@okhdfc to claim.
+Call,CALL0041,2025-03-13 16:10:10,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,1,"Agent: Calling from FedEx. Your parcel is held at customs.
+Senior: I didn't order anything.
+Agent: Pay clearance ₹299 at https://bit.ly/Pp71nxU within 30 minutes."
+Call,CALL0091,2025-09-30 19:11:51,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"Bank Agent: Hello, thank you for calling ICICI. How may I help you?
+Senior: I want to verify a transaction I received an alert for.
+Bank Agent: Please confirm last 4 digits of your account.
+Senior: It is 3560.
+Bank Agent: Thank you. I can see the transaction status in your account."
+Call,CALL0099,2025-02-07 21:12:24,English,0,Legitimate: Appointment Reminder,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,"Clinic: Hello, confirming your appointment on 21-May at 10:00 AM.
+Senior: Yes confirmed, thank you.
+Clinic: Please arrive 10 minutes early."
+AudioTranscript,AUD0055,2025-06-16 03:37:40,Hinglish,1,Telecom/Utility / KYC Scam,Escalation/Threat,Click link,,4,1,0,0,0,0,0,0,[Voicemail] TNEB bill overdue. Pay ₹200000 at https://rebrand.ly/uwfg9Ui to avoid disconnection. Jaldi.
+AudioTranscript,AUD0048,2025-12-17 05:30:40,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,0,[Automated Voice] Blue Dart: Parcel held at customs. Pay clearance fee ₹49 at https://cutt.ly/eIxh7yR.
+AudioTranscript,AUD0009,2025-07-28 05:21:30,English,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,[Automated Voice] Congratulations! Prize ₹999 in New Year Bonanza. Pay processing ₹999 to UPI wqfmth@ibl.
+AudioTranscript,AUD0079,2025-09-22 18:54:47,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,[Voicemail] Buyer payment pending. Share OTP to receive ₹200000.
+AudioTranscript,AUD0090,2025-06-30 23:54:57,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,[Voicemail] Airtel plan expires on 21-Nov. Renew in official app or https://axisbank.com/ghr5suvdr2.
+AudioTranscript,AUD0017,2025-11-18 08:17:01,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,[Automated Voice] Paytm support. Malware detected. Install AnyDesk from https://support-helpdesk.in/g98kxmu31r now.
+AudioTranscript,AUD0100,2025-04-01 16:11:13,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,sir [Voicemail] Vi plan expires on 23-Mar. Renew in official app um ji or https://hdfcbank.com/5drmal7a11.
+AudioTranscript,AUD0022,2025-11-11 03:36:15,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,[Automated Voice] Paytm support. Malware detected. Install Remote Assist from https://track-parcel.in/tijo5p4cr8 now.
+AudioTranscript,AUD0053,2025-05-06 13:15:54,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,0,0,0,0,1,[Automated Voice] Your BSNL SIM will be deactivated today. Update KYC at https://bank-kycverify.com/xdgve463ox.
+AudioTranscript,AUD0078,2025-06-16 14:33:50,Hinglish,1,Marketplace / Refund / UPI Scam,Action request,Click link,Bank credentials,3,1,0,0,0,0,0,0,[Automated Voice] Refund um of ₹200000 pending. Confirm your bank details at uh https://cybercrime-case.in/bjuzetwfqe. uh
+AudioTranscript,AUD0044,2025-03-19 06:33:42,Hinglish,1,Delivery/Courier / Customs Scam,Action request,Click link,,3,1,0,0,0,0,0,0,[Voicemail] Address verification failed. Reschedule at https://gpay-help.in/3ngxcpdvna.
+AudioTranscript,AUD0007,2025-07-05 06:44:29,English,1,Bank/KYC Fraud,Action request,Click link,PAN,4,1,0,0,0,0,1,1,[Voicemail] KYC pending. Update now at https://bit.ly/CdVKO48 to avoid account freeze.
+AudioTranscript,AUD0015,2025-11-07 01:00:33,Hinglish,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,[Automated Voice] Congratulations! Prize ₹1500 in KBC. Pay processing ₹49 to UPI ejgkha@ibl.
+AudioTranscript,AUD0029,2025-04-14 06:56:04,English,1,Job Offer Scam,Lure,Click link,,3,0,0,0,0,0,0,0,[Voicemail] HR update: job offer confirmed. Pay registration fee ₹79 at
+AudioTranscript,AUD0006,2025-05-22 17:59:33,English,1,Bank/KYC Fraud,Action request,Click link,PAN,4,1,0,0,0,0,1,1,[Voicemail] KYC pending. Update now at https://bit.ly/1tnbZcM ma'am to ma'am avoid account freeze.
+AudioTranscript,AUD0031,2025-05-24 20:27:23,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,[Voicemail] HR update: job offer confirmed. Pay registration fee ₹199 at https://tinyurl.com/YmY0Iiq.
+AudioTranscript,AUD0052,2025-08-13 19:07:18,Hinglish,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,0,0,0,0,1,[Automated Voice] Your Vi ma'am SIM okay ji will be deactivated today. Update KYC at https://verify-now.co/rrbsu9lyjo.
+AudioTranscript,AUD0008,2025-08-05 17:21:04,English,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,1,[Automated Voice] Axis alert: suspicious transaction of ₹199. Share OTP to block immediately.
+AudioTranscript,AUD0083,2025-09-10 00:49:12,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,[Voicemail] Airtel plan expires on 15-Dec. Renew in official app or https://hdfcbank.com/gsqfnd1c9m.
+AudioTranscript,AUD0039,2025-11-16 04:03:28,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,0,[Automated Voice] Pre-approved loan ₹9900. Activate by paying fee ₹199 at https://tinyurl.com/tLoGefn.
+AudioTranscript,AUD0097,2025-07-29 06:28:42,Hinglish,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,[Voicemail] Vi plan expires on 31-Mar. Renew in um official um app or https://sbi.co.in/...
+AudioTranscript,AUD0030,2025-09-11 19:34:17,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,um [Voicemail] HR update: job offer confirmed. ma'am Pay registration fee ₹99 at https://cutt.ly/DIIPBYe.
+AudioTranscript,AUD0085,2025-05-06 20:47:31,English,0,Legitimate: Delivery Update,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,1,[Voicemail] FedEx delivery scheduled today. Track: https://sbi.co.in/ib29jlu14e
+AudioTranscript,AUD0021,2025-09-04 10:36:08,English,1,Tech Support / Remote Access Scam,Lure,Call number,,3,0,0,0,0,1,0,0,[Voicemail] Security issue uh detected. Call +91-93808-23954 for assistance. ma'am
+AudioTranscript,AUD0024,2025-03-22 13:32:52,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,[Automated Voice] Apple sir support. Malware detected. Install QuickSupport from https://verify-now.co/r4zk3fu3q9 now. [inaudible]
+AudioTranscript,AUD0026,2025-06-02 10:17:09,English,1,Job Offer Scam,Lure,Click link,,3,0,0,0,0,0,0,0,[Voicemail] HR sir update: job offer confirmed. Pay okay registration fee ₹149 at [inaudible]
+AudioTranscript,AUD0059,2025-10-28 08:29:23,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,Aadhaar,5,0,0,0,0,0,0,1,[Automated Voice] This is Income Tax Department. Your identity is linked to a criminal case. Press 1 to verify now.
+AudioTranscript,AUD0069,2025-12-02 10:50:03,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"[Voice Note] Mom, it's me. Emergency hai. ₹2500 UPI puoqoy@ybl abhi. Please don't call."
+AudioTranscript,AUD0045,2025-09-22 14:49:48,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,1,0,0,0,0,0,0,[Automated Voice] India Post: Parcel held at customs. Pay clearance fee ₹149 at https://rebrand.ly/16t3vpQ.
+AudioTranscript,AUD0062,2025-04-11 00:39:39,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,Aadhaar,5,0,0,0,0,0,0,1,[Automated Voice] This is Cyber Crime Cell. Your identity is linked to a criminal case. Press 1 to verify now.
+AudioTranscript,AUD0064,2025-03-19 03:04:17,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,Aadhaar,5,0,0,0,0,0,0,1,[Automated Voice] This is Police Control Room. Your sir identity is linked to a haan criminal case. Press 1 to verify sir now.
+AudioTranscript,AUD0019,2025-08-03 06:30:00,Hinglish,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,[Automated Voice] Apple support. Malware detected. Install AnyDesk from https://track-parcel.in/bsen1qrst8 now.
+AudioTranscript,AUD0043,2025-02-27 18:16:15,Hinglish,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,0,0,0,0,0,0,0,[Automated Voice] Amazon Logistics: Parcel held at customs. Pay clearance fee ₹79 at Jaldi.
+AudioTranscript,AUD0041,2025-10-16 10:16:14,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,0,0,0,0,0,0,0,[Automated Voice] Delhivery: haan Parcel held at customs. Pay clearance fee ₹149 at [inaudible]
+AudioTranscript,AUD0040,2025-06-20 11:20:31,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,0,0,0,0,0,0,0,[Automated Voice] Pre-approved loan ₹12000. Activate by paying fee haan ₹2...
+AudioTranscript,AUD0012,2025-05-21 00:07:54,English,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,[Automated Voice] Congratulations! Prize ₹499 in Mega haan Bumper Draw. Pay uh processing ₹299 to UPI ayrosv@okicici.
+AudioTranscript,AUD0093,2025-08-09 09:21:47,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"[Automated Voice] Canara alert. Debit of ₹199 occurred. If not you, call official helpline."
+AudioTranscript,AUD0034,2025-03-22 06:07:42,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,0,[Automated Voice] Pre-approved loan ₹999. Activate by paying sir fee ₹999 um at https://cutt.ly/qbPhxQb. [inaudible]
+AudioTranscript,AUD0087,2025-04-13 16:33:10,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"[Automated Voice] Axis alert. Debit of ₹2500 occurred. If um not ma'am you, call official..."
+AudioTranscript,AUD0056,2025-09-07 01:08:44,English,1,Telecom/Utility / KYC Scam,Escalation/Threat,Click link,,4,1,0,0,0,0,0,0,[Voicemail] MSEB bill overdue. Pay ₹499 at https://bit.ly/uce5o6C to avoid disconnection.
+AudioTranscript,AUD0033,2025-11-19 07:01:02,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,0,0,0,0,0,0,0,[Automated Voice] Pre-approved loan ₹50000. Activate by paying fee ₹199 at
+AudioTranscript,AUD0057,2025-06-10 21:25:34,English,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,Aadhaar,5,0,0,0,0,0,0,1,sir [Automated Voice] This is CBI. Your identity is okay linked to a criminal case. Press 1 to verify now. [inaudible]
+AudioTranscript,AUD0028,2025-11-05 05:23:27,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,haan [Voicemail] HR update: job offer confirmed. sir Pay registration fee ₹49 at https://tinyurl.com/zdmKIXD.
+AudioTranscript,AUD0023,2025-07-03 11:31:58,English,1,Tech Support / Remote Access Scam,Action request,Install remote-support app,,4,1,0,0,0,0,0,1,[Automated Voice] Paytm support. Malware detected. Install TeamViewer from https://pay-safe.link/9ieshi7bsq now.
+AudioTranscript,AUD0049,2025-10-16 00:59:43,English,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,0,0,0,0,1,[Automated Voice] Your BSNL SIM will be deactivated today. Update KYC at https://secure-kyc-update.in/532g1vr0zl.
+AudioTranscript,AUD0002,2025-03-21 00:58:50,English,1,Bank/KYC Fraud,Action request,Click link,PAN,4,1,0,0,0,0,1,1,[Voicemail] KYC pending. Update now at https://t.co/XgW3mlT to avoid account freeze.
+AudioTranscript,AUD0096,2025-03-26 18:29:27,English,0,Legitimate: Service Notification,No action (info only),Visit official app/website,,1,1,0,0,0,0,0,0,[Voicemail] Vi plan expires on 09-Feb. Renew in official app or https://passportindia.gov.in/z396lktf46.
+AudioTranscript,AUD0003,2025-07-10 12:56:50,Hinglish,1,Bank/KYC Fraud,Action request,Share OTP,OTP,5,0,0,1,0,0,0,1,[Automated Voice] SBI alert: suspicious transaction of ₹349. Share OTP to block immediately.
+AudioTranscript,AUD0010,2025-06-29 00:39:07,English,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,[Automated Voice] Congratulations! Prize ₹7500 in WhatsApp Promo. Pay processing ₹99 to UPI nnvwzj@okhdfc.
+AudioTranscript,AUD0091,2025-08-09 19:19:22,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"[Automated Voice] Axis alert. Debit of ₹200000 occurred. If not you, call official helpline."
+AudioTranscript,AUD0066,2025-10-10 22:48:07,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"[Voice Note] Mom, it's me. Emergency hai. ₹999 UPI ovvphf@ibl abhi. Please don't call."
+AudioTranscript,AUD0032,2025-12-15 15:32:48,English,1,Job Offer Scam,Lure,Click link,,3,1,0,0,0,0,0,0,[Voicemail] HR update: job offer confirmed. Pay registration fee ₹499 at https://bit.ly/Yl5aKOi.
+AudioTranscript,AUD0038,2025-09-21 20:41:03,English,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,0,0,0,0,0,0,0,[Automated Voice] Pre-approved loan ₹7500. Activate by paying fee ₹79 at
+AudioTranscript,AUD0058,2025-10-17 13:03:02,English,1,Government/Authority Impersonation (incl. Digital Arrest),Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,1,0,uh [Automated Voice] You are under ji digital arrest. Stay on line and transfer ₹999 to UPI haan ellvnu@okhdfc. [inaudible]
+AudioTranscript,AUD0042,2025-04-01 05:21:59,English,1,Delivery/Courier / Customs Scam,Payment/Transfer,Click link,,4,0,0,0,0,0,0,0,ji [Automated ma'am Voice] DTDC: Parcel held sir at customs. Pay clearance fee ₹49 at [inaudible]
+AudioTranscript,AUD0035,2025-03-20 22:43:04,Hinglish,1,Loan/Investment Scam,Payment/Transfer,Click link,,3,1,0,0,0,0,0,0,[Automated Voice] Pre-approved loan ₹2500. Activate by paying fee ₹299 at https://cutt.ly/WztB6ct.
+AudioTranscript,AUD0073,2025-10-11 05:39:31,English,1,Marketplace / Refund / UPI Scam,Action request,Share OTP,OTP,4,0,0,1,0,0,0,0,[Voicemail] Buyer payment pending. Share OTP to receive ₹2500.
+AudioTranscript,AUD0076,2025-03-31 17:38:52,English,1,Marketplace / Refund / UPI Scam,Action request,Click link,Bank credentials,3,0,0,0,0,0,0,0,[Automated Voice] Refund of ₹50000 pending. Confirm your bank details at
+AudioTranscript,AUD0089,2025-11-10 19:02:51,English,0,Legitimate: Personal Chat,No action (info only),No action (info only),,1,0,0,0,0,0,0,0,[Voice Note] Hi! Just wanted to check if you reached home. Call when free.
+AudioTranscript,AUD0074,2025-05-13 07:30:14,English,1,Marketplace / Refund / UPI Scam,Action request,Click link,Bank credentials,3,1,0,0,0,0,0,0,[Automated Voice] Refund uh of ₹50000 um pending. Confirm your bank um details at https://bank-kycverify.com/zbvv9xhu...
+AudioTranscript,AUD0063,2025-03-16 15:59:53,Hinglish,1,Government/Authority Impersonation (incl. Digital Arrest),Escalation/Threat,Call number,Aadhaar,5,0,0,0,0,0,0,1,[Automated Voice] This is CBI. Your identity is linked ji to a criminal case. sir ma'am Press 1 to verify now.
+AudioTranscript,AUD0068,2025-05-18 09:31:01,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"[Voice Note] Mom, it's me. Emergency hai. ₹349 UPI sslsty@oksbi abhi. Please don't call."
+AudioTranscript,AUD0005,2025-09-12 23:28:46,English,1,Bank/KYC Fraud,Action request,Click link,PAN,4,1,0,0,0,0,1,1,[Voicemail] KYC pending. Update now at https://t.co/plNQG6p to avoid account okay freeze.
+AudioTranscript,AUD0013,2025-10-27 04:51:22,English,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,[Automated Voice] Congratulations! Prize ₹25000 in Festival Lucky Draw. Pay processing ₹199 to UPI ylnhit@ybl.
+AudioTranscript,AUD0092,2025-12-02 09:33:08,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"[Automated Voice] Canara alert. Debit of ₹12000 occurred. If not you, call official helpline."
+AudioTranscript,AUD0050,2025-04-11 23:42:59,English,1,Telecom/Utility / KYC Scam,Action request,Click link,PAN,4,1,0,0,0,0,0,1,[Automated Voice] Your Vi SIM will be deactivated today. Update KYC at https://secure-kyc-update.in/tihkerz3a8.
+AudioTranscript,AUD0016,2025-04-23 09:52:26,Hinglish,1,Lottery/Prize Scam,Payment/Transfer,Pay via UPI,,4,0,1,0,0,0,0,0,[Automated Voice] Congratulations! Prize ₹1500 in Mega Bumper Draw. Pay processing ₹99 to UPI nfjatv@ibl.
+AudioTranscript,AUD0067,2025-06-05 11:43:06,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"[Voice Note] Mom, it's me. Emergency hai. ₹349 UPI ngljuz@okicici abhi. Please don't call."
+AudioTranscript,AUD0072,2025-05-04 14:00:16,English,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"[Voice Note] Mom, okay ma'am it's me. Emergency sir hai. ₹12000 UPI giabzs@okicici abhi. Please don't call."
+AudioTranscript,AUD0080,2025-06-25 03:14:39,English,1,Marketplace / Refund / UPI Scam,Action request,Click link,Bank credentials,3,1,0,0,0,0,0,0,[Automated Voice] Refund of ₹12000 pending. Confirm your bank details at https://pay-safe.link/vk4st3qgpc.
+AudioTranscript,AUD0070,2025-10-29 05:18:40,Hinglish,1,Family/Friend Impersonation,Payment/Transfer,Pay via UPI,,5,0,1,0,0,0,0,0,"[Voice Note] Mom, it's me. Emergency hai. ₹499 UPI cpfjtf@ibl abhi. Please don't call."
+AudioTranscript,AUD0088,2025-03-25 18:05:22,English,0,Legitimate: OTP/2FA,Action request,Visit official app/website,OTP,1,0,0,1,0,0,0,0,[Automated Voice] Your OTP for Paytm is 428355. Repeat 428355. Do not share it.
+AudioTranscript,AUD0099,2025-11-23 09:57:53,English,0,Legitimate: Bank Alert,No action (info only),Visit official app/website,,1,0,0,0,0,0,0,0,"[Automated uh ji Voice] PNB alert. Debit of ₹25000 occurred. If not you, call official helpline. haan"
