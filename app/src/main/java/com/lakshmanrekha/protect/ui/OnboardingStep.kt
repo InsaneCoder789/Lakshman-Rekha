@@ -5,6 +5,7 @@ enum class OnboardingStep {
     WELCOME,
     MODE_EXPLANATION,
     PROFILE,
+    PERMISSIONS,
     TRUSTED_CONTACTS,
     DONE
 }

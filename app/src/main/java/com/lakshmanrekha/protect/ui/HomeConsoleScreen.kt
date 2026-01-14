@@ -1,7 +1,6 @@
 package com.lakshmanrekha.protect.ui
 
-import androidx.compose.animation.*
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,16 +8,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Shield
-import androidx.compose.material.icons.rounded.MenuBook
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lakshmanrekha.protect.core.CoachLauncher
@@ -29,186 +29,159 @@ import com.lakshmanrekha.protect.utils.*
 @Composable
 fun HomeConsoleScreen() {
     val context = LocalContext.current
-
     val threats = ThreatLogger.getThreats()
     val systemLogs = ThreatLogger.getSystemLogs()
     val currentMode = AppState.protectionMode
+    val isHindi = LanguageManager.isHindi()
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 20.dp)
-        ) {
+    // Brand Colors
+    val bgBlue = Color(0xFF0D47A1)
+    val cardSurface = Color(0xFF1565C0)
 
-            Spacer(Modifier.height(32.dp))
+    // Shield Rotation
+    val infiniteTransition = rememberInfiniteTransition(label = "rotation")
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = 0f, targetValue = 360f,
+        animationSpec = infiniteRepeatable(tween(30000, easing = LinearEasing)), label = "rotate"
+    )
 
-            // 👋 Greeting
-            Text(
-                text = Strings.greeting(AppState.name),
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 28.sp
-                )
+    Surface(modifier = Modifier.fillMaxSize(), color = bgBlue) {
+        Box(modifier = Modifier.fillMaxSize()) {
+
+            // --- BACKGROUND SHIELD WATERMARK ---
+            Icon(
+                imageVector = Icons.Rounded.Shield,
+                contentDescription = null,
+                tint = Color.White.copy(alpha = 0.04f),
+                modifier = Modifier
+                    .size(500.dp)
+                    .align(Alignment.Center)
+                    .rotate(rotation)
             )
 
-            Spacer(Modifier.height(20.dp))
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(24.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                // 1. GREETING
+                item {
+                    Spacer(Modifier.height(32.dp))
+                    Text(
+                        text = Strings.greeting(AppState.name),
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = FontWeight.Black,
+                            fontSize = 34.sp,
+                            color = Color.White
+                        )
+                    )
+                    Text(
+                        text = if (isHindi) "आज आप पूरी तरह सुरक्षित हैं" else "Your perimeter is secure today",
+                        color = Color.White.copy(alpha = 0.6f),
+                        fontSize = 16.sp
+                    )
+                }
 
-            // 🛡️ Status
-            StatusCard(currentMode)
+                // 2. STATUS CARD (Upgraded Pulse)
+                item { StatusCard(currentMode) }
 
-            // 🧠 COACH ENTRY (NEW)
-            Spacer(Modifier.height(16.dp))
-            CoachEntryCard(context)
+                // 3. COACH ENTRY (Branded)
+                item { CoachEntryCard(context, isHindi, cardSurface) }
 
-            Spacer(Modifier.height(24.dp))
+                // 4. MODE SELECTOR (Branded Label)
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(
+                            text = if (isHindi) "सुरक्षा मोड चुनें" else "Protection Level",
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontWeight = FontWeight.Black,
+                                color = Color.White
+                            )
+                        )
+                        ProtectionModeSelector(context)
+                    }
+                }
 
-            Text(
-                text = if (LanguageManager.isHindi()) "वर्तमान सुरक्षा" else "Current Protection",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.secondary
-            )
+                // 5. ACTIVITY HEADER
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = Strings.recentActivity(),
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Black,
+                                color = Color.White
+                            )
+                        )
+                        if (threats.isNotEmpty()) {
+                            Text(
+                                text = "${threats.size} Logs",
+                                color = Color.White.copy(alpha = 0.5f),
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
 
-            Spacer(Modifier.height(8.dp))
-
-            // 🔁 Mode selector
-            ProtectionModeSelector(context)
-
-            Spacer(Modifier.height(32.dp))
-
-            Text(
-                text = Strings.recentActivity(),
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-            )
-
-            Spacer(Modifier.height(12.dp))
-
-            // 🚨 Threat List
-            Box(modifier = Modifier.weight(1f)) {
+                // 6. THREAT LIST
                 if (threats.isEmpty()) {
-                    EmptyThreatState()
+                    item { EmptyThreatState() }
                 } else {
-                    ThreatList(threats = threats)
+                    items(threats) { threat ->
+                        ThreatItem(threat, cardSurface)
+                    }
+                }
+
+                // 7. FOOTER LOGS
+                item {
+                    SystemLogsFooter(systemLogs)
+                    Spacer(Modifier.height(40.dp))
                 }
             }
-
-            // ⚙️ Logs
-            SystemLogsFooter(systemLogs)
         }
     }
 }
-
-/* -------------------------------------------------------------------------- */
-/*                               COACH ENTRY                                  */
-/* -------------------------------------------------------------------------- */
-
-@Composable
-private fun CoachEntryCard(context: android.content.Context) {
-    Card(
-        onClick = { CoachLauncher.launch(context) },
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
-        )
-    ) {
-        Row(
-            modifier = Modifier.padding(20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .background(
-                        MaterialTheme.colorScheme.primary,
-                        CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    Icons.Rounded.MenuBook,
-                    contentDescription = null,
-                    tint = Color.White
-                )
-            }
-
-            Spacer(Modifier.width(16.dp))
-
-            Column {
-                Text(
-                    text = if (LanguageManager.isHindi())
-                        "सुरक्षा मार्गदर्शिका"
-                    else
-                        "Safety Guide",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 18.sp
-                )
-
-                Text(
-                    text = if (LanguageManager.isHindi())
-                        "ठगी से बचने के तरीके सीखें"
-                    else
-                        "Learn how scams work & how to stay safe",
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
-    }
-}
-
-/* -------------------------------------------------------------------------- */
-/*                               EXISTING UI                                  */
-/* -------------------------------------------------------------------------- */
 
 @Composable
 private fun StatusCard(mode: ProtectionMode) {
     val statusColor = protectionColor()
-
-    val animatedBgColor by animateColorAsState(
-        targetValue = statusColor.copy(alpha = 0.1f),
-        animationSpec = tween(500),
-        label = "BgAnimation"
+    val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+    val pulseSize by infiniteTransition.animateFloat(
+        initialValue = 44f, targetValue = 60f,
+        animationSpec = infiniteRepeatable(tween(1200), RepeatMode.Reverse), label = "pulse"
     )
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = animatedBgColor),
-        border = androidx.compose.foundation.BorderStroke(1.dp, statusColor.copy(alpha = 0.3f))
+        shape = RoundedCornerShape(32.dp),
+        colors = CardDefaults.cardColors(containerColor = statusColor.copy(alpha = 0.15f)),
+        border = androidx.compose.foundation.BorderStroke(1.dp, statusColor.copy(alpha = 0.4f))
     ) {
         Row(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier.padding(24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .size(56.dp)
-                    .background(statusColor, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(Icons.Rounded.Shield, null, tint = Color.White)
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.size(60.dp)) {
+                Box(Modifier.size(pulseSize.dp).background(statusColor.copy(alpha = 0.2f), CircleShape))
+                Surface(Modifier.size(48.dp), shape = CircleShape, color = statusColor) {
+                    Icon(Icons.Rounded.GppGood, null, tint = Color.White, modifier = Modifier.padding(10.dp))
+                }
             }
-
-            Spacer(Modifier.width(16.dp))
-
+            Spacer(Modifier.width(20.dp))
             Column {
                 Text(
                     text = Strings.protectionStatus(),
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.ExtraBold,
-                        color = statusColor,
-                        fontSize = 22.sp
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        fontWeight = FontWeight.Black, color = Color.White
                     )
                 )
                 Text(
-                    text = "System: ${mode.name}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = statusColor.copy(alpha = 0.8f)
+                    text = "Mode: ${mode.name}",
+                    fontWeight = FontWeight.Bold,
+                    color = statusColor
                 )
             }
         }
@@ -216,47 +189,77 @@ private fun StatusCard(mode: ProtectionMode) {
 }
 
 @Composable
-private fun ThreatItem(threat: Threat) {
+private fun CoachEntryCard(context: android.content.Context, isHindi: Boolean, surface: Color) {
+    Card(
+        onClick = { CoachLauncher.launch(context) },
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = surface),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
+    ) {
+        Row(
+            modifier = Modifier.padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(Modifier.size(44.dp), shape = CircleShape, color = Color.White.copy(alpha = 0.15f)) {
+                Icon(Icons.Rounded.AutoStories, null, tint = Color.White, modifier = Modifier.padding(10.dp))
+            }
+            Spacer(Modifier.width(16.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = if (isHindi) "सुरक्षा मार्गदर्शिका" else "Safety Guide",
+                    fontWeight = FontWeight.Black, fontSize = 18.sp, color = Color.White
+                )
+                Text(
+                    text = if (isHindi) "धोखाधड़ी से कैसे बचें" else "Master scam detection",
+                    fontSize = 14.sp, color = Color.White.copy(alpha = 0.6f)
+                )
+            }
+            Icon(Icons.Rounded.ArrowForwardIos, null, tint = Color.White.copy(alpha = 0.4f), modifier = Modifier.size(16.dp))
+        }
+    }
+}
+
+@Composable
+private fun ThreatItem(threat: Threat, surface: Color) {
     val color = when (threat.level) {
-        ThreatLevel.SAFE -> Color(0xFF2E7D32)
-        ThreatLevel.CAUTION -> Color(0xFFF9A825)
-        ThreatLevel.RISKY -> Color(0xFFE65100)
-        ThreatLevel.DANGEROUS -> Color(0xFFB71C1C)
+        ThreatLevel.SAFE -> Color(0xFF66BB6A)
+        ThreatLevel.CAUTION -> Color(0xFFFFA726)
+        ThreatLevel.RISKY -> Color(0xFFFF7043)
+        ThreatLevel.DANGEROUS -> Color(0xFFEF5350)
     }
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp)
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.cardColors(containerColor = surface),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.05f))
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-
+        Column(modifier = Modifier.padding(20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    modifier = Modifier
-                        .width(6.dp)
-                        .height(40.dp)
-                        .clip(CircleShape)
-                        .background(color)
-                )
-
+                Surface(
+                    Modifier.size(42.dp),
+                    shape = CircleShape,
+                    color = color.copy(0.15f),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(0.3f))
+                ) {
+                    Icon(Icons.Rounded.Radar, null, tint = color, modifier = Modifier.padding(10.dp))
+                }
                 Spacer(Modifier.width(16.dp))
-
                 Column {
                     Text(
                         text = threat.level.name,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = color
+                        fontWeight = FontWeight.Black,
+                        color = color,
+                        fontSize = 18.sp
                     )
                     threat.reasons.forEach {
-                        Text(it, style = MaterialTheme.typography.bodyMedium)
+                        Text(it, fontSize = 14.sp, color = Color.White.copy(alpha = 0.7f))
                     }
                 }
             }
-
-            // ✅ ONE-TAP ACTIONS HERE
             if (threat.level != ThreatLevel.SAFE) {
+                Spacer(Modifier.height(16.dp))
                 ThreatActionRow(threat)
             }
         }
@@ -266,47 +269,45 @@ private fun ThreatItem(threat: Threat) {
 @Composable
 private fun EmptyThreatState() {
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier.fillMaxWidth().padding(vertical = 40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = Strings.noThreats(),
-            fontSize = 18.sp,
-            color = Color.Gray
-        )
+        Icon(Icons.Rounded.Verified, null, tint = Color.White.copy(alpha = 0.1f), modifier = Modifier.size(64.dp))
+        Spacer(Modifier.height(12.dp))
+        Text(text = Strings.noThreats(), color = Color.White.copy(alpha = 0.4f), fontWeight = FontWeight.Bold)
     }
 }
 
 @Composable
 private fun SystemLogsFooter(logs: List<String>) {
-    Column(Modifier.padding(vertical = 16.dp)) {
-        HorizontalDivider(
-            modifier = Modifier.padding(bottom = 8.dp),
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
-        )
-        Text("System Logs", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-        logs.takeLast(1).forEach {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = Color.Black.copy(alpha = 0.2f),
+        shape = RoundedCornerShape(20.dp)
+    ) {
+        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.Rounded.Terminal, null, tint = Color.White.copy(alpha = 0.3f), modifier = Modifier.size(16.dp))
+            Spacer(Modifier.width(12.dp))
             Text(
-                text = "> $it",
-                fontSize = 12.sp,
-                color = Color.Gray.copy(alpha = 0.6f)
+                text = logs.lastOrNull() ?: "System Standby",
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.White.copy(alpha = 0.5f),
+                fontWeight = FontWeight.Medium
             )
         }
     }
 }
 
-private fun protectionColor(): Color =
-    when (AppState.protectionMode) {
-        ProtectionMode.RAKSHA -> Color(0xFF1A73E8)
-        ProtectionMode.LAKSHMAN -> Color(0xFF34A853)
-        ProtectionMode.SAATHI -> Color(0xFFFBBC04)
-        else -> Color(0xFFD93025)
-    }
+private fun protectionColor(): Color = when (AppState.protectionMode) {
+    ProtectionMode.RAKSHA -> Color(0xFF42A5F5)
+    ProtectionMode.LAKSHMAN -> Color(0xFF66BB6A)
+    ProtectionMode.SAATHI -> Color(0xFFFFCA28)
+    else -> Color(0xFFEF5350)
+}
 
+// --- PREVIEW ---
+@Preview
 @Composable
-private fun ThreatList(threats: List<Threat>) {
-    LazyColumn {
-        items(threats) { ThreatItem(it) }
-    }
+fun PreviewHome() {
+    MaterialTheme { HomeConsoleScreen() }
 }

@@ -11,16 +11,21 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Shield
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -37,10 +42,7 @@ class SOSActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // 🔴 Send SOS automatically when screen opens (after permission)
         requestSmsPermissionIfNeeded()
-
         setContent {
             SOSScreen {
                 finish()
@@ -61,14 +63,11 @@ class SOSActivity : ComponentActivity() {
     }
 
     private fun sendSosMessages() {
-
         if (AppState.trustedContacts.isEmpty()) {
             ThreatLogger.logSystem("SOS aborted: no trusted contacts")
             return
         }
-
         val smsManager = SmsManager.getDefault()
-
         val message =
             if (LanguageManager.isHindi())
                 "🚨 आपातकालीन संदेश!\nमुझे तुरंत मदद की आवश्यकता है। कृपया संपर्क करें।"
@@ -82,124 +81,163 @@ class SOSActivity : ComponentActivity() {
                 ThreatLogger.logSystem("SOS SMS failed to $number")
             }
         }
-
         ThreatLogger.logSystem("🚨 SOS SMS sent to trusted contacts")
     }
 }
 
 @Composable
 fun SOSScreen(onDismiss: () -> Unit) {
-
     val isHindi = LanguageManager.isHindi()
+    val bgBlue = Color(0xFF0D47A1)
+    val sosRed = Color(0xFFB71C1C)
 
-    // Pulse animation
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
-    val alpha by infiniteTransition.animateFloat(
-        initialValue = 0.4f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1000),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "alpha"
+
+    // Background Rotation for the Shield
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = 0f, targetValue = 360f,
+        animationSpec = infiniteRepeatable(tween(20000, easing = LinearEasing)), label = "rotate"
     )
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFB71C1C))
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Red.copy(alpha = alpha * 0.3f))
-        )
+    // Intense Red Pulse
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 0.2f, targetValue = 0.6f,
+        animationSpec = infiniteRepeatable(tween(800), RepeatMode.Reverse), label = "alpha"
+    )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
+    Surface(modifier = Modifier.fillMaxSize(), color = bgBlue) {
+        Box(modifier = Modifier.fillMaxSize()) {
 
-            Spacer(Modifier.height(40.dp))
+            // Branded Watermark
+            Icon(
+                imageVector = Icons.Rounded.Shield,
+                contentDescription = null,
+                tint = Color.White.copy(alpha = 0.05f),
+                modifier = Modifier
+                    .size(480.dp)
+                    .align(Alignment.Center)
+                    .rotate(rotation)
+            )
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    imageVector = Icons.Rounded.Warning,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(80.dp)
-                )
+            // Emergency Red Overlay
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(sosRed.copy(alpha = alpha))
+            )
 
-                Spacer(Modifier.height(24.dp))
-
-                Text(
-                    text = if (isHindi) "आपातकालीन स्थिति!" else "EMERGENCY ACTIVE",
-                    color = Color.White,
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    textAlign = TextAlign.Center
-                )
-            }
-
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = Color.White.copy(alpha = 0.15f)
-                ),
-                shape = RoundedCornerShape(24.dp),
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Column(
-                    modifier = Modifier.padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+                Spacer(Modifier.height(40.dp))
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    // Pulsing Warning Icon
+                    Box(contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(120.dp).alpha(alpha).background(Color.White, CircleShape))
+                        Surface(
+                            modifier = Modifier.size(90.dp),
+                            shape = CircleShape,
+                            color = Color.White,
+                            shadowElevation = 12.dp
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Warning,
+                                contentDescription = null,
+                                tint = sosRed,
+                                modifier = Modifier.padding(20.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.height(32.dp))
+
                     Text(
-                        text = if (isHindi)
-                            "आपके विश्वसनीय संपर्कों को सूचित किया जा रहा है।"
-                        else
-                            "Alerting your trusted contacts now.",
+                        text = if (isHindi) "आपातकालीन स्थिति!" else "EMERGENCY ACTIVE",
                         color = Color.White,
-                        fontSize = 20.sp,
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Black,
                         textAlign = TextAlign.Center
                     )
 
-                    Spacer(Modifier.height(12.dp))
-
-                    Text(
-                        text = if (isHindi)
-                            "शांत रहें, मदद रास्ते में है।"
-                        else
-                            "Stay calm. Help is on the way.",
-                        color = Color.White.copy(alpha = 0.8f),
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center
-                    )
+                    Surface(
+                        color = Color.White.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(50.dp),
+                        modifier = Modifier.padding(top = 12.dp)
+                    ) {
+                        Text(
+                            text = if (isHindi) "सुरक्षा घेरा सक्रिय" else "Protection Active",
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
                 }
-            }
 
-            Column(modifier = Modifier.fillMaxWidth()) {
+                // Info Card
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.12f)),
+                    shape = RoundedCornerShape(32.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.2f)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.padding(28.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = if (isHindi) "आपके संपर्कों को सूचित किया जा रहा है।" else "Alerting your trusted contacts now.",
+                            color = Color.White,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            lineHeight = 28.sp
+                        )
+
+                        Spacer(Modifier.height(16.dp))
+
+                        Text(
+                            text = if (isHindi) "शांत रहें, मदद रास्ते में है।" else "Stay calm. Help is on the way.",
+                            color = Color.White.copy(alpha = 0.7f),
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+
+                // Dismiss Button
                 Button(
                     onClick = onDismiss,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(80.dp),
+                        .height(84.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
-                        contentColor = Color(0xFFB71C1C)
+                        contentColor = sosRed
                     ),
-                    shape = RoundedCornerShape(20.dp)
+                    shape = RoundedCornerShape(24.dp),
+                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp)
                 ) {
                     Text(
                         text = if (isHindi) "मैं सुरक्षित हूँ" else "I AM SAFE",
-                        fontSize = 22.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Black
                     )
                 }
 
-                Spacer(Modifier.height(40.dp))
+                Spacer(Modifier.height(20.dp))
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSOS() {
+    SOSScreen(onDismiss = {})
 }

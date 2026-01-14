@@ -1,28 +1,33 @@
 package com.lakshmanrekha.protect.ml
 
-/**
- * ML output = signals, NOT decisions
- * Decisions are taken by ScamDetector
- */
 data class ScamSignals(
-
-    // Primary classification
     val isScam: Boolean,
-    val severity: Int,            // 1–5
-
-    // Scam understanding
-    val scamType: String?,        // optional / future
+    val severity: Int,
+    val scamType: String?,
     val scamStage: ScamStage,
     val requestedAction: ScamAction,
-
-    // Binary risk signals
     val hasOtp: Boolean,
     val hasUpi: Boolean,
     val hasUrl: Boolean,
     val hasThreat: Boolean,
     val hasUrgency: Boolean,
-
-    // Meta
     val confidence: Float,
     val explanation: String
-)
+) {
+    companion object {
+        fun safeFallback(reason: String) = ScamSignals(
+            isScam = false,
+            severity = 1,
+            scamType = null,
+            scamStage = ScamStage.LURE,
+            requestedAction = ScamAction.UNKNOWN,
+            hasOtp = false,
+            hasUpi = false,
+            hasUrl = false,
+            hasThreat = false,
+            hasUrgency = false,
+            confidence = 0f,
+            explanation = reason
+        )
+    }
+}
