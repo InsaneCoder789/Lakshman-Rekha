@@ -114,7 +114,7 @@ fun ProfileSetupScreen(
 
             ModeSelectionTile(
                 mode = ProtectionMode.RAKSHA,
-                title = if (isHindi) "रक्षा मोड (Raksha)" else "Raksha Mode",
+                title = if (isHindi) "लक्ष्मण मोड (Lakshman)" else "Lakshman Mode",
                 subtitle = if (isHindi) "सबसे कठोर सुरक्षा" else "Maximum Security",
                 icon = Icons.Rounded.Shield,
                 color = Color(0xFFD32F2F),
@@ -124,7 +124,7 @@ fun ProfileSetupScreen(
 
             ModeSelectionTile(
                 mode = ProtectionMode.LAKSHMAN,
-                title = if (isHindi) "लक्ष्मण मोड (Lakshman)" else "Lakshman Mode",
+                title = if (isHindi) "रक्षा मोड (Raksha)" else "Raksha Mode",
                 subtitle = if (isHindi) "स्मार्ट और संतुलित" else "Smart & Balanced",
                 icon = Icons.Rounded.GppGood,
                 color = Color(0xFFF57C00),

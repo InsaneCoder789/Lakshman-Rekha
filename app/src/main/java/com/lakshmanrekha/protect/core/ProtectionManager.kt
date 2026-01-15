@@ -21,19 +21,20 @@ object ProtectionManager {
     fun getEffectiveMode(context: Context): ProtectionMode {
         val requested = AppState.protectionMode
 
-        if (requested == ProtectionMode.RAKSHA && !supportsRaksha(context)) {
+        // Lakshman is now the strongest mode → requires overlay permission
+        if (requested == ProtectionMode.LAKSHMAN && !supportsLakshman(context)) {
 
             ThreatLogger.logSystem(
-                "Raksha unsupported. Downgrading to Lakshman."
+                "Lakshman unsupported. Downgrading to Raksha."
             )
 
             AppState.lastDowngradeReason =
-                "This device does not support full Raksha protection."
+                "This device does not support full Lakshman protection."
 
-            AppState.protectionMode = ProtectionMode.LAKSHMAN
-            AppPrefs.updateMode(context, ProtectionMode.LAKSHMAN)
+            AppState.protectionMode = ProtectionMode.RAKSHA
+            AppPrefs.updateMode(context, ProtectionMode.RAKSHA)
 
-            return ProtectionMode.LAKSHMAN
+            return ProtectionMode.RAKSHA
         }
 
         return requested
@@ -55,7 +56,6 @@ object ProtectionManager {
         // 🧭 1️⃣ Saathi baseline (always)
         SaathiActions.apply(context, threat)
 
-        // 📌 2️⃣ Save post-call summary data
         RuntimeState.lastThreatLevel = threat.level
         RuntimeState.lastThreatReasons = threat.reasons
 
@@ -63,7 +63,7 @@ object ProtectionManager {
             RuntimeState.postCallSummaryPending = true
         }
 
-        // 👨‍👩‍👧 3️⃣ FAMILY ALERT (NON-SOS, OPT-IN)
+        // 👨‍👩‍👧 2️⃣ Family alert (dangerous only, opt-in)
         if (
             threat.level == ThreatLevel.DANGEROUS &&
             AppState.familyAlertsEnabled &&
@@ -74,16 +74,18 @@ object ProtectionManager {
 
         val effectiveMode = getEffectiveMode(context)
 
-        // 🛡️ 4️⃣ Mode escalation
+        // 🛡️ 3️⃣ Escalation ladder (UPDATED SEMANTICS)
         when (effectiveMode) {
 
             ProtectionMode.SAATHI -> Unit
 
-            ProtectionMode.LAKSHMAN -> {
+            // 🟡 Guided protection
+            ProtectionMode.RAKSHA -> {
                 LakshmanActions.apply(context, threat)
             }
 
-            ProtectionMode.RAKSHA -> {
+            // 🔴 Autonomous protection
+            ProtectionMode.LAKSHMAN -> {
                 LakshmanActions.apply(context, threat)
                 RakshaActions.apply(context, threat)
             }
@@ -96,19 +98,16 @@ object ProtectionManager {
      * HELPERS
      * ========================================================= */
 
-    private fun supportsRaksha(context: Context): Boolean =
+    private fun supportsLakshman(context: Context): Boolean =
         Settings.canDrawOverlays(context)
 
     private fun isTrustedSource(threat: Threat): Boolean {
-
         threat.sourceNumber?.let {
             if (AppState.trustedContacts.contains(it)) return true
         }
-
         threat.sourceApp?.let {
             if (AppState.trustedApps.contains(it)) return true
         }
-
         return false
     }
 }

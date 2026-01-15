@@ -29,32 +29,38 @@ fun ModeExplanationScreen(onContinue: () -> Unit) {
     val isHindi = LanguageManager.isHindi()
 
     val modeData = listOf(
-        ModeInfo(
-            title = if (isHindi) "रक्षा मोड (Raksha)" else "Raksha Mode",
-            desc = if (isHindi)
-                "यह सबसे मजबूत सुरक्षा है। यह अनजान कॉल को ब्लॉक करता है और तुरंत परिवार को सूचित करता है।"
-            else "Maximum security. It blocks unknown callers and alerts your family instantly if a threat is detected.",
-            bestFor = if (isHindi) "उनके लिए जिन्हें पूरी सुरक्षा चाहिए" else "Best for: High-risk users",
-            icon = Icons.Rounded.Shield,
-            color = Color(0xFFD32F2F)
-        ),
-        ModeInfo(
-            title = if (isHindi) "लक्ष्मण मोड (Lakshman)" else "Lakshman Mode",
-            desc = if (isHindi)
-                "यह स्मार्ट सुरक्षा है। यह कॉल और मैसेज की जांच करता है और आपको चेतावनी देता है कि क्या करना है।"
-            else "Smart protection. It screens calls and messages, giving you a clear warning and advice on what to do.",
-            bestFor = if (isHindi) "दैनिक उपयोग के लिए सबसे अच्छा" else "Best for: Balanced daily use",
-            icon = Icons.Rounded.GppGood,
-            color = Color(0xFFF57C00)
-        ),
+
         ModeInfo(
             title = if (isHindi) "साथी मोड (Saathi)" else "Saathi Mode",
             desc = if (isHindi)
-                "यह एक मददगार दोस्त की तरह है। यह कुछ भी ब्लॉक नहीं करता, बस आपको ठगी से बचने के टिप्स देता है।"
-            else "Like a helpful friend. It doesn't block anything; it just gives you tips on how to stay safe from scams.",
-            bestFor = if (isHindi) "उनके लिए जो केवल टिप्स चाहते हैं" else "Best for: Independent users",
-            icon = Icons.Rounded.GppMaybe,
+                "यह केवल मार्गदर्शन देता है। कोई कॉल या ऐप ब्लॉक नहीं करता।"
+            else
+                "Advisory-only mode. No blocking or intervention.",
+            bestFor = if (isHindi) "स्वतंत्र उपयोगकर्ताओं के लिए" else "Best for: Independent users",
+            icon = Icons.Rounded.GppGood,
             color = Color(0xFF1976D2)
+        ),
+
+        ModeInfo(
+            title = if (isHindi) "रक्षा मोड (Raksha)" else "Raksha Mode",
+            desc = if (isHindi)
+                "यह चेतावनी देता है और सही कदम सुझाता है।"
+            else
+                "Guided protection with warnings and coaching.",
+            bestFor = if (isHindi) "दैनिक सुरक्षा के लिए" else "Best for: Daily protection",
+            icon = Icons.Rounded.GppMaybe,
+            color = Color(0xFFF57C00)
+        ),
+
+        ModeInfo(
+            title = if (isHindi) "लक्ष्मण मोड (Lakshman)" else "Lakshman Mode",
+            desc = if (isHindi)
+                "यह सबसे मजबूत सुरक्षा है। सिस्टम स्वयं कार्रवाई करता है।"
+            else
+                "Maximum protection. The system acts autonomously.",
+            bestFor = if (isHindi) "उच्च जोखिम वाले उपयोगकर्ताओं के लिए" else "Best for: High-risk users",
+            icon = Icons.Rounded.Shield,
+            color = Color(0xFFD32F2F)
         )
     )
 

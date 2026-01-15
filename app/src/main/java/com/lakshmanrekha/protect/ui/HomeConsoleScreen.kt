@@ -1,5 +1,6 @@
 package com.lakshmanrekha.protect.ui
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -31,12 +32,14 @@ fun HomeConsoleScreen() {
     val context = LocalContext.current
     val threats = ThreatLogger.getThreats()
     val systemLogs = ThreatLogger.getSystemLogs()
-    val currentMode = AppState.protectionMode
     val isHindi = LanguageManager.isHindi()
 
-    // Brand Colors
-    val bgBlue = Color(0xFF0D47A1)
-    val cardSurface = Color(0xFF1565C0)
+    // UI State for dynamic coloring
+    val currentMode = AppState.protectionMode
+    val activeBrandColor by animateColorAsState(
+        targetValue = getThemeColorForMode(currentMode),
+        animationSpec = tween(500), label = "color"
+    )
 
     // Shield Rotation
     val infiniteTransition = rememberInfiniteTransition(label = "rotation")
@@ -45,14 +48,14 @@ fun HomeConsoleScreen() {
         animationSpec = infiniteRepeatable(tween(30000, easing = LinearEasing)), label = "rotate"
     )
 
-    Surface(modifier = Modifier.fillMaxSize(), color = bgBlue) {
+    Surface(modifier = Modifier.fillMaxSize(), color = activeBrandColor) {
         Box(modifier = Modifier.fillMaxSize()) {
 
             // --- BACKGROUND SHIELD WATERMARK ---
             Icon(
                 imageVector = Icons.Rounded.Shield,
                 contentDescription = null,
-                tint = Color.White.copy(alpha = 0.04f),
+                tint = Color.White.copy(alpha = 0.08f),
                 modifier = Modifier
                     .size(500.dp)
                     .align(Alignment.Center)
@@ -77,18 +80,18 @@ fun HomeConsoleScreen() {
                     )
                     Text(
                         text = if (isHindi) "आज आप पूरी तरह सुरक्षित हैं" else "Your perimeter is secure today",
-                        color = Color.White.copy(alpha = 0.6f),
+                        color = Color.White.copy(alpha = 0.8f),
                         fontSize = 16.sp
                     )
                 }
 
-                // 2. STATUS CARD (Upgraded Pulse)
-                item { StatusCard(currentMode) }
+                // 2. STATUS CARD
+                item { StatusCard(currentMode, activeBrandColor) }
 
-                // 3. COACH ENTRY (Branded)
-                item { CoachEntryCard(context, isHindi, cardSurface) }
+                // 3. COACH ENTRY (Surface adjusts to brand)
+                item { CoachEntryCard(context, isHindi, activeBrandColor) }
 
-                // 4. MODE SELECTOR (Branded Label)
+                // 4. MODE SELECTOR
                 item {
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text(
@@ -119,7 +122,7 @@ fun HomeConsoleScreen() {
                         if (threats.isNotEmpty()) {
                             Text(
                                 text = "${threats.size} Logs",
-                                color = Color.White.copy(alpha = 0.5f),
+                                color = Color.White.copy(alpha = 0.6f),
                                 fontSize = 12.sp
                             )
                         }
@@ -131,7 +134,7 @@ fun HomeConsoleScreen() {
                     item { EmptyThreatState() }
                 } else {
                     items(threats) { threat ->
-                        ThreatItem(threat, cardSurface)
+                        ThreatItem(threat, activeBrandColor)
                     }
                 }
 
@@ -146,8 +149,7 @@ fun HomeConsoleScreen() {
 }
 
 @Composable
-private fun StatusCard(mode: ProtectionMode) {
-    val statusColor = protectionColor()
+private fun StatusCard(mode: ProtectionMode, brandColor: Color) {
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val pulseSize by infiniteTransition.animateFloat(
         initialValue = 44f, targetValue = 60f,
@@ -157,17 +159,17 @@ private fun StatusCard(mode: ProtectionMode) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(32.dp),
-        colors = CardDefaults.cardColors(containerColor = statusColor.copy(alpha = 0.15f)),
-        border = androidx.compose.foundation.BorderStroke(1.dp, statusColor.copy(alpha = 0.4f))
+        colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.15f)),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.3f))
     ) {
         Row(
             modifier = Modifier.padding(24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.size(60.dp)) {
-                Box(Modifier.size(pulseSize.dp).background(statusColor.copy(alpha = 0.2f), CircleShape))
-                Surface(Modifier.size(48.dp), shape = CircleShape, color = statusColor) {
-                    Icon(Icons.Rounded.GppGood, null, tint = Color.White, modifier = Modifier.padding(10.dp))
+                Box(Modifier.size(pulseSize.dp).background(Color.White.copy(alpha = 0.2f), CircleShape))
+                Surface(Modifier.size(48.dp), shape = CircleShape, color = Color.White) {
+                    Icon(Icons.Rounded.GppGood, null, tint = brandColor, modifier = Modifier.padding(10.dp))
                 }
             }
             Spacer(Modifier.width(20.dp))
@@ -180,8 +182,8 @@ private fun StatusCard(mode: ProtectionMode) {
                 )
                 Text(
                     text = "Mode: ${mode.name}",
-                    fontWeight = FontWeight.Bold,
-                    color = statusColor
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color.White
                 )
             }
         }
@@ -189,19 +191,19 @@ private fun StatusCard(mode: ProtectionMode) {
 }
 
 @Composable
-private fun CoachEntryCard(context: android.content.Context, isHindi: Boolean, surface: Color) {
+private fun CoachEntryCard(context: android.content.Context, isHindi: Boolean, brandColor: Color) {
     Card(
         onClick = { CoachLauncher.launch(context) },
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = surface),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
+        colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.1f)),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.2f))
     ) {
         Row(
             modifier = Modifier.padding(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Surface(Modifier.size(44.dp), shape = CircleShape, color = Color.White.copy(alpha = 0.15f)) {
+            Surface(Modifier.size(44.dp), shape = CircleShape, color = Color.White.copy(alpha = 0.2f)) {
                 Icon(Icons.Rounded.AutoStories, null, tint = Color.White, modifier = Modifier.padding(10.dp))
             }
             Spacer(Modifier.width(16.dp))
@@ -212,16 +214,16 @@ private fun CoachEntryCard(context: android.content.Context, isHindi: Boolean, s
                 )
                 Text(
                     text = if (isHindi) "धोखाधड़ी से कैसे बचें" else "Master scam detection",
-                    fontSize = 14.sp, color = Color.White.copy(alpha = 0.6f)
+                    fontSize = 14.sp, color = Color.White.copy(alpha = 0.7f)
                 )
             }
-            Icon(Icons.Rounded.ArrowForwardIos, null, tint = Color.White.copy(alpha = 0.4f), modifier = Modifier.size(16.dp))
+            Icon(Icons.Rounded.ArrowForwardIos, null, tint = Color.White.copy(alpha = 0.5f), modifier = Modifier.size(16.dp))
         }
     }
 }
 
 @Composable
-private fun ThreatItem(threat: Threat, surface: Color) {
+private fun ThreatItem(threat: Threat, brandColor: Color) {
     val color = when (threat.level) {
         ThreatLevel.SAFE -> Color(0xFF66BB6A)
         ThreatLevel.CAUTION -> Color(0xFFFFA726)
@@ -232,16 +234,16 @@ private fun ThreatItem(threat: Threat, surface: Color) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(28.dp),
-        colors = CardDefaults.cardColors(containerColor = surface),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.05f))
+        colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.1f)),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Surface(
                     Modifier.size(42.dp),
                     shape = CircleShape,
-                    color = color.copy(0.15f),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(0.3f))
+                    color = color.copy(0.2f),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(0.4f))
                 ) {
                     Icon(Icons.Rounded.Radar, null, tint = color, modifier = Modifier.padding(10.dp))
                 }
@@ -254,7 +256,7 @@ private fun ThreatItem(threat: Threat, surface: Color) {
                         fontSize = 18.sp
                     )
                     threat.reasons.forEach {
-                        Text(it, fontSize = 14.sp, color = Color.White.copy(alpha = 0.7f))
+                        Text(it, fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f))
                     }
                 }
             }
@@ -272,9 +274,9 @@ private fun EmptyThreatState() {
         modifier = Modifier.fillMaxWidth().padding(vertical = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Icon(Icons.Rounded.Verified, null, tint = Color.White.copy(alpha = 0.1f), modifier = Modifier.size(64.dp))
+        Icon(Icons.Rounded.Verified, null, tint = Color.White.copy(alpha = 0.2f), modifier = Modifier.size(64.dp))
         Spacer(Modifier.height(12.dp))
-        Text(text = Strings.noThreats(), color = Color.White.copy(alpha = 0.4f), fontWeight = FontWeight.Bold)
+        Text(text = Strings.noThreats(), color = Color.White.copy(alpha = 0.6f), fontWeight = FontWeight.Bold)
     }
 }
 
@@ -282,30 +284,30 @@ private fun EmptyThreatState() {
 private fun SystemLogsFooter(logs: List<String>) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        color = Color.Black.copy(alpha = 0.2f),
+        color = Color.Black.copy(alpha = 0.3f),
         shape = RoundedCornerShape(20.dp)
     ) {
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Rounded.Terminal, null, tint = Color.White.copy(alpha = 0.3f), modifier = Modifier.size(16.dp))
+            Icon(Icons.Rounded.Terminal, null, tint = Color.White.copy(alpha = 0.5f), modifier = Modifier.size(16.dp))
             Spacer(Modifier.width(12.dp))
             Text(
                 text = logs.lastOrNull() ?: "System Standby",
                 style = MaterialTheme.typography.labelSmall,
-                color = Color.White.copy(alpha = 0.5f),
+                color = Color.White.copy(alpha = 0.7f),
                 fontWeight = FontWeight.Medium
             )
         }
     }
 }
 
-private fun protectionColor(): Color = when (AppState.protectionMode) {
-    ProtectionMode.RAKSHA -> Color(0xFF42A5F5)
-    ProtectionMode.LAKSHMAN -> Color(0xFF66BB6A)
-    ProtectionMode.SAATHI -> Color(0xFFFFCA28)
-    else -> Color(0xFFEF5350)
+// Global Theme Color Resolver
+private fun getThemeColorForMode(mode: ProtectionMode): Color = when (mode) {
+    ProtectionMode.SAATHI -> Color(0xFF0D47A1)   // Blue
+    ProtectionMode.RAKSHA -> Color(0xFFC5A000)   // Golden
+    ProtectionMode.LAKSHMAN -> Color(0xFFE65100) // Orange
+    else -> Color(0xFF0D47A1)
 }
 
-// --- PREVIEW ---
 @Preview
 @Composable
 fun PreviewHome() {

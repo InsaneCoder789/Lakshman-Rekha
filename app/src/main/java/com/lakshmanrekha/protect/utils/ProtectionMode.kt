@@ -2,17 +2,17 @@ package com.lakshmanrekha.protect.utils
 
 /**
  * Protection modes in increasing order of strictness.
- * Order is IMPORTANT — do not change without updating logic.
+ * ORDER IS CRITICAL — used by escalation logic.
  */
 enum class ProtectionMode(val level: Int) {
 
-    NONE(0),        // Before setup / protection off
+    NONE(0),        // Protection disabled / before setup
 
-    SAATHI(1),      // Passive monitoring, logging, gentle warnings
+    SAATHI(1),      // Advisory only
 
-    LAKSHMAN(2),    // Active warnings, coaching, blocking suggestions
+    RAKSHA(2),      // Guided protection (warnings, coaching)
 
-    RAKSHA(3);      // Strong intervention (overlays, emergency actions)
+    LAKSHMAN(3);    // Strong autonomous protection (overlays, SOS)
 
     fun isAtLeast(other: ProtectionMode): Boolean {
         return this.level >= other.level
