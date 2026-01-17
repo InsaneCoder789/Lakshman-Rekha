@@ -1,5 +1,6 @@
 package com.lakshmanrekha.protect.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -26,51 +27,106 @@ fun ThreatActionRow(
     threat: Threat,
     modifier: Modifier = Modifier
 ) {
+    // 🚫 SAFETY RULE:
+    // Only show actions for RISKY and DANGEROUS threats
+    if (threat.level != ThreatLevel.RISKY &&
+        threat.level != ThreatLevel.DANGEROUS
+    ) return
+
     val context = androidx.compose.ui.platform.LocalContext.current
     val isHindi = LanguageManager.isHindi()
 
-    // Using your Brand Colors for specific actions
+    // Brand colors
     val callBlue = Color(0xFF64B5F6)
     val blockRed = Color(0xFFEF5350)
     val verifyGreen = Color(0xFF81C784)
     val reportOrange = Color(0xFFFFB74D)
 
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .padding(top = 12.dp)
     ) {
-        // 1. CALL FAMILY
-        BrandedActionItem(
-            label = if (isHindi) "कॉल करें" else "Call Family",
-            icon = Icons.Rounded.PhoneInTalk,
-            color = callBlue,
-            onClick = { ThreatActionHandler.callTrustedContact(context) }
+
+        /* ---------------- HEADER ---------------- */
+        Text(
+            text =
+                if (isHindi)
+                    "तुरंत कार्रवाई करें"
+                else
+                    "Immediate Actions",
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = 16.sp,
+            color = Color.White,
+            modifier = Modifier.padding(start = 12.dp, bottom = 6.dp)
         )
 
-        // 2. BLOCK SOURCE
-        BrandedActionItem(
-            label = if (isHindi) "ब्लॉक करें" else "Block Scam",
-            icon = Icons.Rounded.Block,
-            color = blockRed,
-            onClick = { ThreatActionHandler.blockSource(context, threat) }
+        Text(
+            text =
+                if (isHindi)
+                    "यह खतरा गंभीर हो सकता है"
+                else
+                    "This threat may cause harm",
+            fontSize = 13.sp,
+            color = Color.White.copy(alpha = 0.7f),
+            modifier = Modifier.padding(start = 12.dp, bottom = 12.dp)
         )
 
-        // 3. VERIFY SOURCE
-        BrandedActionItem(
-            label = if (isHindi) "जांच करें" else "Verify",
-            icon = Icons.Rounded.VerifiedUser,
-            color = verifyGreen,
-            onClick = { ThreatActionHandler.verifyMerchant(context) }
-        )
+        /* ---------------- ACTIONS ---------------- */
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
 
-        // 4. REPORT SCAM
-        BrandedActionItem(
-            label = if (isHindi) "रिपोर्ट" else "Report",
-            icon = Icons.Rounded.Flag,
-            color = reportOrange,
-            onClick = { ThreatActionHandler.reportScam(threat) }
+            // 1. CALL FAMILY
+            BrandedActionItem(
+                label = if (isHindi) "कॉल करें" else "Call Family",
+                icon = Icons.Rounded.PhoneInTalk,
+                color = callBlue,
+                onClick = {
+                    ThreatActionHandler.callTrustedContact(context)
+                }
+            )
+
+            // 2. BLOCK SOURCE
+            BrandedActionItem(
+                label = if (isHindi) "ब्लॉक करें" else "Block",
+                icon = Icons.Rounded.Block,
+                color = blockRed,
+                onClick = {
+                    ThreatActionHandler.blockSource(context, threat)
+                }
+            )
+
+            // 3. VERIFY SOURCE
+            BrandedActionItem(
+                label = if (isHindi) "जांच करें" else "Verify",
+                icon = Icons.Rounded.VerifiedUser,
+                color = verifyGreen,
+                onClick = {
+                    ThreatActionHandler.verifyMerchant(context)
+                }
+            )
+
+            // 4. REPORT SCAM
+            BrandedActionItem(
+                label = if (isHindi) "रिपोर्ट" else "Report",
+                icon = Icons.Rounded.Flag,
+                color = reportOrange,
+                onClick = {
+                    ThreatActionHandler.reportScam(threat)
+                }
+            )
+        }
+
+        /* ---------------- SEPARATOR ---------------- */
+        Spacer(Modifier.height(8.dp))
+        Divider(
+            color = Color.White.copy(alpha = 0.15f),
+            thickness = 1.dp,
+            modifier = Modifier.padding(horizontal = 12.dp)
         )
     }
 }
@@ -86,31 +142,34 @@ private fun BrandedActionItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // High-Contrast Glass-morphism Button
         Surface(
             onClick = onClick,
-            modifier = Modifier.size(64.dp), // Larger touch target for seniors
+            modifier = Modifier.size(64.dp),
             shape = CircleShape,
-            color = Color.White.copy(alpha = 0.15f), // Glass effect
-            border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.2f))
+            color = Color.White.copy(alpha = 0.15f),
+            border = BorderStroke(
+                1.dp,
+                Color.White.copy(alpha = 0.25f)
+            )
         ) {
             Box(contentAlignment = Alignment.Center) {
-                // Subtle Glow behind icon
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .background(color.copy(alpha = 0.2f), CircleShape)
+                        .background(
+                            color.copy(alpha = 0.25f),
+                            CircleShape
+                        )
                 )
                 Icon(
                     imageVector = icon,
                     contentDescription = label,
-                    tint = Color.White, // All icons white to match brand
+                    tint = Color.White,
                     modifier = Modifier.size(28.dp)
                 )
             }
         }
 
-        // Clean White Label
         Text(
             text = label,
             fontSize = 13.sp,
@@ -120,19 +179,19 @@ private fun BrandedActionItem(
     }
 }
 
-// --- PREVIEW ---
+/* ---------------- PREVIEW ---------------- */
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewThreatActionRow() {
     val mockThreat = Threat(
-        level = ThreatLevel.RISKY,
-        score = 80,
-        reasons = listOf("Mock"),
-        sourceNumber = "123",
+        level = ThreatLevel.DANGEROUS,
+        score = 95,
+        reasons = listOf("Suspicious payment request"),
+        sourceNumber = "12345",
         sourceApp = "SMS"
     )
 
-    // Previewing on the Brand Blue background
     Box(
         modifier = Modifier
             .background(Color(0xFF0D47A1))

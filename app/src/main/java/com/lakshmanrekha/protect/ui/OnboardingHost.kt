@@ -66,7 +66,7 @@ fun OnboardingHost(
 
                 OnboardingStep.TRUSTED_CONTACTS ->
                     TrustedContactsScreen(
-                        onContinue = onContactsDone
+                        onDone = onContactsDone
                     )
 
                 OnboardingStep.DONE -> {

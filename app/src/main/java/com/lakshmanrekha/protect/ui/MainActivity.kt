@@ -24,31 +24,41 @@ import com.lakshmanrekha.protect.utils.*
 
 class MainActivity : ComponentActivity() {
 
-    // --- MISSING LOGIC RESTORED: PERMISSION LAUNCHERS ---
+    /* =========================================================
+     * PERMISSION LAUNCHERS
+     * ========================================================= */
 
-    // 🔔 Android 13+ notification permission (Restored from old)
-    private val notifPermissionLauncher =
+    // Android 13+ notification permission
+    private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) safeShowNotification()
         }
 
-    // 📩 SMS permission for SOS (Restored from old)
+    // SMS permission for SOS
     private val smsPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (!granted) {
-                ThreatLogger.logSystem("SMS permission denied - SOS functionality limited")
+                ThreatLogger.logSystem("SMS permission denied – SOS limited")
             }
         }
+
+    /* =========================================================
+     * LIFECYCLE
+     * ========================================================= */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // --- MISSING LOGIC RESTORED: ML INITIALIZATION ---
+        // 🔒 Initialize ML once
         if (RuntimeState.scamRiskModel == null) {
             RuntimeState.scamRiskModel = ScamRiskModel(this)
         }
 
+        // 🔒 Load persisted app state
         AppPrefs.load(this)
+
+        // 🔒 HARD RESET runtime state (CRITICAL for Android 15/16 reinstalls)
+        RuntimeState.resetSession()
 
         setContent {
             var step by rememberSaveable {
@@ -59,9 +69,10 @@ class MainActivity : ComponentActivity() {
                 AnimatedContent(
                     targetState = step,
                     transitionSpec = { fadeIn() togetherWith fadeOut() },
-                    label = "Onboarding"
+                    label = "OnboardingFlow"
                 ) { currentStep ->
                     when (currentStep) {
+
                         OnboardingStep.LANGUAGE ->
                             LanguageSelectionScreen {
                                 AppState.language = it
@@ -91,9 +102,7 @@ class MainActivity : ComponentActivity() {
                                 AppState.isSetupComplete = true
                                 AppPrefs.save(this@MainActivity)
 
-                                // Trigger permission request after profile setup
                                 requestNotificationPermissionIfNeeded()
-
                                 step = calculateStep()
                             }
 
@@ -104,7 +113,6 @@ class MainActivity : ComponentActivity() {
 
                         OnboardingStep.TRUSTED_CONTACTS ->
                             TrustedContactsScreen {
-                                // Restoration: Trigger SMS request after contacts are added
                                 checkAndRequestSmsPermission()
                                 step = calculateStep()
                             }
@@ -117,17 +125,21 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // --- MISSING LOGIC RESTORED: LIFECYCLE & SOS ---
-
     override fun onResume() {
         super.onResume()
+        RuntimeState.appInForeground = true
         safeShowNotification()
     }
 
-    /**
-     * 🚨 SOS Trigger: Hardware Volume Buttons
-     * Restored from old version for OEM-safe event handling
-     */
+    override fun onPause() {
+        super.onPause()
+        RuntimeState.appInForeground = false
+    }
+
+    /* =========================================================
+     * SOS – HARDWARE BUTTON TRIGGER
+     * ========================================================= */
+
     @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN) {
@@ -141,29 +153,49 @@ class MainActivity : ComponentActivity() {
         return super.dispatchKeyEvent(event)
     }
 
-    /* ---------------------------------------------------
-     * HELPERS (Combined Logic)
-     * --------------------------------------------------- */
+    /* =========================================================
+     * FLOW CONTROL
+     * ========================================================= */
 
     private fun calculateStep(): OnboardingStep =
         when {
-            AppState.language == null -> OnboardingStep.LANGUAGE
-            !AppState.hasSeenWelcome -> OnboardingStep.WELCOME
-            !AppState.hasSeenModeExplanation -> OnboardingStep.MODE_EXPLANATION
-            !AppState.isSetupComplete -> OnboardingStep.PROFILE
-            !PermissionUtils.isNotificationAccessEnabled(this@MainActivity) ||
-                    !PermissionUtils.isAccessibilityServiceEnabled(this@MainActivity) -> OnboardingStep.PERMISSIONS
-            !AppState.hasAddedTrustedContacts -> OnboardingStep.TRUSTED_CONTACTS
-            else -> OnboardingStep.DONE
+            AppState.language == null ->
+                OnboardingStep.LANGUAGE
+
+            !AppState.hasSeenWelcome ->
+                OnboardingStep.WELCOME
+
+            !AppState.hasSeenModeExplanation ->
+                OnboardingStep.MODE_EXPLANATION
+
+            !AppState.isSetupComplete ->
+                OnboardingStep.PROFILE
+
+            !PermissionUtils.isNotificationAccessEnabled(this) ||
+                    !PermissionUtils.isAccessibilityServiceEnabled(this) ->
+                OnboardingStep.PERMISSIONS
+
+            !AppState.hasAddedTrustedContacts ->
+                OnboardingStep.TRUSTED_CONTACTS
+
+            else ->
+                OnboardingStep.DONE
         }
+
+    /* =========================================================
+     * PERMISSIONS
+     * ========================================================= */
 
     private fun requestNotificationPermissionIfNeeded() {
         if (Build.VERSION.SDK_INT >= 33) {
             if (ContextCompat.checkSelfPermission(
-                    this, Manifest.permission.POST_NOTIFICATIONS
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                notifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                notificationPermissionLauncher.launch(
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
             } else {
                 safeShowNotification()
             }
@@ -174,12 +206,17 @@ class MainActivity : ComponentActivity() {
 
     private fun checkAndRequestSmsPermission() {
         if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.SEND_SMS
+                this,
+                Manifest.permission.SEND_SMS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             smsPermissionLauncher.launch(Manifest.permission.SEND_SMS)
         }
     }
+
+    /* =========================================================
+     * STATUS NOTIFICATION
+     * ========================================================= */
 
     private fun safeShowNotification() {
         if (!AppState.isSetupComplete) return
@@ -188,7 +225,7 @@ class MainActivity : ComponentActivity() {
         try {
             ProtectionNotifier.show(this, AppState.protectionMode)
         } catch (_: Exception) {
-            // Never crash UI for non-critical notification failures
+            // Never crash UI for notification issues
         }
     }
 }

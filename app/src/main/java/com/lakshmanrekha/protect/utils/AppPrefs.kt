@@ -23,6 +23,8 @@ object AppPrefs {
 
     // 🆕 Family alerts (OPT-IN)
     private const val KEY_FAMILY_ALERTS = "family_alerts"
+    private const val PREF_INSTALL_VERSION = "install_version"
+    private const val CURRENT_INSTALL_VERSION = 1
 
     /* =========================================================
      * SAVE

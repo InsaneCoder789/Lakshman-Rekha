@@ -1,21 +1,23 @@
 package com.lakshmanrekha.protect.services
 
+import android.Manifest
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.annotation.RequiresPermission
 import com.lakshmanrekha.protect.core.ProtectionManager
 import com.lakshmanrekha.protect.detection.ScamDetector
+import com.lakshmanrekha.protect.utils.AppState
 import com.lakshmanrekha.protect.utils.RuntimeState
 
 class NotificationListener : NotificationListenerService() {
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
-        if (sbn == null) return
 
-        // 🚫 DO NOT ANALYZE OUR OWN NOTIFICATIONS
-        if (sbn.packageName == packageName) return
-
-        // 🚫 Global bypass (SOS / overlays / emergency)
+        if (!AppState.isSetupComplete) return
         if (RuntimeState.bypassProtection) return
+        if (sbn == null) return
+        if (sbn.packageName == packageName) return
 
         val extras = sbn.notification.extras ?: return
 
@@ -26,15 +28,11 @@ class NotificationListener : NotificationListenerService() {
             .joinToString(" ")
             .trim()
 
-        // 🚫 Ignore empty / junk notifications
         if (detectedText.length < 10) return
 
         val sourceApp = sbn.packageName
         RuntimeState.activeSourceApp = sourceApp
 
-        /* -------------------------------------------------
-         * RAPID APP SWITCHING DETECTION
-         * ------------------------------------------------- */
         val now = System.currentTimeMillis()
         RuntimeState.lastForegroundApp?.let { last ->
             if (last != sourceApp && now - RuntimeState.lastAppSwitchTime < 2000) {
@@ -44,24 +42,15 @@ class NotificationListener : NotificationListenerService() {
         RuntimeState.lastForegroundApp = sourceApp
         RuntimeState.lastAppSwitchTime = now
 
-        /* -------------------------------------------------
-         * UPI / BANK APP DURING CALL
-         * ------------------------------------------------- */
-        if (RuntimeState.callOngoing) {
-            if (
-                sourceApp.contains("upi", true) ||
-                sourceApp.contains("pay", true) ||
-                sourceApp.contains("bank", true)
-            ) {
-                RuntimeState.upiOpenedDuringCall = true
-            }
+        if (RuntimeState.callOngoing &&
+            (sourceApp.contains("upi", true) ||
+                    sourceApp.contains("pay", true) ||
+                    sourceApp.contains("bank", true))
+        ) {
+            RuntimeState.upiOpenedDuringCall = true
         }
 
-        /* -------------------------------------------------
-         * OTP HEURISTIC
-         * ------------------------------------------------- */
-        if (
-            RuntimeState.callOngoing &&
+        if (RuntimeState.callOngoing &&
             detectedText.contains("otp", ignoreCase = true)
         ) {
             RuntimeState.otpPatternDetected = true
@@ -70,6 +59,7 @@ class NotificationListener : NotificationListenerService() {
         evaluateThreat(detectedText)
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     private fun evaluateThreat(text: String) {
 
         val model = RuntimeState.scamRiskModel ?: return
@@ -84,8 +74,7 @@ class NotificationListener : NotificationListenerService() {
                 rapidAppSwitching = RuntimeState.rapidAppSwitching,
                 otpPatternDetected = RuntimeState.otpPatternDetected
             )
-        } catch (e: Exception) {
-            // 🚫 NEVER crash notification thread
+        } catch (_: Exception) {
             return
         }
 

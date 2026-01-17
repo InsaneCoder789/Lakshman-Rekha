@@ -12,26 +12,52 @@ import com.lakshmanrekha.protect.R
 import com.lakshmanrekha.protect.model.Threat
 import com.lakshmanrekha.protect.model.ThreatLevel
 import com.lakshmanrekha.protect.utils.LanguageManager
+import com.lakshmanrekha.protect.utils.RuntimeState
 import com.lakshmanrekha.protect.utils.ThreatLogger
 
+/**
+ * SaathiActions
+ *
+ * PURPOSE:
+ * - Gentle guidance
+ * - NON-intrusive
+ * - SINGLE evolving notification
+ *
+ * DESIGN GUARANTEES:
+ * - No notification spam
+ * - No panic flood
+ * - Latest risk overrides previous
+ * - Android 15/16 safe
+ */
 object SaathiActions {
 
-    private const val CHANNEL_ID = "saathi_channel"
+    private const val CHANNEL_ID = "saathi_guidance_channel"
+    private const val NOTIFICATION_ID = 2001
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun apply(context: Context, threat: Threat) {
 
-        // 1️⃣ Always log
+        // 1️⃣ Always log threat (history)
         ThreatLogger.logThreat(threat)
 
-        // 2️⃣ Only notify if CAUTION+
-        if (threat.level < ThreatLevel.CAUTION) return
+        // 2️⃣ Ignore SAFE completely
+        if (threat.level == ThreatLevel.SAFE) return
+
+        // 3️⃣ Prevent downgrade spam:
+        // If we already showed a higher threat, do NOT override with lower
+        val lastLevel = RuntimeState.lastThreatLevel
+        if (lastLevel != null && threat.level < lastLevel) {
+            return
+        }
+
+        RuntimeState.lastThreatLevel = threat.level
 
         ensureChannel(context)
 
         val isHindi = LanguageManager.isHindi()
 
         val message = when (threat.level) {
+
             ThreatLevel.CAUTION ->
                 if (isHindi)
                     "सावधान रहें। OTP कभी साझा न करें।"
@@ -57,24 +83,32 @@ object SaathiActions {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Lakshman Rekha – Saathi")
             .setContentText(message)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setOnlyAlertOnce(true)       // 🔑 no sound/vibration spam
+            .setOngoing(false)
             .setAutoCancel(true)
             .build()
 
+        // 🔁 ALWAYS OVERRIDE (NO SPAM)
         NotificationManagerCompat.from(context)
-            .notify(System.currentTimeMillis().toInt(), notification)
+            .notify(NOTIFICATION_ID, notification)
     }
 
     private fun ensureChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val manager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Saathi Guidance",
+                "Saathi Safety Guidance",
                 NotificationManager.IMPORTANCE_LOW
-            )
+            ).apply {
+                description = "Gentle scam safety guidance"
+                setShowBadge(false)
+            }
+
             manager.createNotificationChannel(channel)
         }
     }

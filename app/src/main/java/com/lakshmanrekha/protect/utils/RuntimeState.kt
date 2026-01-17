@@ -44,6 +44,8 @@ object RuntimeState {
 
     var scamRiskModel: ScamRiskModel? = null
 
+    var appInForeground: Boolean = false
+
     /* ==================================================
      * RESET FUNCTIONS (VERY IMPORTANT)
      * ================================================== */

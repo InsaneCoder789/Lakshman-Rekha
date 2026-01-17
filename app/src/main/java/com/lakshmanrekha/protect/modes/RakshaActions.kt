@@ -12,22 +12,15 @@ object RakshaActions {
 
     fun apply(context: Context, threat: Threat) {
 
-        ThreatLogger.logSystem(
-            "Raksha mode handling ${threat.level}"
-        )
+        ThreatLogger.logSystem("Raksha mode handling ${threat.level}")
 
-        // 🚨 ONLY for DANGEROUS
         if (threat.level != ThreatLevel.DANGEROUS) return
-
-        // Prevent duplicate emergencies
         if (RuntimeState.emergencyTriggered) return
+        if (!RuntimeState.appInForeground) return
 
         RuntimeState.emergencyTriggered = true
 
-        // 1️⃣ Emergency overlay
         OverlayService.showEmergency(context)
-
-        // 2️⃣ Trigger SOS flow
         EmergencyAlertService.trigger(context)
     }
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.GppGood
-import androidx.compose.material.icons.rounded.Shield
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,35 +25,30 @@ import com.lakshmanrekha.protect.utils.LanguageManager
 fun WelcomeScreen(onContinue: () -> Unit) {
     val isHindi = LanguageManager.isHindi()
 
-    // Gentle pulsing animation for the shield icon
+    // --- THEME COLORS (Midnight Navy & Lakshman Blue) ---
+    val lakshmanBlue = Color(0xFF0D47A1)
+    val lakshmanDarkNavy = Color(0xFF0A192F)
+    val lakshmanAccent = Color(0xFF4FC3F7)
+
+    // Deep gradient background for consistent "Secure" feel
+    val bgGradient = Brush.verticalGradient(
+        colors = listOf(lakshmanDarkNavy, lakshmanBlue)
+    )
+
+    // Pulsing aura animation for the shield icon
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 1.05f,
+        targetValue = 1.12f,
         animationSpec = infiniteRepeatable(
-            animation = tween(1200, easing = FastOutSlowInEasing),
+            animation = tween(2000, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         ),
         label = "scale"
     )
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        // Subtle gradient background
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.2f),
-                            MaterialTheme.colorScheme.background
-                        )
-                    )
-                )
-        ) {
+    Surface(modifier = Modifier.fillMaxSize(), color = lakshmanDarkNavy) {
+        Box(modifier = Modifier.fillMaxSize().background(bgGradient)) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -63,38 +57,47 @@ fun WelcomeScreen(onContinue: () -> Unit) {
             ) {
                 Spacer(modifier = Modifier.weight(0.4f))
 
-                // --- ICON BRANDING ---
+                // --- ICON BRANDING (AURA EFFECT) ---
                 Box(contentAlignment = Alignment.Center) {
-                    // Outer soft glow ring
+                    // Outer pulsing rings
+                    Box(
+                        modifier = Modifier
+                            .size(170.dp)
+                            .scale(scale)
+                            .background(Color.White.copy(alpha = 0.05f), CircleShape)
+                    )
                     Box(
                         modifier = Modifier
                             .size(140.dp)
-                            .scale(scale)
-                            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f), CircleShape)
+                            .scale(scale * 0.9f)
+                            .background(Color.White.copy(alpha = 0.1f), CircleShape)
                     )
-                    // Inner card for the shield
+
+                    // Main Shield Icon
                     Surface(
-                        modifier = Modifier.size(100.dp),
-                        shape = RoundedCornerShape(32.dp),
-                        color = MaterialTheme.colorScheme.primary,
-                        shadowElevation = 8.dp
+                        modifier = Modifier.size(110.dp),
+                        shape = CircleShape,
+                        color = Color.White,
+                        shadowElevation = 15.dp
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.GppGood,
                             contentDescription = null,
                             modifier = Modifier.padding(24.dp).fillMaxSize(),
-                            tint = Color.White
+                            tint = lakshmanBlue
                         )
                     }
                 }
 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(48.dp))
 
                 // --- GREETING ---
                 Text(
                     text = if (isHindi) "नमस्ते, सुरक्षित रहें" else "Namaste, Stay Safe",
                     style = MaterialTheme.typography.displaySmall.copy(
                         fontWeight = FontWeight.Black,
+                        color = Color.White,
+                        fontSize = 34.sp,
                         letterSpacing = (-1).sp
                     )
                 )
@@ -105,72 +108,93 @@ fun WelcomeScreen(onContinue: () -> Unit) {
                     text = if (isHindi)
                         "धोखाधड़ी और स्कैम कॉल्स से आपकी सुरक्षा अब हमारी जिम्मेदारी है।"
                     else "Protecting you from fraud and scam calls is now our priority.",
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = Color.White.copy(alpha = 0.75f),
+                        fontSize = 20.sp,
+                        lineHeight = 28.sp,
+                        fontWeight = FontWeight.Medium
+                    ),
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 8.dp)
                 )
 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(52.dp))
 
-                // --- KEY BENEFITS (Better for scanning than a paragraph) ---
+                // --- KEY BENEFITS (UPGRADED GLASS CARDS) ---
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp)
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
                 ) {
-                    BenefitRow(
-                        if (isHindi) "स्कैम कॉल को पहचानें" else "Identify Scam Calls",
-                        MaterialTheme.colorScheme.primary
+                    BenefitCard(
+                        text = if (isHindi) "स्कैम कॉल को पहचानें" else "Identify Scam Calls",
+                        accentColor = lakshmanAccent
                     )
-                    BenefitRow(
-                        if (isHindi) "धोखाधड़ी वाले संदेश रोकें" else "Block Fraud Messages",
-                        MaterialTheme.colorScheme.primary
+                    BenefitCard(
+                        text = if (isHindi) "धोखाधड़ी वाले संदेश रोकें" else "Block Fraud Messages",
+                        accentColor = lakshmanAccent
                     )
-                    BenefitRow(
-                        if (isHindi) "परिवार को सूचित रखें" else "Keep Family Informed",
-                        MaterialTheme.colorScheme.primary
+                    BenefitCard(
+                        text = if (isHindi) "परिवार को सूचित रखें" else "Keep Family Informed",
+                        accentColor = lakshmanAccent
                     )
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                // --- CONTINUED ACTION ---
+                // --- ACTION BUTTON (SENIOR OPTIMIZED) ---
                 Button(
                     onClick = onContinue,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(72.dp), // Even taller for senior accessibility
-                    shape = RoundedCornerShape(20.dp),
-                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp)
+                        .height(76.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White,
+                        contentColor = lakshmanBlue
+                    ),
+                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 12.dp)
                 ) {
                     Text(
                         text = if (isHindi) "शुरू करें" else "Get Started",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Black)
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Black,
+                            fontSize = 24.sp
+                        )
                     )
                 }
-
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
 }
 
 @Composable
-private fun BenefitRow(text: String, color: Color) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            imageVector = Icons.Rounded.Done,
-            contentDescription = null,
-            tint = color,
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(
-            text = text,
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
+private fun BenefitCard(text: String, accentColor: Color) {
+    Surface(
+        color = Color.White.copy(alpha = 0.08f),
+        shape = RoundedCornerShape(24.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.15f)),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Done,
+                contentDescription = null,
+                tint = accentColor,
+                modifier = Modifier.size(28.dp)
             )
-        )
+            Spacer(modifier = Modifier.width(18.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color.White,
+                    fontSize = 18.sp
+                )
+            )
+        }
     }
 }

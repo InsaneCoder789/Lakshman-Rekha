@@ -25,75 +25,69 @@ fun ProtectionModeSelector(context: Context) {
     val isHindi = LanguageManager.isHindi()
     var pendingMode by remember { mutableStateOf<ProtectionMode?>(null) }
 
-    // Brand Palette
-    val saathiBlue = Color(0xFF1565C0)
-    val rakshaGold = Color(0xFFFFD700)
-    val lakshmanOrange = Color(0xFFFF9800)
+    // --- NEW BRAND PALETTE ---
+    val saathiBlue = Color(0xFF157EFA)
+    val rakshaGold = Color(0xFFFEAB01)
+    val lakshmanRed = Color(0xFFFE4015)
 
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            // 1. SAATHI
             ModeTile(
                 modifier = Modifier.weight(1f),
                 label = if (isHindi) "साथी" else "Saathi",
-                icon = Icons.Rounded.GppGood,
+                icon = Icons.Rounded.Handshake,
                 selected = AppState.protectionMode == ProtectionMode.SAATHI,
                 selectedColor = saathiBlue,
                 onClick = { pendingMode = ProtectionMode.SAATHI }
             )
 
-            // 2. RAKSHA
             ModeTile(
                 modifier = Modifier.weight(1f),
                 label = if (isHindi) "रक्षा" else "Raksha",
-                icon = Icons.Rounded.GppMaybe,
+                icon = Icons.Rounded.GppGood,
                 selected = AppState.protectionMode == ProtectionMode.RAKSHA,
                 selectedColor = rakshaGold,
                 onClick = { pendingMode = ProtectionMode.RAKSHA }
             )
 
-            // 3. LAKSHMAN
             ModeTile(
                 modifier = Modifier.weight(1f),
                 label = if (isHindi) "लक्ष्मण" else "Lakshman",
                 icon = Icons.Rounded.Shield,
                 selected = AppState.protectionMode == ProtectionMode.LAKSHMAN,
-                selectedColor = lakshmanOrange,
+                selectedColor = lakshmanRed,
                 onClick = { pendingMode = ProtectionMode.LAKSHMAN }
             )
         }
     }
 
-    // --- ENHANCED CONFIRMATION DIALOG ---
     if (pendingMode != null) {
         val mode = pendingMode!!
-
-        // Define high-contrast colors for the dialog buttons
         val dialogAccentColor = when(mode) {
             ProtectionMode.SAATHI -> saathiBlue
-            ProtectionMode.RAKSHA -> Color(0xFFDAA520) // Deep Goldenrod
-            ProtectionMode.LAKSHMAN -> lakshmanOrange
+            ProtectionMode.RAKSHA -> rakshaGold
+            ProtectionMode.LAKSHMAN -> lakshmanRed
             else -> Color.Gray
         }
 
         AlertDialog(
             onDismissRequest = { pendingMode = null },
             shape = RoundedCornerShape(32.dp),
-            containerColor = Color(0xFFFDFDFD), // Clean off-white
+            containerColor = Color(0xFF1A212B),
             icon = {
                 Box(
                     modifier = Modifier
                         .size(64.dp)
-                        .background(dialogAccentColor.copy(alpha = 0.1f), RoundedCornerShape(20.dp)),
+                        .background(dialogAccentColor.copy(alpha = 0.15f), RoundedCornerShape(20.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = when(mode) {
-                            ProtectionMode.SAATHI -> Icons.Rounded.GppGood
-                            ProtectionMode.RAKSHA -> Icons.Rounded.GppMaybe
+                            ProtectionMode.SAATHI -> Icons.Rounded.Handshake
+                            ProtectionMode.RAKSHA -> Icons.Rounded.GppGood
                             else -> Icons.Rounded.Shield
                         },
                         contentDescription = null,
@@ -107,7 +101,7 @@ fun ProtectionModeSelector(context: Context) {
                     text = if (isHindi) "${mode.name} चालू करें?" else "Activate ${mode.name}?",
                     fontWeight = FontWeight.Black,
                     fontSize = 22.sp,
-                    color = Color(0xFF1A1C1E),
+                    color = Color.White,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -117,7 +111,7 @@ fun ProtectionModeSelector(context: Context) {
                     text = getModeDescription(mode, isHindi),
                     fontSize = 16.sp,
                     lineHeight = 22.sp,
-                    color = Color(0xFF44474E),
+                    color = Color.White.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -128,16 +122,18 @@ fun ProtectionModeSelector(context: Context) {
                         changeMode(context, mode)
                         pendingMode = null
                     },
-                    modifier = Modifier.fillMaxWidth().height(50.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = dialogAccentColor),
-                    shape = RoundedCornerShape(16.dp),
-                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
+                    modifier = Modifier.fillMaxWidth().height(54.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = dialogAccentColor,
+                        // Using Black content color for Gold, White for others
+                        contentColor = if (mode == ProtectionMode.RAKSHA) Color.Black else Color.White
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
-                        text = if (isHindi) "बदलें" else "Confirm Switch",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = if (mode == ProtectionMode.RAKSHA) Color.Black else Color.White
+                        text = if (isHindi) "हाँ, मोड बदलें" else "Confirm Switch",
+                        fontWeight = FontWeight.Black,
+                        fontSize = 16.sp
                     )
                 }
             },
@@ -148,7 +144,7 @@ fun ProtectionModeSelector(context: Context) {
                 ) {
                     Text(
                         text = if (isHindi) "रद्द करें" else "Cancel",
-                        color = Color.Gray,
+                        color = Color.White.copy(alpha = 0.5f),
                         fontWeight = FontWeight.Medium
                     )
                 }
@@ -163,10 +159,10 @@ private fun getModeDescription(mode: ProtectionMode, isHindi: Boolean): String {
             if (isHindi) "साथी मोड केवल चेतावनी देता है और आपको शिक्षित करता है।"
             else "Saathi mode provides educational alerts without blocking."
         ProtectionMode.RAKSHA ->
-            if (isHindi) "रक्षा मोड संदिग्ध ऐप्स और कॉल्स पर कड़ी निगरानी रखता है।"
+            if (isHindi) "रक्षा मोड संदिग्ध ऐप्स पर कड़ी निगरानी रखता है और परिवार को सूचित करता है।"
             else "Raksha mode monitors suspicious apps and alerts your family."
         ProtectionMode.LAKSHMAN ->
-            if (isHindi) "लक्ष्मण मोड पूर्ण सुरक्षा है - यह खतरों को तुरंत रोकता है।"
+            if (isHindi) "लक्ष्मण मोड पूर्ण लॉकडाउन है - यह सभी खतरों को तुरंत रोकता है।"
             else "Lakshman mode is full lockdown - it stops threats instantly."
         else -> ""
     }
@@ -183,11 +179,10 @@ private fun ModeTile(
 ) {
     Surface(
         onClick = onClick,
-        modifier = modifier.height(115.dp),
-        shape = RoundedCornerShape(28.dp),
+        modifier = modifier.height(110.dp),
+        shape = RoundedCornerShape(24.dp),
         color = if (selected) selectedColor else Color.White.copy(alpha = 0.12f),
-        tonalElevation = if (selected) 12.dp else 0.dp,
-        border = if (selected) null else BorderStroke(1.dp, Color.White.copy(alpha = 0.2f))
+        border = if (selected) null else BorderStroke(1.dp, Color.White.copy(alpha = 0.15f))
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -197,19 +192,20 @@ private fun ModeTile(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(34.dp),
+                modifier = Modifier.size(32.dp),
                 tint = if (selected) {
-                    if (selectedColor == Color(0xFFFFD700)) Color.Black else Color.White
+                    // Optimized contrast: Black for Raksha (#FEAB01), White for Saathi and Lakshman
+                    if (selectedColor == Color(0xFFFEAB01)) Color.Black else Color.White
                 } else Color.White.copy(alpha = 0.6f)
             )
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(8.dp))
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelLarge.copy(
-                    fontWeight = FontWeight.ExtraBold,
+                    fontWeight = FontWeight.Black,
                     fontSize = 14.sp,
                     color = if (selected) {
-                        if (selectedColor == Color(0xFFFFD700)) Color.Black else Color.White
+                        if (selectedColor == Color(0xFFFEAB01)) Color.Black else Color.White
                     } else Color.White.copy(alpha = 0.7f)
                 )
             )
@@ -222,5 +218,5 @@ private fun changeMode(context: Context, mode: ProtectionMode) {
     AppState.protectionMode = mode
     AppPrefs.updateMode(context, mode)
     ProtectionNotifier.show(context, mode)
-    ThreatLogger.logSystem("Perimeter updated: ${mode.name}")
+    ThreatLogger.logSystem("Security perimeter set to: ${mode.name}")
 }
