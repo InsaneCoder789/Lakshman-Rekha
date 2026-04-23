@@ -1,243 +1,267 @@
-# 🛡️ Lakshman Rekha — Senior Protection Against Scams & Fraud (Android)
+# 🛡️ Lakshman Rekha — Real-Time Scam Protection for Calls, Messages & Digital Actions (Android)
 
-Lakshman Rekha is an Android application designed to protect Indian senior citizens from phone-based scams, phishing messages, fake links, and social engineering fraud.  
-The app acts as a real-time digital guardian, detecting, interrupting, and explaining scam attempts in simple language that seniors understand.
+**Lakshman Rekha** is an Android application that protects users — especially seniors and vulnerable individuals — from **phone scams, OTP fraud, UPI manipulation, phishing messages, and social-engineering attacks**.
 
-Inspired by real stories of Indian grandparents being targeted daily, Lakshman Rekha focuses on **prevention, interruption, and human-first guidance**, not just detection.
+Unlike traditional spam detectors, Lakshman Rekha works at the **moment of decision**.  
+It detects *intent, pressure, and risky user actions in real time* and intervenes **before damage happens**.
+
+Inspired by real scam patterns seen daily in India, Lakshman Rekha is designed around **prevention, interruption, and education**, not post-fraud reporting.
+
+
+
+<img width="1683" height="934" alt="image" src="https://github.com/user-attachments/assets/1ef38a78-bf40-47a8-9ca4-2154b64a8ecb" />
+
 
 ---
 
 ## 🎯 Problem Statement
 
-Indian seniors are frequently targeted by:
-- Fake customer-care calls
-- OTP theft scams
-- KYC / bank account blocking messages
-- WhatsApp forwards with malicious links
-- Emotional manipulation (“relative in distress” scams)
+Modern scams do not rely on ignorance.  
+They rely on **timing, fear, urgency, and manipulation**.
 
-The consequences include:
-- Financial loss
-- Emotional trauma
-- Loss of trust in technology
+Common attack patterns include:
+- Fake customer-care & police calls
+- OTP and UPI payment pressure during calls
+- “Account blocked” or “legal case” threats
+- Links sent during live conversations
+- Remote app installation coercion
 
-Lakshman Rekha is built to **actively intervene**, not just warn.
+Why existing tools fail:
+- Truecaller only labels numbers
+- Keyword filters miss context
+- Malware scanners ignore social engineering
+
+**Scams are not single events. They are sequences.**
+
+Lakshman Rekha is built to detect and stop those sequences.
 
 ---
 
-## 🧠 Core Philosophy
+## 🧠 Core Insight
 
-> “If a senior doesn’t understand what’s happening, the app must step in and protect.”
+> “The most dangerous moment is not when a message arrives —  
+> it’s when the user is being pushed to act.”
 
-Design priorities:
-- Minimal interaction
-- Loud, visible intervention
-- Plain-language explanations
-- Human fallback (family contact)
+Lakshman Rekha does **not** ask:
+> “Is this message a scam?”
+
+It asks:
+> **“Is someone pushing the user to take a dangerous action right now?”**
+
+That shift defines the entire system.
+
+---
+
+## 🧠 Detection Philosophy (Hybrid System)
+
+Lakshman Rekha uses a **hybrid detection engine**:
+
+- ✅ Rule-based real-time signals (behavior & context)
+- ✅ On-device ML inference (intent & semantic understanding)
+- ❌ No single keyword triggers action
+- ❌ ML never directly blocks the user
+
+All outputs flow through a **deterministic risk-scoring layer**.
 
 ---
 
 ## 🛡️ Core Features
 
-### 🔍 Scam Detection & Interruption
+### 🔍 Real-Time Scam Detection
 - **Notification Monitoring**  
-  Detects scam keywords in WhatsApp, SMS, and banking notifications.
-- **On-Screen Scam Detection (Accessibility)**  
-  Reads visible text on screen to detect scam prompts even inside apps.
-- **Real-Time Overlay Warnings**  
-  Displays a high-visibility warning popup on top of any app.
-- **Emergency Intervention (Loud Alerts & SOS)**  
-  Loud alerts override silent mode to immediately grab attention.  
-  SOS can be triggered via volume button press to send emergency SMS to trusted contacts.
+  Reads notifications from SMS, WhatsApp, and banking apps.
+- **On-Screen Text Analysis (Accessibility)**  
+  Detects scam prompts *inside apps*, not just notifications.
+- **Context Awareness**
+  - Call ongoing
+  - Unknown caller
+  - UPI opened during call
+  - OTP visible
+  - Rapid app switching
 
-### 👥 Trusted Contacts & Emergency SOS
-- **Trusted Contacts Management**  
-  Seniors can add and manage trusted family members within the app.
-- **SOS Trigger via Volume Button**  
-  Pressing the volume button rapidly triggers an SOS alert.
-- **Emergency SMS to Trusted Contacts**  
-  Automatically sends a predefined emergency message with location to trusted contacts.
+Each signal contributes weighted risk — no binary decisions.
 
 ---
 
-### 🧑‍🤝‍🧑 Protection Modes
+### ⚠️ Risk Scoring Engine
+- Score range: **0–100**
+- Signals combined deterministically:
+  - Call context
+  - User behavior
+  - ML confidence
+- Threat mapping:
 
-| Mode | Description |
-|-----|------------|
-| 🛑 Raksha Mode | Strong protection, aggressive warnings, auto-interrupt |
-| 🟡 Lakshman Mode | Balanced protection with explanations |
-| 🤝 Saathi Mode | Guidance-only mode for tech-aware seniors |
+| Score | Threat Level |
+|------|-------------|
+| 0–20 | SAFE |
+| 21–45 | CAUTION |
+| 46–70 | RISKY |
+| 71–100 | DANGEROUS |
 
-Modes are selectable from the home screen.
+This minimizes false positives and avoids unnecessary panic.
+
+---
+
+### 🧑‍🤝‍🧑 Protection Modes (User-Selectable)
+
+| Mode | Designed For | Behavior |
+|-----|-------------|---------|
+| 🤝 **Saathi Mode** | Tech-aware users | Silent monitoring, logs only |
+| 🟡 **Lakshman Mode** | Average users | Visual warnings + explanations |
+| 🛑 **Raksha Mode** | Seniors & vulnerable users | Full intervention + SOS |
+
+Modes control **response behavior**, not detection logic.
+
+---
+
+### 🚨 Real-Time Intervention
+- **Overlay Warnings (SYSTEM_ALERT_WINDOW)**  
+  High-visibility banners over *any app*.
+- **Emergency Overlays**  
+  Triggered for dangerous scenarios in Raksha Mode.
+- **Senior-Friendly Dismissal**  
+  Tap anywhere to dismiss.
+
+---
+
+### 👨‍👩‍👧 Family & Emergency Safety
+- **Trusted Contacts System**
+  - Family members added during onboarding
+- **One-Tap Actions**
+  - Call trusted contact
+  - Block source
+  - Report scam
+- **SOS Trigger**
+  - Volume-button sequence
+  - Emergency SMS auto-sent to trusted contacts
+- **Post-Call Safety Summary**
+  - Clear explanation of what happened
+  - English + Hindi guidance
+
+---
+
+## 🧠 Machine Learning (On-Device)
+
+### Model Characteristics
+- **Framework:** TensorFlow Lite
+- **Runs fully offline**
+- **Latency:** ~15 ms
+- **Input:** Tokenized text (40 tokens)
+- **No cloud, no audio, no storage**
+
+### ML Outputs (Signals Only)
+- Scam probability
+- Severity (1–5)
+- Scam stage (Lure / Action / Threat)
+- Requested intent (OTP, UPI, App install, Link)
+- Binary flags:
+  - OTP
+  - UPI
+  - URL
+  - Threat language
+  - Urgency
+
+> ML provides signals only.  
+> Final decisions are rule-based and deterministic.
 
 ---
 
 ## ♿ Accessibility & Senior-First Design
 
 - Large readable text
-- High-contrast warnings
-- Emoji + color-based risk cues
-- Minimal taps required
+- High-contrast overlays
+- Color + emoji risk cues
+- Minimal interaction required
 - Works even if notifications are ignored
-- Designed for Android 7+ low to mid-range phones
-
-Planned:
-- Voice warnings
-- One-tap call to trusted family member
 
 ---
 
-## 🌐 Multi-Language Vision
+## 🌐 Language Support
 
 Current:
-- English + Hindi (prototype)
+- English
+- Hindi
 
 Planned:
-- Bengali
-- Punjabi
-- Marathi
-- Tamil
-- Gujarati
-- Auto language detection based on device locale
+- Regional Indian languages
+- Device-locale based auto-selection
 
 ---
 
 ## 📱 Tech Stack
 
-### Android App
+### Android
 - **Language:** Kotlin
 - **UI:** Jetpack Compose
-- **Architecture:** Service-based (Notification + Accessibility + Overlay + SOS)
+- **Architecture:** Service-based, decoupled layers
 - **Minimum SDK:** Android 7 (API 24)
-- **Target Devices:** Low to mid-range Android phones
 
 ### Core Android Components
-- NotificationListenerService
 - AccessibilityService
-- Overlay (SYSTEM_ALERT_WINDOW)
-- Background & foreground services
-- SMS Manager for emergency messages
+- NotificationListenerService
+- Overlay windows
+- Foreground & background services
+- SMS Manager
+- Text-to-Speech
+- Volume-key event hooks
+
+### ML
+- TensorFlow Lite
+- Fully on-device inference
 
 ---
 
-## 🧱 Project Structure
-```bash
-app/
-├── java/com/lakshmanrekha/protect
-│   ├── ui/                # Compose UI (Home, Trusted Contacts, future screens)
-│   ├── services/          # Notification, Overlay, SOS services
-│   ├── accessibility/     # Screen reader service
-│   ├── detection/         # Scam detection logic
-│   ├── modes/             # Raksha / Lakshman / Saathi logic
-│   ├── contacts/          # Trusted contacts management
-│   ├── languages/         # Multi-language dictionaries (planned)
-│   └── utils/             # AppConfig, helpers
-│
-├── res/
-│   ├── xml/               # Accessibility config
-│   ├── values/            # Strings, themes
-│   └── mipmap/            # App icons
-│
-└── AndroidManifest.xml
-```
+## 🧱 Architecture Overview
+Signals → ML + Rules → Risk Score → Mode Logic → Action
+
+Decoupled layers:
+- Ingestion
+- Inference
+- Decision
+- Action
+
 ---
 
-## 🚦 Current Feature Status
+## 🚦 Feature Status
 
 | Feature | Status |
 |------|------|
-| Home screen & mode selection | ✅ Working |
-| Notification scam detection | ✅ Working |
-| Overlay warning popup | ✅ Working |
-| Accessibility screen scanning | 🟡 Partial |
-| Silent-mode emergency alert | ✅ Implemented |
-| URL scam detection | ❌ Planned |
-| Call shield (voice scams) | ❌ Planned |
-| Trusted contact system | ✅ Implemented |
-| Emergency SOS via volume button | ✅ Implemented |
-| Emergency SMS to trusted contacts | ✅ Implemented |
-| Full multi-language UI | ❌ Planned |
-
----
-
-## 🧪 Example Scenarios
-
-### Scenario 1: Scam Message on WhatsApp
-1. Senior receives: “Your KYC is blocked, send OTP now”
-2. Notification listener detects scam keywords
-3. Red overlay warning appears instantly
-4. Senior is alerted before reacting
-
-### Scenario 2: Scam Text Visible on Screen
-1. Scammer asks OTP during chat
-2. Accessibility service detects “OTP” text
-3. Overlay interrupts the flow
-
-### Scenario 3: Emergency SOS Trigger
-1. Senior feels threatened or confused
-2. Rapidly presses volume button three times
-3. App sends emergency SMS with location to trusted contacts
-4. Trusted contacts receive alert and can respond
+| Hybrid risk scoring | ✅ |
+| On-device ML | ✅ |
+| Overlay warnings | ✅ |
+| Trusted contacts & SOS | ✅ |
+| Multi-mode protection | ✅ |
+| Call audio analysis | ❌ Planned |
+| Smartwatch alerts | ❌ Planned |
 
 ---
 
 ## 🔐 Privacy & Ethics
 
-- No scraping of personal messages
-- No storage of contacts without consent
-- No uploading of message content
-- On-device detection first
-- Privacy-first by design
+- No call recording
+- No message storage
+- No cloud uploads
+- Memory purged after sessions
+- DPDP-compliant by design
 
 ---
 
 ## 🚀 Future Enhancements
-
-### Detection
-- Risk scoring instead of keyword-only logic
-- Scam pattern learning (offline rules)
-- URL homoglyph detection (e.g., pa¥tm, paytм)
-
-### Protection
-- Auto call cut during OTP prompts
-- Family notification for high-risk events
-
-### UX
-- Voice-based warnings
-- Elder-friendly UI redesign
-- “Teach Me” micro-lessons on scams
+- Regional language ML models
+- One-tap 1930 cybercrime reporting
+- Smartwatch haptic alerts
+- Federated learning without raw data sharing
 
 ---
 
-## 🧪 Testing Plan
+## 🏁 Final Note
 
-- Android 7–13 device testing
-- WhatsApp, SMS, Dialer testing
-- Realistic scam simulations
-- Senior usability testing
+**Lakshman Rekha is not just an app.**
 
----
+It is a **real-time digital boundary** —  
+drawn exactly at the moment when a user is most vulnerable.
 
-## 🏁 Deployment Vision
-
-- APK distribution for pilot testing
-- NGO / family-group pilots
-- No Play Store dependency initially
-
----
-
-## ⚠️ Disclaimer
-
-Lakshman Rekha provides assistance and warnings, not absolute security.  
-Always verify suspicious activity with trusted family members or authorities.
-
----
-
-## ❤️ Final Note
-
-**Lakshman Rekha is not just an app.**  
-It is a digital boundary — a line of protection — for those who need it most.
-
-> *“Technology should protect the vulnerable, not confuse them.”*
+Just like the original Lakshman Rekha,  
+it warns you *before* you cross the line.
 
 🛡️🇮🇳
