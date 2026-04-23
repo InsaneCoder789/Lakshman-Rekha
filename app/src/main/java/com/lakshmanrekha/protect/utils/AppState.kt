@@ -48,10 +48,11 @@ object AppState {
     /* -------------------------------------------------
      * TRUSTED SOURCES (USER CONTROLLED)
      * ------------------------------------------------- */
-    var trustedContacts by mutableStateOf(mutableSetOf<String>())
+    // FIX: Using a Set but ensuring re-assignment for Compose reactivity
+    var trustedContacts by mutableStateOf(emptySet<String>())
 
     var trustedApps by mutableStateOf(
-        mutableSetOf(
+        setOf(
             "com.google.android.apps.nbu.paisa.user", // GPay
             "net.one97.paytm",                         // Paytm
             "com.phonepe.app"                          // PhonePe
@@ -90,8 +91,12 @@ object AppState {
 
         lastDowngradeReason = null
 
-        trustedContacts = mutableSetOf()
-        trustedApps = mutableSetOf()
+        trustedContacts = emptySet()
+        trustedApps = setOf(
+            "com.google.android.apps.nbu.paisa.user",
+            "net.one97.paytm",
+            "com.phonepe.app"
+        )
 
         sosEnabled = false
         sosTriggerCount = 0

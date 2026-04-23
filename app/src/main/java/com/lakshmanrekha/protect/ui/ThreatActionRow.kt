@@ -37,7 +37,7 @@ fun ThreatActionRow(
     val isHindi = LanguageManager.isHindi()
 
     // Brand colors
-    val callBlue = Color(0xFF64B5F6)
+    val whatsappGreen = Color(0xFF25D366)
     val blockRed = Color(0xFFEF5350)
     val verifyGreen = Color(0xFF81C784)
     val reportOrange = Color(0xFFFFB74D)
@@ -80,13 +80,13 @@ fun ThreatActionRow(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
 
-            // 1. CALL FAMILY
+            // 1. VERIFY VIA WHATSAPP (🆕 REPLACED CALL FAMILY WITH WHATSAPP)
             BrandedActionItem(
-                label = if (isHindi) "कॉल करें" else "Call Family",
-                icon = Icons.Rounded.PhoneInTalk,
-                color = callBlue,
+                label = if (isHindi) "WhatsApp जांच" else "Ask Family",
+                icon = Icons.Rounded.Share,
+                color = whatsappGreen,
                 onClick = {
-                    ThreatActionHandler.callTrustedContact(context)
+                    ThreatActionHandler.verifyViaWhatsApp(context, threat)
                 }
             )
 
@@ -172,7 +172,7 @@ private fun BrandedActionItem(
 
         Text(
             text = label,
-            fontSize = 13.sp,
+            fontSize = 11.sp, // Reduced font size for better fit
             fontWeight = FontWeight.ExtraBold,
             color = Color.White
         )

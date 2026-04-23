@@ -34,11 +34,17 @@ class MainActivity : ComponentActivity() {
             if (granted) safeShowNotification()
         }
 
-    // SMS permission for SOS
-    private val smsPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            if (!granted) {
+    // SMS and Call Log permissions for SOS and Call Tracking
+    private val safetyPermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+            val smsGranted = results[Manifest.permission.SEND_SMS] ?: false
+            val callLogGranted = results[Manifest.permission.READ_CALL_LOG] ?: false
+            
+            if (!smsGranted) {
                 ThreatLogger.logSystem("SMS permission denied – SOS limited")
+            }
+            if (!callLogGranted) {
+                ThreatLogger.logSystem("Call Log permission denied – Trusted check disabled")
             }
         }
 
@@ -89,6 +95,7 @@ class MainActivity : ComponentActivity() {
 
                         OnboardingStep.MODE_EXPLANATION ->
                             ModeExplanationScreen {
+                                AppState.hasSeenWelcome = true // Ensure welcome is marked
                                 AppState.hasSeenModeExplanation = true
                                 AppPrefs.save(this@MainActivity)
                                 step = calculateStep()
@@ -113,7 +120,7 @@ class MainActivity : ComponentActivity() {
 
                         OnboardingStep.TRUSTED_CONTACTS ->
                             TrustedContactsScreen {
-                                checkAndRequestSmsPermission()
+                                checkAndRequestSafetyPermissions()
                                 step = calculateStep()
                             }
 
@@ -204,13 +211,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun checkAndRequestSmsPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.SEND_SMS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            smsPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+    private fun checkAndRequestSafetyPermissions() {
+        val permissions = mutableListOf(Manifest.permission.SEND_SMS)
+        
+        // READ_CALL_LOG is required for incoming number detection on API 28+
+        permissions.add(Manifest.permission.READ_CALL_LOG)
+
+        val missing = permissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (missing.isNotEmpty()) {
+            safetyPermissionsLauncher.launch(missing.toTypedArray())
         }
     }
 

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Lakshman Rekha</string>
+
+    <!-- SOS Message -->
+    <string name="sos_alert_header">🚨 EMERGENCY ALERT 🚨</string>
+    <string name="sos_app_name">This is Lakshman Rekha.</string>
+    <string name="sos_user_danger">%1$s may be in danger.</string>
+    <string name="sos_contact_immediately">Please contact immediately.</string>
+
+    <!-- Generic user name -->
+    <string name="generic_user_name">A Lakshman Rekha user</string>
+
 </resources>

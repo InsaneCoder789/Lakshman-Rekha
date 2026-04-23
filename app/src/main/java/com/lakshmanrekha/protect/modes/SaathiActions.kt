@@ -22,12 +22,6 @@ import com.lakshmanrekha.protect.utils.ThreatLogger
  * - Gentle guidance
  * - NON-intrusive
  * - SINGLE evolving notification
- *
- * DESIGN GUARANTEES:
- * - No notification spam
- * - No panic flood
- * - Latest risk overrides previous
- * - Android 15/16 safe
  */
 object SaathiActions {
 
@@ -40,17 +34,33 @@ object SaathiActions {
         // 1️⃣ Always log threat (history)
         ThreatLogger.logThreat(threat)
 
-        // 2️⃣ Ignore SAFE completely
-        if (threat.level == ThreatLevel.SAFE) return
+        // 2️⃣ Handle SAFE level - Clear last threat if it's safe now
+        if (threat.level == ThreatLevel.SAFE) {
+            RuntimeState.lastThreatLevel = null
+            // Optional: cancel notification if the threat is gone
+            // NotificationManagerCompat.from(context).cancel(NOTIFICATION_ID)
+            return
+        }
 
-        // 3️⃣ Prevent downgrade spam:
-        // If we already showed a higher threat, do NOT override with lower
+        // 3️⃣ Intelligent Filtering:
+        // Allow update if:
+        // - Level has increased (more dangerous)
+        // - Reasons have changed significantly (new scam type)
+        // - 10 seconds have passed since last update
         val lastLevel = RuntimeState.lastThreatLevel
-        if (lastLevel != null && threat.level < lastLevel) {
+        val lastReasons = RuntimeState.lastThreatReasons
+        val now = System.currentTimeMillis()
+        val timeSinceLast = now - threat.timestamp // Threat object has its own timestamp
+
+        val isLevelHigher = lastLevel == null || threat.level.ordinal > lastLevel.ordinal
+        val isNewReason = lastReasons.isEmpty() || threat.reasons.any { !lastReasons.contains(it) }
+
+        if (!isLevelHigher && !isNewReason && timeSinceLast < 10000) {
             return
         }
 
         RuntimeState.lastThreatLevel = threat.level
+        RuntimeState.lastThreatReasons = threat.reasons
 
         ensureChannel(context)
 
@@ -85,12 +95,11 @@ object SaathiActions {
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setOnlyAlertOnce(true)       // 🔑 no sound/vibration spam
+            .setOnlyAlertOnce(false)       // Allow alert on meaningful updates
             .setOngoing(false)
             .setAutoCancel(true)
             .build()
 
-        // 🔁 ALWAYS OVERRIDE (NO SPAM)
         NotificationManagerCompat.from(context)
             .notify(NOTIFICATION_ID, notification)
     }

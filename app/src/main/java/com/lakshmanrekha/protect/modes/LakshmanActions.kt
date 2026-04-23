@@ -16,19 +16,27 @@ object LakshmanActions {
             "Lakshman mode handling ${threat.level}"
         )
 
-        // ❌ Ignore SAFE
-        if (threat.level < ThreatLevel.CAUTION) return
+        // Reset shown flags if the threat clears to SAFE
+        if (threat.level == ThreatLevel.SAFE) {
+            RuntimeState.warningShown = false
+            RuntimeState.overlayShown = false
+            return
+        }
 
-        // ❌ Do not interfere during post-call summary
+        // Ignore if level is CAUTION or less (Lakshman only triggers on high risk)
+        if (threat.level.ordinal < ThreatLevel.RISKY.ordinal) return
+
+        // Do not interfere during post-call summary
         if (RuntimeState.postCallSummaryPending) return
 
-        // 1️⃣ Warning overlay (ONCE)
+        // 1️⃣ Warning overlay
         if (!RuntimeState.overlayShown) {
             OverlayService.showWarning(context)
             RuntimeState.overlayShown = true
         }
 
         // 2️⃣ Coach only when risk is meaningful
+        // Triggers if risky+ and payment/OTP related activity is detected
         val shouldCoach =
             threat.level >= ThreatLevel.RISKY &&
                     (RuntimeState.otpPatternDetected || RuntimeState.upiOpenedDuringCall)
