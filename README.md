@@ -7,6 +7,11 @@ It detects *intent, pressure, and risky user actions in real time* and intervene
 
 Inspired by real scam patterns seen daily in India, Lakshman Rekha is designed around **prevention, interruption, and education**, not post-fraud reporting.
 
+
+
+<img width="1683" height="934" alt="image" src="https://github.com/user-attachments/assets/1ef38a78-bf40-47a8-9ca4-2154b64a8ecb" />
+
+
 ---
 
 ## 🎯 Problem Statement
