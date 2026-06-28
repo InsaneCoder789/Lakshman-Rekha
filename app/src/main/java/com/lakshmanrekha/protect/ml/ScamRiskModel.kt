@@ -15,6 +15,19 @@ class ScamRiskModel(context: Context) {
     private val wordIndex: Map<String, Int>
     private val maxLen = 40
 
+    private companion object {
+        const val OUTPUT_IS_SCAM = 0
+        const val OUTPUT_SEVERITY = 1
+        const val OUTPUT_STAGE = 2
+        const val OUTPUT_ACTION = 3
+        const val OUTPUT_HAS_OTP = 4
+        const val OUTPUT_HAS_UPI = 5
+        const val OUTPUT_HAS_URL = 6
+        const val OUTPUT_HAS_THREAT = 7
+        const val OUTPUT_HAS_URGENCY = 8
+        const val EXPECTED_OUTPUT_TENSORS = 9
+    }
+
     init {
         interpreter = Interpreter(loadModel(context))
         wordIndex = loadTokenizer(context)
@@ -46,6 +59,9 @@ class ScamRiskModel(context: Context) {
     private fun runInference(text: String): ScamSignals {
 
         val input = tokenize(text)
+        require(interpreter.outputTensorCount == EXPECTED_OUTPUT_TENSORS) {
+            "Unexpected model outputs: ${interpreter.outputTensorCount}"
+        }
 
         val outputMap = mutableMapOf<Int, Any>()
 
@@ -57,31 +73,25 @@ class ScamRiskModel(context: Context) {
 
         interpreter.runForMultipleInputsOutputs(arrayOf(input), outputMap)
 
-        val outputs = outputMap.values
-            .map { it as Array<FloatArray> }
-            .associateBy { it[0].size }
-
-        val scamScore = outputs[1]?.get(0)?.get(0) ?: 0f
+        val scamScore = outputAt(outputMap, OUTPUT_IS_SCAM).getOrElse(0) { 0f }
         val isScam = scamScore > 0.5f
 
-        val severityVec = outputs[5]?.get(0)
+        val severityVec = outputAt(outputMap, OUTPUT_SEVERITY)
         val severity = severityVec?.argMax()?.plus(1) ?: 1
 
-        val stageVec = outputs[3]?.get(0)
+        val stageVec = outputAt(outputMap, OUTPUT_STAGE)
         val stage = ScamStage.values()
             .getOrElse(stageVec?.argMax() ?: 0) { ScamStage.LURE }
 
-        val actionVec = outputs[6]?.get(0)
+        val actionVec = outputAt(outputMap, OUTPUT_ACTION)
         val action = ScamAction.values()
             .getOrElse(actionVec?.argMax() ?: 0) { ScamAction.UNKNOWN }
 
-        val flags = outputs[5]?.get(0) ?: FloatArray(5)
-
-        val hasOtp = flags.getOrNull(0)?.let { it > 0.5f } ?: false
-        val hasUpi = flags.getOrNull(1)?.let { it > 0.5f } ?: false
-        val hasUrl = flags.getOrNull(2)?.let { it > 0.5f } ?: false
-        val hasThreat = flags.getOrNull(3)?.let { it > 0.5f } ?: false
-        val hasUrgency = flags.getOrNull(4)?.let { it > 0.5f } ?: false
+        val hasOtp = outputScalar(outputMap, OUTPUT_HAS_OTP) > 0.5f
+        val hasUpi = outputScalar(outputMap, OUTPUT_HAS_UPI) > 0.5f
+        val hasUrl = outputScalar(outputMap, OUTPUT_HAS_URL) > 0.5f
+        val hasThreat = outputScalar(outputMap, OUTPUT_HAS_THREAT) > 0.5f
+        val hasUrgency = outputScalar(outputMap, OUTPUT_HAS_URGENCY) > 0.5f
 
         val confidence = max(scamScore, severityVec?.maxOrNull() ?: 0f)
 
@@ -128,6 +138,16 @@ class ScamRiskModel(context: Context) {
 
     private fun FloatArray.argMax(): Int =
         indices.maxByOrNull { this[it] } ?: 0
+
+    private fun outputAt(
+        outputMap: Map<Int, Any>,
+        index: Int
+    ): FloatArray? = (outputMap[index] as? Array<FloatArray>)?.getOrNull(0)
+
+    private fun outputScalar(
+        outputMap: Map<Int, Any>,
+        index: Int
+    ): Float = outputAt(outputMap, index)?.getOrElse(0) { 0f } ?: 0f
 
     private fun buildExplanation(
         otp: Boolean,

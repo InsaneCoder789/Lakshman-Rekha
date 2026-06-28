@@ -1,6 +1,7 @@
 import tensorflow as tf
 import os
 import shutil
+import json
 
 # -----------------------------
 # PATHS
@@ -8,8 +9,9 @@ import shutil
 KERAS_MODEL_PATH = "../output/scam_model_android.h5"
 TFLITE_OUTPUT_PATH = "../output/scam_signal.tflite"
 TOKENIZER_SOURCE = "../output/tokenizer.json"
+METADATA_PATH = "../output/model_metadata.json"
 
-ANDROID_ASSETS_PATH = "../../android/app/src/main/assets/"
+ANDROID_ASSETS_PATH = "../../app/src/main/assets/"
 
 os.makedirs("../output", exist_ok=True)
 os.makedirs(ANDROID_ASSETS_PATH, exist_ok=True)
@@ -20,12 +22,23 @@ os.makedirs(ANDROID_ASSETS_PATH, exist_ok=True)
 print("🔹 Loading trained Keras model...")
 model = tf.keras.models.load_model(KERAS_MODEL_PATH, compile=False)
 
+with open(METADATA_PATH) as f:
+    metadata = json.load(f)
+
 # -----------------------------
 # VERIFY OUTPUT ORDER (CRITICAL)
 # -----------------------------
 print("\n🔍 Verifying model outputs (Android order):")
 for i, out in enumerate(model.outputs):
     print(f"{i} → {out.name}")
+
+expected_order = metadata["output_order"]
+actual_order = [tensor.name.split("/")[0] for tensor in model.outputs]
+
+if actual_order != expected_order:
+    raise ValueError(
+        f"Model output order mismatch.\nExpected: {expected_order}\nActual: {actual_order}"
+    )
 
 """
 EXPECTED ORDER — MUST MATCH ANDROID:
@@ -74,9 +87,11 @@ print("✅ TFLite model saved:", TFLITE_OUTPUT_PATH)
 # -----------------------------
 shutil.copy(TFLITE_OUTPUT_PATH, os.path.join(ANDROID_ASSETS_PATH, "scam_signal.tflite"))
 shutil.copy(TOKENIZER_SOURCE, os.path.join(ANDROID_ASSETS_PATH, "tokenizer.json"))
+shutil.copy(METADATA_PATH, os.path.join(ANDROID_ASSETS_PATH, "model_metadata.json"))
 
 print("\n📦 Copied to Android assets:")
 print(" - scam_signal.tflite")
 print(" - tokenizer.json")
+print(" - model_metadata.json")
 
 print("\n🚀 Export complete. Android will NOT crash.")

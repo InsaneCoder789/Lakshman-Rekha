@@ -11,6 +11,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 import json
 import os
+import random
 
 # -----------------------------
 # PATHS
@@ -19,8 +20,14 @@ DATA_PATH = "../data/public_unified_multimodal.csv"
 OUTPUT_DIR = "../output"
 MODEL_PATH = os.path.join(OUTPUT_DIR, "scam_model_android.h5")
 TOKENIZER_PATH = os.path.join(OUTPUT_DIR, "tokenizer.json")
+METADATA_PATH = os.path.join(OUTPUT_DIR, "model_metadata.json")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
 
 # -----------------------------
 # LOAD DATA
@@ -97,6 +104,28 @@ X = pad_sequences(
 with open(TOKENIZER_PATH, "w") as f:
     f.write(tokenizer.to_json())
 
+metadata = {
+    "max_words": MAX_WORDS,
+    "max_len": MAX_LEN,
+    "seed": SEED,
+    "output_order": [
+        "is_scam",
+        "severity",
+        "stage",
+        "action",
+        "has_otp",
+        "has_upi",
+        "has_url",
+        "has_threat",
+        "has_urgency"
+    ],
+    "stage_map": SCAM_STAGE_MAP,
+    "action_map": SCAM_ACTION_MAP
+}
+
+with open(METADATA_PATH, "w") as f:
+    json.dump(metadata, f, indent=2)
+
 # -----------------------------
 # SPLIT
 # -----------------------------
@@ -152,7 +181,28 @@ model = Model(inputs, outputs)
 
 model.compile(
     optimizer="adam",
-    loss="binary_crossentropy"
+    loss={
+        "is_scam": "binary_crossentropy",
+        "severity": "categorical_crossentropy",
+        "stage": "categorical_crossentropy",
+        "action": "categorical_crossentropy",
+        "has_otp": "binary_crossentropy",
+        "has_upi": "binary_crossentropy",
+        "has_url": "binary_crossentropy",
+        "has_threat": "binary_crossentropy",
+        "has_urgency": "binary_crossentropy",
+    },
+    metrics={
+        "is_scam": ["accuracy", tf.keras.metrics.AUC(name="auc")],
+        "severity": ["accuracy"],
+        "stage": ["accuracy"],
+        "action": ["accuracy"],
+        "has_otp": ["accuracy"],
+        "has_upi": ["accuracy"],
+        "has_url": ["accuracy"],
+        "has_threat": ["accuracy"],
+        "has_urgency": ["accuracy"],
+    }
 )
 
 model.fit(
@@ -174,3 +224,4 @@ model.fit(
 
 model.save(MODEL_PATH)
 print("✅ Model saved:", MODEL_PATH)
+print("✅ Metadata saved:", METADATA_PATH)
