@@ -1,0 +1,71 @@
+{
+  "seed": 42,
+  "normalization_version": "v2",
+  "dataset_path": "/Users/rohanc/AndroidStudioProjects/LakshmanRekha/ml-training/output/public_unified_multimodal_augmented_30296.csv",
+  "max_words": 50000,
+  "max_len": 64,
+  "vocab_size": 1517,
+  "embedding_dim": 128,
+  "epochs": 8,
+  "batch_size": 128,
+  "train_rows": 24236,
+  "val_rows": 3030,
+  "test_rows": 3030,
+  "output_order": [
+    "is_scam",
+    "severity",
+    "stage",
+    "action",
+    "scam_type",
+    "has_otp",
+    "has_upi",
+    "has_url",
+    "has_qr",
+    "has_phone",
+    "has_threat",
+    "has_urgency"
+  ],
+  "stage_labels": [
+    "LURE",
+    "ACTION",
+    "THREAT"
+  ],
+  "action_labels": [
+    "CALL_NUMBER",
+    "CLICK_LINK",
+    "PAY_UPI",
+    "SHARE_DETAILS",
+    "SEND_OTP",
+    "INSTALL_APP",
+    "VISIT_OFFICIAL",
+    "NO_ACTION"
+  ],
+  "scam_type_labels": [
+    "Bank/KYC Fraud",
+    "Delivery/Courier / Customs Scam",
+    "Family/Friend Impersonation",
+    "Government/Authority Impersonation (incl. Digital Arrest)",
+    "Job Offer Scam",
+    "Legitimate: Appointment Reminder",
+    "Legitimate: Bank Alert",
+    "Legitimate: Delivery Update",
+    "Legitimate: OTP/2FA",
+    "Legitimate: Personal Chat",
+    "Legitimate: Service Notification",
+    "Legitimate: Subscription/Receipt",
+    "Loan/Investment Scam",
+    "Lottery/Prize Scam",
+    "Marketplace / Refund / UPI Scam",
+    "Tech Support / Remote Access Scam",
+    "Telecom/Utility / KYC Scam"
+  ],
+  "flag_labels": [
+    "has_otp",
+    "has_upi",
+    "has_url",
+    "has_qr",
+    "has_phone",
+    "has_threat",
+    "has_urgency"
+  ]
+}

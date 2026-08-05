@@ -9,10 +9,14 @@ data class ScamSignals(
     val hasOtp: Boolean,
     val hasUpi: Boolean,
     val hasUrl: Boolean,
+    val hasQr: Boolean,
+    val hasPhone: Boolean,
     val hasThreat: Boolean,
     val hasUrgency: Boolean,
     val confidence: Float,
-    val explanation: String
+    val explanation: String,
+    val usedFallback: Boolean,
+    val fallbackReason: String?
 ) {
     companion object {
         fun safeFallback(reason: String) = ScamSignals(
@@ -24,10 +28,14 @@ data class ScamSignals(
             hasOtp = false,
             hasUpi = false,
             hasUrl = false,
+            hasQr = false,
+            hasPhone = false,
             hasThreat = false,
             hasUrgency = false,
             confidence = 0f,
-            explanation = reason
+            explanation = reason,
+            usedFallback = true,
+            fallbackReason = reason
         )
     }
 }

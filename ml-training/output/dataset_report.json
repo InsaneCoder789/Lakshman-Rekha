@@ -1,0 +1,36 @@
+{
+  "base_rows": 296,
+  "generated_rows": 30000,
+  "combined_rows": 30296,
+  "is_scam_distribution": {
+    "1": 21343,
+    "0": 8953
+  },
+  "modality_distribution": {
+    "WhatsApp": 9123,
+    "Call": 7606,
+    "SMS": 7221,
+    "AudioTranscript": 6346
+  },
+  "language_distribution": {
+    "English": 15981,
+    "Hinglish": 14315
+  },
+  "severity_distribution": {
+    "4": 10115,
+    "1": 8953,
+    "3": 5907,
+    "5": 5321
+  },
+  "action_distribution": {
+    "Visit official app/website": 8096,
+    "Pay via UPI": 5517,
+    "Click link": 5163,
+    "Call number": 2628,
+    "Share OTP": 2357,
+    "Share ID docs": 2152,
+    "Install remote-support app": 2072,
+    "Scan QR / approve collect request": 1454,
+    "No action (info only)": 857
+  }
+}

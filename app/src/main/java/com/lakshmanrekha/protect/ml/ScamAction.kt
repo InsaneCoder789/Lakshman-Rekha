@@ -13,5 +13,7 @@ enum class ScamAction {
     SHARE_DETAILS,   // 3
     SEND_OTP,        // 4
     INSTALL_APP,     // 5
-    UNKNOWN          // 6
+    VISIT_OFFICIAL,  // 6
+    NO_ACTION,       // 7
+    UNKNOWN          // fallback only
 }

@@ -145,24 +145,64 @@ Modes control **response behavior**, not detection logic.
 ### Model Characteristics
 - **Framework:** TensorFlow Lite
 - **Runs fully offline**
-- **Latency:** ~15 ms
-- **Input:** Tokenized text (40 tokens)
+- **Latency:** ~15 ms on-device for short text windows
+- **Input:** Normalized text tokens (64 tokens)
 - **No cloud, no audio, no storage**
 
 ### ML Outputs (Signals Only)
 - Scam probability
 - Severity (1–5)
 - Scam stage (Lure / Action / Threat)
-- Requested intent (OTP, UPI, App install, Link)
+- Requested intent
+- Scam family classification
 - Binary flags:
   - OTP
   - UPI
   - URL
+  - QR payment flow
+  - Callback number
   - Threat language
   - Urgency
 
 > ML provides signals only.  
 > Final decisions are rule-based and deterministic.
+
+### August 2026 ML Upgrade
+
+Lakshman Rekha now uses a rebuilt multi-task on-device ML pipeline with a shared
+normalization/tokenization contract between Python training and Android inference.
+
+- **Training corpus:** expanded from `296` seed samples to `30,296` labeled rows
+- **Model architecture:** multi-scale convolutional text encoder with shared trunk + 12 heads
+- **Primary heads:** `is_scam`, `severity`, `stage`, `action`, `scam_type`
+- **Binary heads:** `has_otp`, `has_upi`, `has_url`, `has_qr`, `has_phone`, `has_threat`, `has_urgency`
+- **Artifact contract:** `tokenizer.json` + `model_metadata.json` + `scam_signal.tflite`
+- **Evaluation:** separate train / validation / holdout split with exported reports
+
+### Holdout Snapshot (August 5, 2026)
+
+- **Scam detection macro F1:** `1.00`
+- **Severity macro F1:** `0.9935`
+- **Stage macro F1:** `0.9934`
+- **Action macro F1:** `0.9743`
+- **Scam type macro F1:** `0.9346`
+- **Flag accuracy range:** `96.2%` to `99.9%`
+
+### Training Pipeline
+
+The ML stack under [`ml-training/model`](/Users/rohanc/AndroidStudioProjects/LakshmanRekha/ml-training/model)
+now includes:
+
+- `expand_dataset.py` for deterministic large-scale dataset augmentation
+- `common.py` for shared normalization, vocabulary, metadata, and split utilities
+- `train.py` for model training and metric export
+- `evaluate.py` for holdout evaluation reports
+- `export_tflite.py` for Android-safe artifact export
+
+Generated outputs are written to
+[`ml-training/output`](/Users/rohanc/AndroidStudioProjects/LakshmanRekha/ml-training/output),
+and the runtime assets used by the app are synced into
+[`app/src/main/assets`](/Users/rohanc/AndroidStudioProjects/LakshmanRekha/app/src/main/assets).
 
 ---
 
